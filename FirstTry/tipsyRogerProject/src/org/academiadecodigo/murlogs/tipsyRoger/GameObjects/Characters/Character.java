@@ -1,13 +1,10 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters;
 
-import org.academiadecodigo.simplegraphics.graphics.Movable;
-
-
-public abstract class Character implements Movable {
+public abstract class Character {
 
     private String name;
     private boolean dead;
-    private Position pos;
+    // private Position pos;
 
     public abstract void move();
     public abstract void attack();

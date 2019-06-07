@@ -3,25 +3,29 @@ package org.academiadecodigo.murlogs.tipsyRoger;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
-public class Field implements Drawable {
+public class Field {
 
-    Rectangle rectangle;
+    Rectangle outerRectangle = new Rectangle(0, 0, 1000, 500);
 
 
-
-    @Override
-    public void rectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
+    public void setOuterRectangle(Rectangle outerRectangle) {
+        // this.outerRectangle = outerRectangle;
     }
 
-
-
-    private int rectangleY(){
-        return rectangle.getY();
+    public int outerRectangleY() {
+        return outerRectangle.getY();
     }
 
-    private int rectangleX(){
-        return rectangle.getX();
+    public int outerRectangleX() {
+        return outerRectangle.getX();
+    }
+
+    public int outerRectangleHeight() {
+        return outerRectangle.getHeight();
+    }
+
+    public int outerRectangleWidth() {
+        return outerRectangle.getWidth();
     }
 
 }

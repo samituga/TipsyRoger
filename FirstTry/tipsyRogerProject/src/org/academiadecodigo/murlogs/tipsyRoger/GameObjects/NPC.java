@@ -47,7 +47,7 @@ public class NPC {
 
     public boolean isCorrect () {
         //give power up
-        return correctAnswer == no;
+        return correctAnswer == true; //not okay!!!!
         //acrescentar if statement se quisermos power down
     }
 

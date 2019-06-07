@@ -4,6 +4,7 @@ public class Player extends Character {
 
     private int drunkenLvl;
 
+
     public void puke() {
         if (drunkenLvl < 0) {
 
@@ -32,7 +33,13 @@ public class Player extends Character {
             this.setDead();
 
         }
-
-
     }
+
+    @Override
+    public void setDead() {
+        super.setDead();
+    }
+
+
+
 }

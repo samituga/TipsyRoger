@@ -11,4 +11,13 @@ public class Enemy extends Character {
     }
 
 
+    @Override
+    public void move() {
+
+    }
+
+    @Override
+    public void attack() {
+
+    }
 }

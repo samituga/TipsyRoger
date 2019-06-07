@@ -4,7 +4,7 @@ public class Drunken extends Enemy {
 
 
 
-    @Override
+    /*@Override
     public void move() {
 
         super.move();
@@ -27,5 +27,5 @@ public class Drunken extends Enemy {
     @Override
     public boolean isDead() {
         return super.isDead();
-    }
+    }*/
 }

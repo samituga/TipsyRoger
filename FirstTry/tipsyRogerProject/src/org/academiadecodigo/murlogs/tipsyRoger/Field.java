@@ -3,29 +3,37 @@ package org.academiadecodigo.murlogs.tipsyRoger;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
-public class Field {
+public class Field extends Colidable {
 
-    Rectangle outerRectangle = new Rectangle(10, 10, 1900, 1060);
+    Rectangle outerRectangle = new Rectangle(10, 300, 1200, 600); //1900, 1060
 
 
     public void setOuterRectangle(Rectangle outerRectangle) {
         // this.outerRectangle = outerRectangle;
     }
 
-    public int outerRectangleY() {
+
+
+
+    @Override
+    public int y() {
         return outerRectangle.getY();
     }
 
-    public int outerRectangleX() {
+    @Override
+    public int x() {
         return outerRectangle.getX();
     }
 
-    public int outerRectangleHeight() {
-        return outerRectangle.getHeight();
+    @Override
+    public int yToHeight() {
+        return outerRectangle.getY() + outerRectangle.getHeight();
     }
 
-    public int outerRectangleWidth() {
-        return outerRectangle.getWidth();
+    @Override
+    public int xToWidth() {
+        return outerRectangle.getX() + outerRectangle.getWidth();
     }
+
 
 }

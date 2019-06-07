@@ -14,24 +14,31 @@ public class Player extends Character implements KeyboardHandler {
     private Keyboard keyboard;
     private int keyPressed;
     private int iterator;
-    private int playerY;
-    private int playerX;
+    private boolean touchingGround;
+
+    public Player(int drunkenLvl) {
+        this.drunkenLvl = drunkenLvl;
+    }
 
     public void init() {
         player = new Picture(20, 20, "Roger_Smith.png");
         player.draw();
         setKeyboard();
+    }
 
+    public void isTouchingGround() {
+        this.touchingGround =true;
     }
 
     @Override
     public void move() {
-        player.translate(0, 1);
+
+        if (!touchingGround) {
+            player.translate(0, 1);
+        }
         switch (keyPressed) {
             case KeyboardEvent.KEY_LEFT:
-                player = new Picture();
                 player.translate(-2, 0);
-                setPlayerX(player.getX());
                 iterator++;
                 if (iterator == 10) {
                     iterator = 0;
@@ -40,7 +47,6 @@ public class Player extends Character implements KeyboardHandler {
                 break;
             case KeyboardEvent.KEY_RIGHT:
                 player.translate(2, 0);
-                setPlayerX(player.getX());
                 iterator++;
                 if (iterator == 10) {
                     iterator = 0;
@@ -84,6 +90,26 @@ public class Player extends Character implements KeyboardHandler {
     }
 
     @Override
+    public int y() {
+        return player.getY();
+    }
+
+    @Override
+    public int x() {
+        return player.getX();
+    }
+
+    @Override
+    public int yToHeight() {
+        return player.getY() + player.getHeight();
+    }
+
+    @Override
+    public int xToWidth() {
+        return player.getX() + player.getWidth();
+    }
+
+    @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
         keyPressed = keyboardEvent.getKey();
     }
@@ -92,26 +118,10 @@ public class Player extends Character implements KeyboardHandler {
     public void keyReleased(KeyboardEvent keyboardEvent) {
     }
 
-    public void puke() {
-        if (drunkenLvl < 0) {
-        }
-    }
-
-    public void jump() {
-
-    }
-
-
     @Override
     public void attack() {
 
     }
 
-    public void setPlayerX(int playerX) {
-        this.playerX = playerX;
-    }
 
-    public void setPlayerY(int playerY) {
-        this.playerY = playerY;
-    }
 }

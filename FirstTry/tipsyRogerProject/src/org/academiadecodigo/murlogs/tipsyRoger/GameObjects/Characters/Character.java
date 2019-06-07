@@ -1,6 +1,8 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters;
 
-public abstract class Character {
+import org.academiadecodigo.murlogs.tipsyRoger.Colidable;
+
+public abstract class Character extends Colidable {
 
     private String name;
     private boolean dead;

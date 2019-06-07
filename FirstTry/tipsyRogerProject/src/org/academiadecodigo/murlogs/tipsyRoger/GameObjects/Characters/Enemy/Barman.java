@@ -3,6 +3,7 @@ package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy;
 public class Barman extends Enemy {
 
 
+    /*
 
     @Override
     public void move() {
@@ -29,4 +30,5 @@ public class Barman extends Enemy {
     public boolean isDead() {
         return super.isDead();
     }
+    */
 }

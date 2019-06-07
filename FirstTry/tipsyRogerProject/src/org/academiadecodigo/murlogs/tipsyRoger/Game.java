@@ -14,11 +14,12 @@ public class Game {
     }
 
     public void createField() {
-        field.setOuterRectangle(new Rectangle(10, 10, 1700, 850));
+        field.setOuterRectangle(new Rectangle(10, 10, 800, 400)); // 1700, 850
         field.outerRectangle.draw();
     }
 
     public void init() {
+
         createField();
         map.drawRectangle();
         player.init();
@@ -26,6 +27,7 @@ public class Game {
         while (true){
             player.move();
         }
+
     }
 
 

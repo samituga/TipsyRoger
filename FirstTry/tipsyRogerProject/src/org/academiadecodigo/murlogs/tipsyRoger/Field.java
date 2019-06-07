@@ -5,7 +5,7 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
 public class Field {
 
-    Rectangle outerRectangle = new Rectangle(0, 0, 1000, 500);
+    Rectangle outerRectangle = new Rectangle(10, 10, 1900, 1060);
 
 
     public void setOuterRectangle(Rectangle outerRectangle) {

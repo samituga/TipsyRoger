@@ -1,7 +1,7 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable;
 
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Character;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -10,13 +10,15 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 public class Player extends Character implements KeyboardHandler {
 
     private int drunkenLvl;
-    private Rectangle player;
+    private Picture player;
     private Keyboard keyboard;
     private int keyPressed;
     private int iterator;
+    private int playerY;
+    private int playerX;
 
     public void init() {
-        player = new Rectangle(0, 0, 50, 100);
+        player = new Picture(20, 20, "Roger_Smith.png");
         player.draw();
         setKeyboard();
 
@@ -24,10 +26,12 @@ public class Player extends Character implements KeyboardHandler {
 
     @Override
     public void move() {
-        player.translate(0, 0);
+        player.translate(0, 1);
         switch (keyPressed) {
             case KeyboardEvent.KEY_LEFT:
+                player = new Picture();
                 player.translate(-2, 0);
+                setPlayerX(player.getX());
                 iterator++;
                 if (iterator == 10) {
                     iterator = 0;
@@ -36,6 +40,7 @@ public class Player extends Character implements KeyboardHandler {
                 break;
             case KeyboardEvent.KEY_RIGHT:
                 player.translate(2, 0);
+                setPlayerX(player.getX());
                 iterator++;
                 if (iterator == 10) {
                     iterator = 0;
@@ -100,5 +105,13 @@ public class Player extends Character implements KeyboardHandler {
     @Override
     public void attack() {
 
+    }
+
+    public void setPlayerX(int playerX) {
+        this.playerX = playerX;
+    }
+
+    public void setPlayerY(int playerY) {
+        this.playerY = playerY;
     }
 }

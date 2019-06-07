@@ -24,7 +24,7 @@ public class Player extends Character implements KeyboardHandler {
 
     @Override
     public void move() {
-        player.translate(0, 2);
+        player.translate(0, 0);
         switch (keyPressed) {
             case KeyboardEvent.KEY_LEFT:
                 player.translate(-2, 0);

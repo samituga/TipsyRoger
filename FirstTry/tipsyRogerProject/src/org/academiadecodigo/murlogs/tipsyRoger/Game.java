@@ -6,19 +6,21 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 public class Game {
 
     private Player player;
-    Field field = new Field();
+    private Field field = new Field();
+    private Map map = new Map();
 
     Game(Player player){
         this.player = player;
     }
 
     public void createField() {
-        field.rectangle(new Rectangle(10, 10, 1900, 1060));
-        field.rectangle.draw();
+        field.setOuterRectangle(new Rectangle(10, 10, 1700, 850));
+        field.outerRectangle.draw();
     }
 
     public void init() {
         createField();
+        map.drawRectangle();
         player.init();
 
         while (true){

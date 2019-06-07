@@ -16,7 +16,7 @@ public class Player extends Character implements KeyboardHandler {
     private int iterator;
 
     public void init() {
-        player = new Rectangle(0, 0, 100, 50);
+        player = new Rectangle(0, 0, 50, 100);
         player.draw();
         setKeyboard();
 

@@ -14,6 +14,8 @@ public class Player extends Character implements KeyboardHandler {
     private Keyboard keyboard;
     private int keyPressed;
     private int iterator;
+    private int playerPosY;
+    private int playerPosX;
 
     public void init() {
         player = new Rectangle(0, 0, 50, 100);
@@ -48,7 +50,10 @@ public class Player extends Character implements KeyboardHandler {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        playerPosX = player.getX();
+        playerPosY = player.getY();
 
+        System.out.println(playerPosY + " y" + playerPosX + " x");
     }
 
     public void setKeyboard() {

@@ -4,6 +4,8 @@ import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Bottles;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable.Player;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
+import java.util.LinkedList;
+
 public class Game {
 
     private Player player;
@@ -11,10 +13,12 @@ public class Game {
     private Field field = new Field();
     private Map map = new Map();
 
-    Game(Player player, Bottles bottles){
+    Game(Player player, Bottles bottles) {
         this.player = player;
         this.bottles = bottles;
     }
+
+    LinkedList<Colidable> colidables = new LinkedList<>();
 
 
     public void createField() {
@@ -29,12 +33,11 @@ public class Game {
         player.init();
         bottles.init();
 
-        while (true){
+        while (true) {
             player.move();
         }
 
     }
-
 
 
 }

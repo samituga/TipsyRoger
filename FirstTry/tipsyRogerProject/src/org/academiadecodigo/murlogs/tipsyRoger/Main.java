@@ -11,7 +11,6 @@ public class Main {
 
 
         Game game = new Game(new Player(50), new Bottles(BottleTypes.BEER));
-
         game.init();
 
     }

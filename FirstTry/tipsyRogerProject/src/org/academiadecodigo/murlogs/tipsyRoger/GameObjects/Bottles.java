@@ -20,7 +20,6 @@ public class Bottles extends Colidable {
     }
 
     public void deleteBottle(){
-        System.out.println("sdfsdiudiuvcuvhuvdfusvfs");
         bottleRectangle.delete();
         bottleDrinked = true;
     }

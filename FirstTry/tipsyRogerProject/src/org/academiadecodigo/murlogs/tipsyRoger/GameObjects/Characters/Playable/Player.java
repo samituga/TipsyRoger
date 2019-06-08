@@ -1,13 +1,13 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable;
 
-import org.academiadecodigo.murlogs.tipsyRoger.Colidable;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Bottles;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Character;
-import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.murlogs.tipsyRoger.Map;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player extends Character implements KeyboardHandler {
 
@@ -16,6 +16,7 @@ public class Player extends Character implements KeyboardHandler {
     private int keyPressed;
     private int iterator;
     private boolean touchingGround;
+    private int speed;
 
     public Player(int drunkenLvl) {
         this.drunkenLvl = drunkenLvl;
@@ -37,29 +38,45 @@ public class Player extends Character implements KeyboardHandler {
 
     private boolean pressingRight;
     private boolean pressingLeft;
+    private boolean pressingUp;
+    private boolean pressingDown;
 
-    @Override
-    public void move() {
-        if (!super.colliding) {
-            player.translate(0, 1);
+
+    public boolean canMove(Map map) {
+        if (pressingRight && x() + speed < map.xToWidth() &&
+                xToWidth() + speed > map.xToWidth() &&
+                y() < map.y() &&
+                yToHeight() > map.y()) {
+            return false;
         }
+        return true;
+    }
+
+    public void move() {
+        speed = 1;
 
         if (pressingRight) {
-            player.translate(2, 0);
+            player.translate(speed, 0);
         }
         if (pressingLeft) {
-            player.translate(-2, 0);
+            player.translate(-speed, 0);
+        }
+        if (pressingUp) {
+            player.translate(0, -speed);
+        }
+        if (pressingDown) {
+            player.translate(0, speed);
         }
 
         try {
-            Thread.sleep(13);
+            Thread.sleep(7);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     public void drinkBottle(int vol, Bottles bottle) {
-        if (this.isColliding(bottle) && !bottle.getBottleDrinked()){
+        if (this.isColliding(bottle) && !bottle.getBottleDrinked()) {
             this.drunkenLvl += vol;
             bottle.deleteBottle();
         }
@@ -92,12 +109,22 @@ public class Player extends Character implements KeyboardHandler {
         leftReleased.setKey(KeyboardEvent.KEY_LEFT);
         leftReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
 
+        KeyboardEvent upReleased = new KeyboardEvent();
+        upReleased.setKey(KeyboardEvent.KEY_UP);
+        upReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+
+        KeyboardEvent downReleased = new KeyboardEvent();
+        downReleased.setKey(KeyboardEvent.KEY_DOWN);
+        downReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+
         keyboard.addEventListener(right);
         keyboard.addEventListener(left);
         keyboard.addEventListener(up);
         keyboard.addEventListener(down);
         keyboard.addEventListener(rightReleased);
         keyboard.addEventListener(leftReleased);
+        keyboard.addEventListener(upReleased);
+        keyboard.addEventListener(downReleased);
 
 
     }
@@ -124,21 +151,37 @@ public class Player extends Character implements KeyboardHandler {
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
-            pressingRight = true;
-        }
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
-            pressingLeft = true;
+
+        switch (keyboardEvent.getKey()) {
+            case KeyboardEvent.KEY_RIGHT:
+                pressingRight = true;
+                break;
+            case KeyboardEvent.KEY_LEFT:
+                pressingLeft = true;
+                break;
+            case KeyboardEvent.KEY_UP:
+                pressingUp = true;
+                break;
+            case KeyboardEvent.KEY_DOWN:
+                pressingDown = true;
         }
     }
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
-            pressingRight = false;
-        }
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
-            pressingLeft = false;
+
+        switch (keyboardEvent.getKey()) {
+            case KeyboardEvent.KEY_RIGHT:
+                pressingRight = false;
+                break;
+            case KeyboardEvent.KEY_LEFT:
+                pressingLeft = false;
+                break;
+            case KeyboardEvent.KEY_UP:
+                pressingUp = false;
+                break;
+            case KeyboardEvent.KEY_DOWN:
+                pressingDown = false;
         }
     }
 

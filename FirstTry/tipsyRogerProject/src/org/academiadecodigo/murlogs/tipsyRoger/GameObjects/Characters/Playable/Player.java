@@ -26,8 +26,11 @@ public class Player extends Character implements KeyboardHandler {
     }
 
     public void isTouchingGround() {
-        this.touchingGround =true;
+        this.touchingGround = true;
     }
+
+    private boolean pressingRight;
+    private boolean pressingLeft;
 
     @Override
     public void move() {
@@ -35,24 +38,14 @@ public class Player extends Character implements KeyboardHandler {
         if (!touchingGround) {
             player.translate(0, 1);
         }
-        switch (keyPressed) {
-            case KeyboardEvent.KEY_LEFT:
-                player.translate(-2, 0);
-                iterator++;
-                if (iterator == 10) {
-                    iterator = 0;
-                    keyPressed = -1;
-                }
-                break;
-            case KeyboardEvent.KEY_RIGHT:
-                player.translate(2, 0);
-                iterator++;
-                if (iterator == 10) {
-                    iterator = 0;
-                    keyPressed = -1;
-                }
-                break;
+
+        if (pressingRight) {
+            player.translate(2, 0);
         }
+        if (pressingLeft) {
+            player.translate(-2, 0);
+        }
+
         try {
             Thread.sleep(13);
         } catch (InterruptedException e) {
@@ -79,12 +72,20 @@ public class Player extends Character implements KeyboardHandler {
         down.setKey(KeyboardEvent.KEY_DOWN);
         down.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+        KeyboardEvent rightReleased = new KeyboardEvent();
+        rightReleased.setKey(KeyboardEvent.KEY_RIGHT);
+        rightReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
 
+        KeyboardEvent leftReleased = new KeyboardEvent();
+        leftReleased.setKey(KeyboardEvent.KEY_LEFT);
+        leftReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
 
         keyboard.addEventListener(right);
         keyboard.addEventListener(left);
         keyboard.addEventListener(up);
         keyboard.addEventListener(down);
+        keyboard.addEventListener(rightReleased);
+        keyboard.addEventListener(leftReleased);
 
 
     }
@@ -111,11 +112,22 @@ public class Player extends Character implements KeyboardHandler {
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
-        keyPressed = keyboardEvent.getKey();
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
+            pressingRight = true;
+        }
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
+            pressingLeft = true;
+        }
     }
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
+            pressingRight = false;
+        }
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
+            pressingLeft = false;
+        }
     }
 
     @Override

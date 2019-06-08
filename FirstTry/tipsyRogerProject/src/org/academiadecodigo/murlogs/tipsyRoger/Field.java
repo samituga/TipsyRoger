@@ -1,41 +1,34 @@
 package org.academiadecodigo.murlogs.tipsyRoger;
 
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class Field extends Colidable {
+public class Field {
 
-    Rectangle outerRectangle = new Rectangle(10, 300, 1200, 600); //1900, 1060
+    Picture outerRectangle;
 
-
-    public void setOuterRectangle(Rectangle outerRectangle) {
-        // this.outerRectangle = outerRectangle;
+    Field(Picture picture) {
+        outerRectangle = picture;
     }
 
-
-    @Override
     public void draw() {
         outerRectangle.draw();
     }
 
-    @Override
-    public int y() {
-        return outerRectangle.getY();
+    public static int y() {
+        return 10;
     }
 
-    @Override
-    public int x() {
-        return outerRectangle.getX();
+    public static int x() {
+        return 10;
     }
 
-    @Override
-    public int yToHeight() {
-        return outerRectangle.getY() + outerRectangle.getHeight();
+    public static int yToHeight() {
+        return y() + 1200;
     }
 
-    @Override
-    public int xToWidth() {
-        return outerRectangle.getX() + outerRectangle.getWidth();
+    public static int xToWidth() {
+        return x() + 720;
     }
 
 

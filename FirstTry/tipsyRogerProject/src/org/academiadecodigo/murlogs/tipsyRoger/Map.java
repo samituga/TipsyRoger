@@ -2,34 +2,40 @@ package org.academiadecodigo.murlogs.tipsyRoger;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
-public class Map {
+public class Map extends Colidable {
 
-    private Field field = new Field();
-    private int width = 50;
-    private int height = 50;
+    private Rectangle rectangle;
 
-    Rectangle rectangle = new Rectangle(xToWidth(), yToHeight(), width, height);
+    Map(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
 
-    public void drawRectangle() {
+    @Override
+    public void draw() {
         rectangle.fill();
     }
 
-
-    public int autoY() {
-        return yToHeight() - height;
+    @Override
+    public int x() {
+        return rectangle.getX();
     }
 
-    public int autoX() {
-        return xToWidth() - width;
+    @Override
+    public int y() {
+        //System.out.println("map y is: " + rectangle.getY());
+        return rectangle.getY();
     }
 
+    @Override
     public int xToWidth() {
-        return field.xToWidth();
+        //System.out.println("map xToWidth is: " + (rectangle.getX() + rectangle.getWidth()));
+        return (x() + rectangle.getWidth());
     }
 
+    @Override
     public int yToHeight() {
-        return field.yToHeight();
+        //System.out.println("map yToHeight is: " + (rectangle.getY() + rectangle.getHeight()));
+        return (y() + rectangle.getHeight());
     }
-
 
 }

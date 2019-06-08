@@ -18,36 +18,6 @@ public class Bottles extends Colidable {
         this.vol = vol;
     }
 
-    /*public Rectangle getNewBottle() {
-        int random = (int) (Math.random() * BottleTypes.values().length);
-        BottleTypes bottleTypes = BottleTypes.values()[random];
-
-
-        switch (bottleTypes) {
-            case BEER:
-                bottleRectangle = new Rectangle(100, 100, 10, 30);
-                return bottleRectangle;
-
-            case VODKA:
-                bottleRectangle = new Rectangle(100, 100, 10, 30);
-                return bottleRectangle;
-            case WATER:
-                bottleRectangle = new Rectangle(100, 100, 10, 30);
-                return bottleRectangle;
-            default:
-                System.out.println("something went wrong");
-        }
-        return null;
-    }*/
-
-    public void init() {
-        //getNewBottle();
-        //bottleTypes.rectangle.draw();
-
-
-        //bottlePic.draw();
-    }
-
     @Override
     public void draw() {
         bottleRectangle.draw();

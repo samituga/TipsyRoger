@@ -2,6 +2,8 @@ package org.academiadecodigo.murlogs.tipsyRoger;
 
 public abstract class Colidable {
 
+    protected boolean colliding;
+
     public abstract void draw();
 
     public abstract int y();
@@ -20,8 +22,11 @@ public abstract class Colidable {
                 xToWidth() > colidable.x() &&
                 y() < colidable.yToHeight() &&
                 yToHeight() > colidable.y()) {
-            return true;
+            colliding = true;
+            return colliding;
         }
-        return false;
+        colliding = false;
+        return colliding;
     }
+
 }

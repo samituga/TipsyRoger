@@ -26,7 +26,6 @@ public class Player extends Character implements KeyboardHandler {
 
     @Override
     public void draw() {
-        System.out.println("playerdrwa");
         player.draw();
     }
 
@@ -39,8 +38,7 @@ public class Player extends Character implements KeyboardHandler {
 
     @Override
     public void move() {
-
-        if (!touchingGround) {
+        if (!super.colliding) {
             player.translate(0, 1);
         }
 
@@ -139,6 +137,5 @@ public class Player extends Character implements KeyboardHandler {
     public void attack() {
 
     }
-
 
 }

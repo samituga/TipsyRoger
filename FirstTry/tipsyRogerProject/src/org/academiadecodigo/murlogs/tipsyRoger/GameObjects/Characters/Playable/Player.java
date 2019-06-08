@@ -1,7 +1,7 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable;
 
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Character;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -10,23 +10,31 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 public class Player extends Character implements KeyboardHandler {
 
     private int drunkenLvl;
-    private Rectangle player;
-    private Keyboard keyboard;
+    private Picture player;
     private int keyPressed;
     private int iterator;
-    private int playerPosY;
-    private int playerPosX;
+    private boolean touchingGround;
+
+    public Player(int drunkenLvl) {
+        this.drunkenLvl = drunkenLvl;
+    }
 
     public void init() {
-        player = new Rectangle(0, 0, 50, 100);
+        player = new Picture(20, 20, "Roger_Smith.png");
         player.draw();
         setKeyboard();
+    }
 
+    public void isTouchingGround() {
+        this.touchingGround =true;
     }
 
     @Override
     public void move() {
-        player.translate(0, 0);
+
+        if (!touchingGround) {
+            player.translate(0, 1);
+        }
         switch (keyPressed) {
             case KeyboardEvent.KEY_LEFT:
                 player.translate(-2, 0);
@@ -50,14 +58,10 @@ public class Player extends Character implements KeyboardHandler {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        playerPosX = player.getX();
-        playerPosY = player.getY();
-
-        System.out.println(playerPosY + " y" + playerPosX + " x");
     }
 
     public void setKeyboard() {
-        keyboard = new Keyboard(this);
+        Keyboard keyboard = new Keyboard(this);
 
         KeyboardEvent right = new KeyboardEvent();
         right.setKey(KeyboardEvent.KEY_RIGHT);
@@ -75,12 +79,34 @@ public class Player extends Character implements KeyboardHandler {
         down.setKey(KeyboardEvent.KEY_DOWN);
         down.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+
+
         keyboard.addEventListener(right);
         keyboard.addEventListener(left);
         keyboard.addEventListener(up);
         keyboard.addEventListener(down);
 
 
+    }
+
+    @Override
+    public int y() {
+        return player.getY();
+    }
+
+    @Override
+    public int x() {
+        return player.getX();
+    }
+
+    @Override
+    public int yToHeight() {
+        return player.getY() + player.getHeight();
+    }
+
+    @Override
+    public int xToWidth() {
+        return player.getX() + player.getWidth();
     }
 
     @Override
@@ -92,18 +118,10 @@ public class Player extends Character implements KeyboardHandler {
     public void keyReleased(KeyboardEvent keyboardEvent) {
     }
 
-    public void puke() {
-        if (drunkenLvl < 0) {
-        }
-    }
-
-    public void jump() {
-
-    }
-
-
     @Override
     public void attack() {
 
     }
+
+
 }

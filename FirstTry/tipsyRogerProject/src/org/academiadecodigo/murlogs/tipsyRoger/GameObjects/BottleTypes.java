@@ -13,7 +13,7 @@ public enum BottleTypes {
         this.vol = vol;
     }
 
-    public static Bottles bottlesFactory() {
+    public static Bottles bottlesFactory(int x, int y) {
         int width = 10;
         int height = 30;
         int randomNumber = (int) (Math.random() * BottleTypes.values().length);
@@ -21,11 +21,11 @@ public enum BottleTypes {
 
         switch (bottleTypes) {
             case BEER:
-                return new Bottles(BEER, new Rectangle(100, 100, width, height), 10);
+                return new Bottles(BEER, new Rectangle(x, y, width, height), 10);
             case VODKA:
                 return new Bottles(VODKA, new Rectangle(100, 100, width, height), 30);
             case WATER:
-                return new Bottles(WATER, new Rectangle(100, 100, width, height), -10);
+                return new Bottles(WATER, new Rectangle(90, 80, width, height), -10);
         }
         return null;
     }

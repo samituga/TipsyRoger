@@ -71,6 +71,7 @@ public class Player extends Character implements KeyboardHandler {
     public void drinkBottle(int vol, Bottles bottle) {
         if (this.isColliding(bottle) && !bottle.getBottleDrinked()) {
             this.drunkenLvl += vol;
+            System.out.println(drunkenLvl);
             bottle.deleteBottle();
         }
     }

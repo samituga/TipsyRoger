@@ -31,7 +31,8 @@ public class Game {
 
         player.init();
         colidables.add(player);
-        colidables.add(BottleTypes.bottlesFactory());
+        colidables.add(BottleTypes.bottlesFactory(120, 120));
+        colidables.add(BottleTypes.bottlesFactory(150, 150));
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {

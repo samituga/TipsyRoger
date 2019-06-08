@@ -11,11 +11,18 @@ public class Bottles extends Colidable {
     private Picture bottlePic;
     private Rectangle bottleRectangle;
     private int vol;
+    private boolean bottleDrinked;
 
     public Bottles(BottleTypes bottleTypes, Rectangle rectangle, int vol) {
         this.bottleTypes = bottleTypes;
         this.bottleRectangle = rectangle;
         this.vol = vol;
+    }
+
+    public void deleteBottle(){
+        System.out.println("sdfsdiudiuvcuvhuvdfusvfs");
+        bottleRectangle.delete();
+        bottleDrinked = true;
     }
 
     @Override
@@ -41,5 +48,13 @@ public class Bottles extends Colidable {
     @Override
     public int xToWidth() {
         return bottleRectangle.getX() + bottleRectangle.getWidth();
+    }
+
+    public int getVol() {
+        return vol;
+    }
+
+    public boolean getBottleDrinked(){
+        return bottleDrinked;
     }
 }

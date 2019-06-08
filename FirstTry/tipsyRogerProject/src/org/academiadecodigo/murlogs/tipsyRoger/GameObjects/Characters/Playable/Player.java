@@ -1,5 +1,7 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable;
 
+import org.academiadecodigo.murlogs.tipsyRoger.Colidable;
+import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Bottles;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Character;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
@@ -53,6 +55,13 @@ public class Player extends Character implements KeyboardHandler {
             Thread.sleep(13);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void drinkBottle(int vol, Bottles bottle) {
+        if (this.isColliding(bottle) && !bottle.getBottleDrinked()){
+            this.drunkenLvl += vol;
+            bottle.deleteBottle();
         }
     }
 

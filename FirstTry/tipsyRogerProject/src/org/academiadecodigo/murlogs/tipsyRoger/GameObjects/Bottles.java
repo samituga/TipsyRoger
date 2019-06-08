@@ -1,58 +1,75 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects;
 
 
+import org.academiadecodigo.murlogs.tipsyRoger.Colidable;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class Bottles {
+public class Bottles extends Colidable {
 
     private BottleTypes bottleTypes;
-    private int drunkenLvl;
     private Picture bottlePic;
     private Rectangle bottleRectangle;
+    private int vol;
 
-    public Bottles(BottleTypes bottleTypes) {
+    public Bottles(BottleTypes bottleTypes, Rectangle rectangle, int vol) {
         this.bottleTypes = bottleTypes;
+        this.bottleRectangle = rectangle;
+        this.vol = vol;
     }
 
-    public Bottles getNewBottle() {
+    /*public Rectangle getNewBottle() {
         int random = (int) (Math.random() * BottleTypes.values().length);
         BottleTypes bottleTypes = BottleTypes.values()[random];
 
 
         switch (bottleTypes) {
             case BEER:
-                System.out.println("dsd");
-                return new Bottles(BottleTypes.BEER);
+                bottleRectangle = new Rectangle(100, 100, 10, 30);
+                return bottleRectangle;
 
             case VODKA:
-                System.out.println("dsdds");
-                return new Bottles(BottleTypes.VODKA);
-
+                bottleRectangle = new Rectangle(100, 100, 10, 30);
+                return bottleRectangle;
             case WATER:
-                System.out.println("sfgdsb");
-                return new Bottles(BottleTypes.WATER);
-
+                bottleRectangle = new Rectangle(100, 100, 10, 30);
+                return bottleRectangle;
             default:
                 System.out.println("something went wrong");
-
         }
         return null;
-    }
+    }*/
 
     public void init() {
-
-        getNewBottle();
-        bottleTypes.rectangle.draw();
-
+        //getNewBottle();
+        //bottleTypes.rectangle.draw();
 
 
         //bottlePic.draw();
     }
 
-    public void drink() {
-
+    @Override
+    public void draw() {
+        bottleRectangle.draw();
     }
 
+    @Override
+    public int y() {
+        return bottleRectangle.getY();
+    }
 
+    @Override
+    public int x() {
+        return bottleRectangle.getX();
+    }
+
+    @Override
+    public int yToHeight() {
+        return bottleRectangle.getY() + bottleRectangle.getHeight();
+    }
+
+    @Override
+    public int xToWidth() {
+        return bottleRectangle.getX() + bottleRectangle.getWidth();
+    }
 }

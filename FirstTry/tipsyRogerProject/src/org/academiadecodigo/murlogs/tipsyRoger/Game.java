@@ -1,8 +1,11 @@
 package org.academiadecodigo.murlogs.tipsyRoger;
 
+import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.BottleTypes;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Bottles;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable.Player;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+
+import java.util.LinkedList;
 
 public class Game {
 
@@ -11,10 +14,11 @@ public class Game {
     private Field field = new Field();
     private Map map = new Map();
 
-    Game(Player player, Bottles bottles){
+    Game(Player player) {
         this.player = player;
-        this.bottles = bottles;
     }
+
+    LinkedList<Colidable> colidables = new LinkedList<>();
 
 
     public void createField() {
@@ -27,14 +31,17 @@ public class Game {
         createField();
         map.drawRectangle();
         player.init();
-        bottles.init();
+        colidables.add(player);
+        colidables.add(BottleTypes.bottlesFactory());
 
-        while (true){
+        while (true) {
+            for (Colidable colidable : colidables){
+                colidable.draw();
+            }
             player.move();
         }
 
     }
-
 
 
 }

@@ -2,6 +2,7 @@ package org.academiadecodigo.murlogs.tipsyRoger;
 
 public abstract class Colidable {
 
+    public abstract void draw();
 
     public abstract int y();
 

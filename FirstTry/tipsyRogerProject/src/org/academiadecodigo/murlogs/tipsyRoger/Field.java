@@ -13,7 +13,10 @@ public class Field extends Colidable {
     }
 
 
-
+    @Override
+    public void draw() {
+        outerRectangle.draw();
+    }
 
     @Override
     public int y() {

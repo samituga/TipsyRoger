@@ -21,8 +21,13 @@ public class Player extends Character implements KeyboardHandler {
 
     public void init() {
         player = new Picture(20, 20, "Roger_Smith.png");
-        player.draw();
         setKeyboard();
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("playerdrwa");
+        player.draw();
     }
 
     public void isTouchingGround() {

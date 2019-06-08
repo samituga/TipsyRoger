@@ -19,7 +19,7 @@ public class Bottles extends Colidable {
         this.vol = vol;
     }
 
-    public void deleteBottle(){
+    public void deleteBottle() {
         bottleRectangle.delete();
         bottleDrinked = true;
     }
@@ -53,7 +53,7 @@ public class Bottles extends Colidable {
         return vol;
     }
 
-    public boolean getBottleDrinked(){
+    public boolean getBottleDrinked() {
         return bottleDrinked;
     }
 }

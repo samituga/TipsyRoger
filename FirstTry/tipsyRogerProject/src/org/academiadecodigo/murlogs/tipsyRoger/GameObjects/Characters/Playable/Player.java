@@ -13,9 +13,6 @@ public class Player extends Character implements KeyboardHandler {
 
     private int drunkenLvl;
     private Picture player;
-    private int keyPressed;
-    private int iterator;
-    private boolean touchingGround;
     private int speed;
 
     public Player(int drunkenLvl) {
@@ -32,10 +29,6 @@ public class Player extends Character implements KeyboardHandler {
         player.draw();
     }
 
-    public void isTouchingGround() {
-        this.touchingGround = true;
-    }
-
     private boolean pressingRight;
     private boolean pressingLeft;
     private boolean pressingUp;
@@ -43,7 +36,7 @@ public class Player extends Character implements KeyboardHandler {
 
 
     public boolean canMove(Map map) {
-        if (pressingRight && x() + speed < map.xToWidth() &&
+        if (pressingLeft && x() + speed < map.xToWidth() &&
                 xToWidth() + speed > map.xToWidth() &&
                 y() < map.y() &&
                 yToHeight() > map.y()) {

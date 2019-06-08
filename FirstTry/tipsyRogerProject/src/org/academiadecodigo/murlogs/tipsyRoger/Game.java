@@ -50,8 +50,8 @@ public class Game {
                         continue;
                     }
                     if (colidables.get(i) instanceof Map) {
-                        Map newMap = (Map) colidables.get(i);
-                        if (!player.canMove(newMap)) {
+                        Map mapi = (Map) colidables.get(i);
+                        if (!player.canMove(mapi)) {
                             continue;
                         }
                     }

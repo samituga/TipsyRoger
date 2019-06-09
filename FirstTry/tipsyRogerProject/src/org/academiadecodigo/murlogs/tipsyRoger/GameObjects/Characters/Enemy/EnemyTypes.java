@@ -1,6 +1,7 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public enum EnemyTypes {
     DRUNKEN,
@@ -10,7 +11,7 @@ public enum EnemyTypes {
     Rectangle rectangle;
 
 
-    public static Enemy enemyFactory() {
+    public static Enemy enemyFactory(int x, int y) {
         int width = 20;
         int height = 50;
 
@@ -20,11 +21,11 @@ public enum EnemyTypes {
 
         switch (enemyTypes) {
             case BARMAN:
-                return new Barman(new Rectangle(200, 200, width, height));
+                return new Barman(new Picture(x, y,"enemytester.png"));
             case DRUNKEN:
-                return new Drunken(new Rectangle(300, 300, width, height));
+                return new Drunken(new Picture(x, y, "enemytester.png"));
             default:
-                return new Drunken(new Rectangle(300, 300, width, height));
+                return new Drunken(new Picture(x, y, "enemytester.png"));
         }
     }
 

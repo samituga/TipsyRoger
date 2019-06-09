@@ -13,40 +13,40 @@ public class Bottles extends Colidable {
     private int vol;
     private boolean bottleDrinked;
 
-    public Bottles(BottleTypes bottleTypes, Rectangle rectangle, int vol) {
+    public Bottles(BottleTypes bottleTypes, Picture picture, int vol) {
         this.bottleTypes = bottleTypes;
-        this.bottleRectangle = rectangle;
+        this.bottlePic = picture;
         this.vol = vol;
     }
 
     public void deleteBottle() {
-        bottleRectangle.delete();
+        bottlePic.delete();
         bottleDrinked = true;
     }
 
     @Override
     public void draw() {
-        bottleRectangle.draw();
+        bottlePic.draw();
     }
 
     @Override
     public int y() {
-        return bottleRectangle.getY();
+        return bottlePic.getY();
     }
 
     @Override
     public int x() {
-        return bottleRectangle.getX();
+        return bottlePic.getX();
     }
 
     @Override
     public int yToHeight() {
-        return bottleRectangle.getY() + bottleRectangle.getHeight();
+        return bottlePic.getY() + bottlePic.getHeight();
     }
 
     @Override
     public int xToWidth() {
-        return bottleRectangle.getX() + bottleRectangle.getWidth();
+        return bottlePic.getX() + bottlePic.getWidth();
     }
 
     public int getVol() {

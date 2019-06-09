@@ -2,13 +2,15 @@ package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy;
 
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Drunken extends Enemy {
 
     Rectangle drunkenRectangle;
+    Picture drunkenPicture;
 
-    public Drunken(Rectangle rectangle) {
-        this.drunkenRectangle = rectangle;
+    public Drunken(Picture picture) {
+        this.drunkenPicture = picture;
     }
 
     @Override

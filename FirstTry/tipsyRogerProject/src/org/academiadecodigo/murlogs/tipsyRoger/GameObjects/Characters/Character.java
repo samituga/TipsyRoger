@@ -6,7 +6,7 @@ public abstract class Character extends Colidable {
 
     private boolean dead;
 
-    public abstract void move();
+    public abstract void move() throws InterruptedException;
     public abstract void attack();
 
     public void setDead() {

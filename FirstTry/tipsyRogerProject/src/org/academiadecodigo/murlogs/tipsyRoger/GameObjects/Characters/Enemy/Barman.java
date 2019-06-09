@@ -1,12 +1,11 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy;
 
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Barman extends Enemy {
 
-    Rectangle barmanRectangle;
+
     Picture barmanPicture;
 
 
@@ -51,12 +50,12 @@ public class Barman extends Enemy {
 
     @Override
     public int yToHeight() {
-        return (int) (barmanPicture.getX() + barmanPicture.getHeight());
+        return (int) (barmanPicture.getX() + barmanPicture.getWidth());
     }
 
     @Override
     public int xToWidth() {
-        return (int) (barmanPicture.getY() + barmanPicture.getWidth());
+        return (int) (barmanPicture.getY() + barmanPicture.getHeight());
     }
 }
 

@@ -6,7 +6,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Drunken extends Enemy {
 
-    Rectangle drunkenRectangle;
+
     Picture drunkenPicture;
 
     public Drunken(Picture picture) {

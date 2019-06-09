@@ -6,6 +6,7 @@ import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy.Barm
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy.Enemy;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy.EnemyTypes;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable.Player;
+import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.NPC;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
@@ -40,6 +41,7 @@ public class Game {
         colidables.add(EnemyTypes.enemyFactory(400,200));
         colidables.add(EnemyTypes.enemyFactory(300,200));
         colidables.add(EnemyTypes.enemyFactory(500,200));
+        colidables.add(NPC.npc(800,400));
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -76,6 +78,7 @@ public class Game {
                     if(colidables.get(i)instanceof Enemy){
                         Player player1 = (Player) colidable;
                         Enemy enemy1 = (Enemy) colidables.get(i);
+                        enemy1.move();
                         continue;
                     }
                     if (colidable.isColliding(colidables.get(i))) {

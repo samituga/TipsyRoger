@@ -7,19 +7,31 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Enemy extends Character {
 
-    private Rectangle enemyRectangle;
     EnemyTypes enemyTypes;
     Picture enemyPicture;
+    private int speed;
 
 
-    public void deleteEnemy(){
+    public void deleteEnemy() {
         enemyPicture.delete();
         setDead();
     }
 
     @Override
     public void move() {
+        speed = 1;
+        int randomMove = (int) (Math.random() * (2 - 1) + 1);
+        while (true) {
 
+            enemyPicture.translate(randomMove, randomMove);
+            try {
+                Thread.sleep(8);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+        }
     }
 
     @Override

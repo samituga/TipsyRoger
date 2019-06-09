@@ -16,8 +16,7 @@ public class Game {
     LinkedList<Walls> wallsLinkedList = new LinkedList<>();
     LinkedList<Bottle> bottleLinkedList = new LinkedList<>();
     LinkedList<Puke> pukeLinkedList = new LinkedList<>();
-
-    //LinkedList<Enemies> enemiesLinkedList = new LinkedList<Enemies>();
+    LinkedList<Enemy> enemiesLinkedList = new LinkedList<>();
 
 
     public void init() {
@@ -28,9 +27,13 @@ public class Game {
         wallsLinkedList.add(new Walls(new Rectangle(32, 332, 193, 50)));
         wallsLinkedList.add(new Walls(new Rectangle(132, 632, 193, 50)));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
+        enemiesLinkedList.add(new Drunken(new Rectangle(225, 225, 30, 30)));
     }
 
     public void start() {
+        for (Enemy enemies : enemiesLinkedList) {
+            enemies.draw();
+        }
         for (Walls walls : wallsLinkedList) {
             walls.draw();
         }
@@ -41,23 +44,32 @@ public class Game {
         tipsy.init();
 
         while (true) {
-            if (tipsy.isAttacking()) {
-                pukeLinkedList.add(tipsy.attack());
-            }
-            for (Puke puke : pukeLinkedList) {
-                if (!puke.isDestroyed()){
-                    puke.draw();
-                    puke.move();
-                }
-
-            }
             for (Walls walls : wallsLinkedList) {
                 tipsy.predictMovements(walls);
             }
             tipsy.move();
-            System.out.println("X: " + tipsy.x() + "Y: " + tipsy.y());
             for (Bottle bottle : bottleLinkedList) {
                 tipsy.drinkBottle(bottle.getVol(), bottle);
+            }
+            //System.out.println("X: " + tipsy.x() + " Y: " + tipsy.y());
+            if (tipsy.isAttacking()) {
+                pukeLinkedList.add(tipsy.attack());
+            }
+            for (Puke puke : pukeLinkedList) {
+                if (!puke.isDestroyed()) {
+                    puke.draw();
+                    puke.move();
+                    for (Enemy enemy : enemiesLinkedList) {
+                        if (puke.hit(enemy)) {
+                            enemy.hitten();
+                            enemiesLinkedList.remove(enemy);
+                            System.out.println("afsjhgsdfguysfdhfds");
+                            break;
+                        }
+                    }
+                    continue;
+                }
+                pukeLinkedList.remove(puke);
             }
             try {
                 Thread.sleep(4);

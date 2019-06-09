@@ -1,6 +1,6 @@
 package org.academiadecodigo.murlogs.tipsyRoger;
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -9,7 +9,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player extends Character implements KeyboardHandler {
 
-    private Rectangle roger = new Rectangle(20, 20, 50, 50);
+    private Picture roger = new Picture(20, 20, "Roger_Smith.png");
     private int speed;
     private int drunkenLvl;
 
@@ -75,8 +75,9 @@ public class Player extends Character implements KeyboardHandler {
 
     public boolean isAttacking() {
         iterator++;
-        if (pressingSpace && iterator > 50) {
+        if (pressingSpace && iterator > 50 && drunkenLvl > 10) {
             iterator = 0;
+            drunkenLvl -= 10;
             return true;
         }
         return false;
@@ -94,6 +95,8 @@ public class Player extends Character implements KeyboardHandler {
             bottle.deleteBottle();
         }
     }
+
+
 
     public void setKeyboard() {
         Keyboard keyboard = new Keyboard(this);

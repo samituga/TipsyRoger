@@ -5,7 +5,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Field {
     private Picture map;
 
-    Field (Picture map) {
+    Field(Picture map) {
         this.map = map;
     }
 

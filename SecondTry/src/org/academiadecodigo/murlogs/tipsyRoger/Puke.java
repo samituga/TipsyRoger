@@ -18,7 +18,7 @@ public class Puke extends Colidable {
 
     public boolean isDestroyed() {
         iterator += 1;
-        if (iterator > 30) {
+        if (iterator > 30 || destroyed) {
             puke.delete();
             destroyed = true;
             return true;
@@ -29,6 +29,14 @@ public class Puke extends Colidable {
     @Override
     public void draw() {
         puke.draw();
+    }
+
+    public boolean hit(Enemy enemy) {
+        if(this.checkCollision(enemy)){
+            destroyed = true;
+            return true;
+        }
+        return false;
     }
 
     @Override

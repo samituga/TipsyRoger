@@ -1,9 +1,12 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy;
 
+import jdk.jfr.consumer.RecordedClass;
 import org.academiadecodigo.murlogs.tipsyRoger.Colidable;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Character;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+
+import java.awt.*;
 
 public class Enemy extends Character {
 
@@ -34,9 +37,9 @@ public class Enemy extends Character {
         }
     }
 
+
     @Override
     public void attack() {
-
     }
 
     @Override

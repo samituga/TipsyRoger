@@ -1,6 +1,8 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters;
 
 import org.academiadecodigo.murlogs.tipsyRoger.Colidable;
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+
 
 public abstract class Character extends Colidable {
 

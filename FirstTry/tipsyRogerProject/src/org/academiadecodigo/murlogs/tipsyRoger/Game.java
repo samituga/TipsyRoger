@@ -47,6 +47,11 @@ public class Game {
             colidable.draw();
         }
         while (true) {
+            try {
+                Thread.sleep(7);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             for (Colidable colidable : colidables) {
                 if (!(colidable instanceof Player)) {
                     continue;
@@ -63,6 +68,7 @@ public class Game {
                     }
                     if (!(colidables.get(i) instanceof Map)) {
                         player.move();
+                        player.attack();
                     }
                     if (colidables.get(i) instanceof Bottles) {
                         Player player1 = (Player) colidable;

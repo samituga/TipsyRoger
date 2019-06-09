@@ -4,6 +4,7 @@ package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
+
 public class Drunken extends Enemy {
 
 

@@ -3,17 +3,26 @@ package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Bottles;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Character;
 import org.academiadecodigo.murlogs.tipsyRoger.Map;
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
+
 public class Player extends Character implements KeyboardHandler {
 
     private int drunkenLvl;
     private Picture player;
     private int speed;
+    private int iterator;
+    private boolean pressingRight;
+    private boolean pressingLeft;
+    private boolean pressingUp;
+    private boolean pressingDown;
+    private boolean pressingSpace;
+
 
     public Player(int drunkenLvl) {
         this.drunkenLvl = drunkenLvl;
@@ -28,12 +37,6 @@ public class Player extends Character implements KeyboardHandler {
     public void draw() {
         player.draw();
     }
-
-    private boolean pressingRight;
-    private boolean pressingLeft;
-    private boolean pressingUp;
-    private boolean pressingDown;
-
 
     public boolean canMove(Map map) {
         if (pressingLeft && x() + speed < map.xToWidth() &&
@@ -59,12 +62,6 @@ public class Player extends Character implements KeyboardHandler {
         }
         if (pressingDown) {
             player.translate(0, speed);
-        }
-
-        try {
-            Thread.sleep(7);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
@@ -95,6 +92,10 @@ public class Player extends Character implements KeyboardHandler {
         down.setKey(KeyboardEvent.KEY_DOWN);
         down.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+        KeyboardEvent attack = new KeyboardEvent();
+        attack.setKey(KeyboardEvent.KEY_SPACE);
+        attack.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
         KeyboardEvent rightReleased = new KeyboardEvent();
         rightReleased.setKey(KeyboardEvent.KEY_RIGHT);
         rightReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
@@ -111,14 +112,20 @@ public class Player extends Character implements KeyboardHandler {
         downReleased.setKey(KeyboardEvent.KEY_DOWN);
         downReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
 
+        KeyboardEvent attackReleased = new KeyboardEvent();
+        attackReleased.setKey(KeyboardEvent.KEY_SPACE);
+        attackReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+
         keyboard.addEventListener(right);
         keyboard.addEventListener(left);
         keyboard.addEventListener(up);
         keyboard.addEventListener(down);
+        keyboard.addEventListener(attack);
         keyboard.addEventListener(rightReleased);
         keyboard.addEventListener(leftReleased);
         keyboard.addEventListener(upReleased);
         keyboard.addEventListener(downReleased);
+        keyboard.addEventListener(attackReleased);
 
 
     }
@@ -158,6 +165,9 @@ public class Player extends Character implements KeyboardHandler {
                 break;
             case KeyboardEvent.KEY_DOWN:
                 pressingDown = true;
+                break;
+            case KeyboardEvent.KEY_SPACE:
+                pressingSpace = true;
         }
     }
 
@@ -176,12 +186,21 @@ public class Player extends Character implements KeyboardHandler {
                 break;
             case KeyboardEvent.KEY_DOWN:
                 pressingDown = false;
+                break;
+            case KeyboardEvent.KEY_SPACE:
+                pressingSpace = false;
         }
     }
 
     @Override
     public void attack() {
-
+        iterator++;
+        if(pressingSpace && iterator > 100 && drunkenLvl > 0){
+            iterator = 0;
+            Rectangle rectangle = new Rectangle(player.getX(), player.getY() + 30,20,10);
+            rectangle.draw();
+            System.out.println("kkkkkk");
+        }
     }
 
 }

@@ -1,11 +1,16 @@
 package org.academiadecodigo.murlogs.tipsyRoger;
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Drunken extends Enemy {
-    Drunken(Rectangle picture){
+
+
+
+    Drunken(Picture picture){
         super(picture);
     }
+
+
 
 
 }

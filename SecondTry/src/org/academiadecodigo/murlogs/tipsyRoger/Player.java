@@ -8,7 +8,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
 public class Player extends Character implements KeyboardHandler {
 
-    private Picture roger = new Picture(20, 20, "Roger_Smith.png");
+    private Picture roger;
     private int speed;
     private int drunkenLvl = 50;
 
@@ -22,6 +22,12 @@ public class Player extends Character implements KeyboardHandler {
     private boolean moveUp;
     private boolean moveDown;
     private int iterator;
+
+
+    public Player(Picture roger) {
+        super(roger);
+        this.roger = super.picture;
+    }
 
     public void init() {
         draw();
@@ -224,28 +230,4 @@ public class Player extends Character implements KeyboardHandler {
     }
 
 
-    @Override
-    public void draw() {
-        roger.draw();
-    }
-
-    @Override
-    public int x() {
-        return roger.getX();
-    }
-
-    @Override
-    public int y() {
-        return roger.getY();
-    }
-
-    @Override
-    public int xToWidth() {
-        return x() + roger.getWidth();
-    }
-
-    @Override
-    public int yToHeight() {
-        return y() + roger.getHeight();
-    }
 }

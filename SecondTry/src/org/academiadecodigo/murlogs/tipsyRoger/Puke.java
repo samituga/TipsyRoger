@@ -13,7 +13,7 @@ public class Puke extends Colidable {
     }
 
     public void move() {
-        puke.translate(3, 0);
+        puke.translate(3, 0); // TODO: 2019-06-09 Accept Directions
     }
 
     public boolean isDestroyed() {

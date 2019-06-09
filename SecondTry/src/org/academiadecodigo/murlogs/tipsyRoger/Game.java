@@ -5,13 +5,14 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 import java.util.LinkedList;
 
+
 public class Game {
 
-    private Player tipsy;
+    private Player roger;
 
-    Game(Player tipsy) {
-        this.tipsy = tipsy;
-    }
+    /*Game(Player roger) {
+        this.roger = roger;
+    }*/
 
     LinkedList<Walls> wallsLinkedList = new LinkedList<>();
     LinkedList<Bottle> bottleLinkedList = new LinkedList<>();
@@ -20,20 +21,24 @@ public class Game {
 
 
     public void init() {
+
         Field map = new Field(new Picture(0, 0, "LootHunter_Tileset.png"));
         map.draw();
-        tipsy = new Player();
+        roger = new Player(new Picture(30, 30, "Roger_Smith.png"));
         wallsLinkedList.add(new Walls(new Rectangle(300, 300, 100, 100)));
         wallsLinkedList.add(new Walls(new Rectangle(32, 332, 193, 50)));
         wallsLinkedList.add(new Walls(new Rectangle(132, 632, 193, 50)));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
-        enemiesLinkedList.add(new Drunken(new Rectangle(225, 225, 30, 30)));
+        bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
+        enemiesLinkedList.add(new Drunken(new Picture(350, 305, "Roger_Smith.png")));
     }
 
     public void start() {
+
         for (Enemy enemies : enemiesLinkedList) {
             enemies.draw();
         }
+
         for (Walls walls : wallsLinkedList) {
             walls.draw();
         }
@@ -41,24 +46,25 @@ public class Game {
         for (Bottle bottle : bottleLinkedList) {
             bottle.draw();
         }
-        tipsy.init();
+
+        roger.init();
 
         while (true) {
             for (Walls walls : wallsLinkedList) {
-                tipsy.predictMovements(walls);
+                roger.predictMovements(walls);
             }
-            tipsy.move();
+            roger.move();
             for (Bottle bottle : bottleLinkedList) {
-                tipsy.drinkBottle(bottle.getVol(), bottle);
+                roger.drinkBottle(bottle.getVol(), bottle); // TODO: 2019-06-09 Eliminar da linked list
             }
             for (Enemy enemy : enemiesLinkedList) {
-                if (tipsy.checkCollision(enemy)) {
-                    tipsy.touchEnemy();
+                if (roger.checkCollision(enemy)) {
+                    roger.touchEnemy();
                 }
             }
-            //System.out.println("X: " + tipsy.x() + " Y: " + tipsy.y());
-            if (tipsy.isAttacking()) {
-                pukeLinkedList.add(tipsy.attack(Directions.RIGHT));
+            //System.out.println("X: " + roger.x() + " Y: " + roger.y());
+            if (roger.isAttacking()) {
+                pukeLinkedList.add(roger.attack(Directions.RIGHT));
             }
             for (Puke puke : pukeLinkedList) {
                 if (!puke.isDestroyed()) {

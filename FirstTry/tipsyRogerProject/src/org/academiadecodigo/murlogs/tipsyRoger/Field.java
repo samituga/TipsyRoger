@@ -1,31 +1,35 @@
 package org.academiadecodigo.murlogs.tipsyRoger;
 
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Field {
 
-    Rectangle outerRectangle = new Rectangle(0, 0, 1000, 500);
+    Picture outerRectangle;
 
-
-    public void setOuterRectangle(Rectangle outerRectangle) {
-        // this.outerRectangle = outerRectangle;
+    Field(Picture picture) {
+        outerRectangle = picture;
     }
 
-    public int outerRectangleY() {
-        return outerRectangle.getY();
+    public void draw() {
+        outerRectangle.draw();
     }
 
-    public int outerRectangleX() {
-        return outerRectangle.getX();
+    public static int y() {
+        return 10;
     }
 
-    public int outerRectangleHeight() {
-        return outerRectangle.getHeight();
+    public static int x() {
+        return 10;
     }
 
-    public int outerRectangleWidth() {
-        return outerRectangle.getWidth();
+    public static int yToHeight() {
+        return y() + 1200;
     }
+
+    public static int xToWidth() {
+        return x() + 720;
+    }
+
 
 }

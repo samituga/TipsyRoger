@@ -1,12 +1,12 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters;
 
-public abstract class Character {
+import org.academiadecodigo.murlogs.tipsyRoger.Colidable;
 
-    private String name;
+public abstract class Character extends Colidable {
+
     private boolean dead;
-    // private Position pos;
 
-    public abstract void move();
+    public abstract void move() throws InterruptedException;
     public abstract void attack();
 
     public void setDead() {

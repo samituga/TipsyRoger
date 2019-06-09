@@ -6,8 +6,10 @@ import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable.P
 public class Main {
     public static void main(String[] args) {
 
-        Game game = new Game(new Player());
+
+        Game game = new Game(new Player(50));
 
         game.init();
+
     }
 }

@@ -1,16 +1,21 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects;
 
-public class NPC {
+import org.academiadecodigo.murlogs.tipsyRoger.Colidable;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-    public NPC(String name) {
-        this.name = name;
-    }
+public class NPC extends Colidable {
 
-    private String name;
+    Picture npcPicture;
     private boolean quizAvaiable;
     private boolean correctAnswer;
 
+    public NPC(Picture picture) {
+        this.npcPicture = picture;
+    }
 
+    public static NPC npc(int x, int y) {
+        return new NPC(new Picture(x, y, "npctesting.png"));
+    }
 
     public void speak() {
 
@@ -45,15 +50,39 @@ public class NPC {
 
     }
 
-    public boolean isCorrect () {
+    public boolean isCorrect() {
         //give power up
         return correctAnswer == true; //not okay!!!!
         //acrescentar if statement se quisermos power down
     }
 
 
-    public void powerUp () {
+    public void powerUp() {
 
     }
 
+    @Override
+    public void draw() {
+        npcPicture.draw();
+    }
+
+    @Override
+    public int y() {
+        return npcPicture.getY();
+    }
+
+    @Override
+    public int x() {
+        return npcPicture.getX();
+    }
+
+    @Override
+    public int yToHeight() {
+        return npcPicture.getX() + npcPicture.getWidth();
+    }
+
+    @Override
+    public int xToWidth() {
+        return npcPicture.getY() + npcPicture.getHeight();
+    }
 }

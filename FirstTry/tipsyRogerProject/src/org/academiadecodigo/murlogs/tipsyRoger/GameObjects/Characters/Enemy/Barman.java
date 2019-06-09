@@ -1,18 +1,21 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy;
 
+
+import org.academiadecodigo.simplegraphics.pictures.Picture;
+
 public class Barman extends Enemy {
 
 
+    Picture barmanPicture;
+
+
+    public Barman(Picture picture) {
+        this.barmanPicture = picture;
+    }
 
     @Override
     public void move() {
-
         super.move();
-        while (!isDead()) {
-
-
-
-        }
     }
 
     @Override
@@ -29,4 +32,30 @@ public class Barman extends Enemy {
     public boolean isDead() {
         return super.isDead();
     }
+
+    @Override
+    public void draw() {
+        barmanPicture.draw();
+    }
+
+    @Override
+    public int y() {
+        return (int) barmanPicture.getY();
+    }
+
+    @Override
+    public int x() {
+        return (int) barmanPicture.getX();
+    }
+
+    @Override
+    public int yToHeight() {
+        return (int) (barmanPicture.getX() + barmanPicture.getWidth());
+    }
+
+    @Override
+    public int xToWidth() {
+        return (int) (barmanPicture.getY() + barmanPicture.getHeight());
+    }
 }
+

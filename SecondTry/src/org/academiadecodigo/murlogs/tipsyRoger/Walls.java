@@ -1,6 +1,5 @@
 package org.academiadecodigo.murlogs.tipsyRoger;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
 public class Walls extends Colidable {
@@ -13,8 +12,6 @@ public class Walls extends Colidable {
 
     @Override
     public void draw() {
-        wall.setColor(Color.RED);
-        wall.fill();
     }
 
     @Override
@@ -36,7 +33,6 @@ public class Walls extends Colidable {
     public int yToHeight() {
         return (y() + wall.getHeight());
     }
-
 
 
 }

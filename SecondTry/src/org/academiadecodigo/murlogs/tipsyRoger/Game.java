@@ -51,9 +51,14 @@ public class Game {
             for (Bottle bottle : bottleLinkedList) {
                 tipsy.drinkBottle(bottle.getVol(), bottle);
             }
+            for (Enemy enemy : enemiesLinkedList) {
+                if (tipsy.checkCollision(enemy)) {
+                    tipsy.touchEnemy();
+                }
+            }
             //System.out.println("X: " + tipsy.x() + " Y: " + tipsy.y());
             if (tipsy.isAttacking()) {
-                pukeLinkedList.add(tipsy.attack());
+                pukeLinkedList.add(tipsy.attack(Directions.RIGHT));
             }
             for (Puke puke : pukeLinkedList) {
                 if (!puke.isDestroyed()) {
@@ -63,7 +68,6 @@ public class Game {
                         if (puke.hit(enemy)) {
                             enemy.hitten();
                             enemiesLinkedList.remove(enemy);
-                            System.out.println("afsjhgsdfguysfdhfds");
                             break;
                         }
                     }
@@ -72,7 +76,7 @@ public class Game {
                 pukeLinkedList.remove(puke);
             }
             try {
-                Thread.sleep(4);
+                Thread.sleep(9);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

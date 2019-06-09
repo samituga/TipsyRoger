@@ -48,7 +48,7 @@ public abstract class Enemy extends Character {
     }
 
     @Override
-    public Puke attack() {
+    public Puke attack(Directions directions) {
         return null;
     }
 }

@@ -5,13 +5,12 @@ import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
-import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player extends Character implements KeyboardHandler {
 
     private Picture roger = new Picture(20, 20, "Roger_Smith.png");
     private int speed;
-    private int drunkenLvl;
+    private int drunkenLvl = 50;
 
     private boolean pressingRight;
     private boolean pressingLeft;
@@ -46,46 +45,55 @@ public class Player extends Character implements KeyboardHandler {
 
     @Override
     public void move() {
-        speed = 1;
+        if (!dead) {
+            speed = 1;
 
-        if (pressingRight && moveRight) {
-            roger.translate(speed, 0);
-        }
-        if (pressingLeft && moveLeft) {
-            roger.translate(-speed, 0);
-        }
-        if (pressingUp && moveUp) {
-            roger.translate(0, -speed);
-        }
-        if (pressingDown && moveDown) {
-            roger.translate(0, speed);
+            if (pressingRight && moveRight) {
+                roger.translate(speed, 0);
+            }
+            if (pressingLeft && moveLeft) {
+                roger.translate(-speed, 0);
+            }
+            if (pressingUp && moveUp) {
+                roger.translate(0, -speed);
+            }
+            if (pressingDown && moveDown) {
+                roger.translate(0, speed);
+            }
+
+            moveUp = true;
+            moveDown = true;
+            moveLeft = true;
+            moveRight = true;
         }
 
-        moveUp = true;
-        moveDown = true;
-        moveLeft = true;
-        moveRight = true;
-
-        try {
-            Thread.sleep(7);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public boolean isAttacking() {
-        iterator++;
-        if (pressingSpace && iterator > 50 && drunkenLvl > 10) {
-            iterator = 0;
-            drunkenLvl -= 10;
-            return true;
+        if (!dead) {
+            iterator++;
+            if (pressingSpace && iterator > 50 && drunkenLvl > 10) {
+                iterator = 0;
+                drunkenLvl -= 10;
+                return true;
+            }
         }
         return false;
     }
 
     @Override
-    public Puke attack() {
-        return new Puke(new Picture(xToWidth(), y() + (roger.getHeight() / 2), "bullet.png"));
+    public Puke attack(Directions direction) {
+        String imageSource = "bullet.png";
+        switch (direction) {
+            case LEFT:
+                return new Puke(new Picture(x(), yToHeight() / 2, imageSource));
+            case UP:
+                return new Puke(new Picture(xToWidth() / 2, y(), imageSource));
+            case DOWN:
+                return new Puke(new Picture(xToWidth() / 2, yToHeight(), imageSource));
+            default:
+                return new Puke(new Picture(xToWidth(), y() + (roger.getHeight() / 2), imageSource));
+        }
     }
 
     public void drinkBottle(int vol, Bottle bottle) {
@@ -96,7 +104,21 @@ public class Player extends Character implements KeyboardHandler {
         }
     }
 
+    public void touchEnemy() {
+        this.dead = true;
+    }
 
+    public Directions lastKeyPressed(Directions direction) {
+        switch (direction) {
+            case LEFT:
+                return Directions.LEFT;
+            case DOWN:
+                return Directions.DOWN;
+            case UP:
+                return Directions.UP;
+        }
+        return Directions.RIGHT;
+    }
 
     public void setKeyboard() {
         Keyboard keyboard = new Keyboard(this);
@@ -161,14 +183,18 @@ public class Player extends Character implements KeyboardHandler {
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_RIGHT:
                 pressingRight = true;
+                lastKeyPressed(Directions.RIGHT);
                 break;
             case KeyboardEvent.KEY_LEFT:
                 pressingLeft = true;
+                lastKeyPressed(Directions.LEFT);
                 break;
             case KeyboardEvent.KEY_UP:
+                lastKeyPressed(Directions.UP);
                 pressingUp = true;
                 break;
             case KeyboardEvent.KEY_DOWN:
+                lastKeyPressed(Directions.DOWN);
                 pressingDown = true;
                 break;
             case KeyboardEvent.KEY_SPACE:

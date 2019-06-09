@@ -38,10 +38,6 @@ public class Game {
         colidables.add(BottleTypes.bottlesFactory(120, 120));
         colidables.add(BottleTypes.bottlesFactory(150, 150));
         colidables.add(BottleTypes.bottlesFactory(300, 400));
-        colidables.add(EnemyTypes.enemyFactory(400,200));
-        colidables.add(EnemyTypes.enemyFactory(300,200));
-        colidables.add(EnemyTypes.enemyFactory(500,200));
-        colidables.add(NPC.npc(800,400));
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -72,13 +68,6 @@ public class Game {
                         Player player1 = (Player) colidable;
                         Bottles bottles1 = (Bottles) colidables.get(i);
                         player1.drinkBottle(bottles1.getVol(), bottles1);
-                        continue;
-                    }
-                    //review the next block before next commit
-                    if(colidables.get(i)instanceof Enemy){
-                        Player player1 = (Player) colidable;
-                        Enemy enemy1 = (Enemy) colidables.get(i);
-                        enemy1.move();
                         continue;
                     }
                     if (colidable.isColliding(colidables.get(i))) {

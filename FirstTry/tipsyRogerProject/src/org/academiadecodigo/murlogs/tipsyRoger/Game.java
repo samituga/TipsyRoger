@@ -7,6 +7,7 @@ import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy.Enem
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy.EnemyTypes;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable.Player;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.NPC;
+import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Weapon;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
@@ -21,6 +22,7 @@ public class Game {
     }
 
     LinkedList<Colidable> colidables = new LinkedList<>();
+    LinkedList<Weapon> weaponLinkedList = new LinkedList<>();
 
 
     public void createMap() {
@@ -38,6 +40,7 @@ public class Game {
         colidables.add(BottleTypes.bottlesFactory(120, 120));
         colidables.add(BottleTypes.bottlesFactory(150, 150));
         colidables.add(BottleTypes.bottlesFactory(300, 400));
+        colidables.add(new Barman(new Picture(333,20,"enemytester.png")));
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -63,6 +66,13 @@ public class Game {
                     }
                     if (!(colidables.get(i) instanceof Map)) {
                         player.move();
+                    }
+                    if(colidables.get(i) instanceof Barman) {
+                        Barman barman = (Barman) colidables.get(i);
+                        weaponLinkedList.add(barman.attack());
+                    }
+                    for (Weapon weapon : weaponLinkedList) {
+                        weapon.draw();
                     }
                     if (colidables.get(i) instanceof Bottles) {
                         Player player1 = (Player) colidable;

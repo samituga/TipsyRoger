@@ -2,6 +2,7 @@ package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable;
 
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Bottles;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Character;
+import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Weapon;
 import org.academiadecodigo.murlogs.tipsyRoger.Map;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
@@ -180,8 +181,8 @@ public class Player extends Character implements KeyboardHandler {
     }
 
     @Override
-    public void attack() {
-
+    public Weapon attack() {
+        return null;
     }
 
 }

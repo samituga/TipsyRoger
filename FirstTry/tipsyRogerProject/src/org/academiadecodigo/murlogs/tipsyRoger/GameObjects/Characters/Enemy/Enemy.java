@@ -2,14 +2,16 @@ package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy;
 
 import org.academiadecodigo.murlogs.tipsyRoger.Colidable;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Character;
+import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Weapon;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Enemy extends Character {
 
-    EnemyTypes enemyTypes;
+
     Picture enemyPicture;
     private int speed;
+
 
 
     public void deleteEnemy() {
@@ -35,8 +37,8 @@ public class Enemy extends Character {
     }
 
     @Override
-    public void attack() {
-
+    public Weapon attack() {
+        return null;
     }
 
     @Override

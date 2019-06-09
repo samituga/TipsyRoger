@@ -1,6 +1,7 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy;
 
 
+import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Weapon;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
@@ -19,8 +20,9 @@ public class Drunken extends Enemy {
     }
 
     @Override
-    public void attack() {
+    public Weapon attack() {
         super.attack();
+        return null;
     }
 
     @Override

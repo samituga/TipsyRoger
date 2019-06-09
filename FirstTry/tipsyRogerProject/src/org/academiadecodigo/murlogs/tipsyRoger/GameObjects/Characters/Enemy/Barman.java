@@ -1,6 +1,7 @@
 package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy;
 
 
+import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Weapon;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Barman extends Enemy {
@@ -19,8 +20,8 @@ public class Barman extends Enemy {
     }
 
     @Override
-    public void attack() {
-        super.attack();
+    public Weapon attack() {
+        return new Weapon(new Picture(x() + (barmanPicture.getWidth()/2), yToHeight(), "enemyweapon.png"));
     }
 
     @Override

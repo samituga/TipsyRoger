@@ -30,10 +30,10 @@ public class Player extends Character implements KeyboardHandler {
     }
 
     public void predictMovements(Walls walls) {
-        if (predictRightColision(walls)) {
+        if (predictRightCollision(walls)) {
             moveRight = false;
         }
-        if (predictLeftColision(walls)) {
+        if (predictLeftCollision(walls)) {
             moveLeft = false;
         }
         if (predictTopCollision(walls)) {
@@ -88,7 +88,7 @@ public class Player extends Character implements KeyboardHandler {
     }
 
     public void drinkBottle(int vol, Bottle bottle) {
-        if (this.checkColision(bottle) && !bottle.getDrinked()) {
+        if (this.checkCollision(bottle) && !bottle.getDrinked()) {
             this.drunkenLvl += vol;
             System.out.println(drunkenLvl);
             bottle.deleteBottle();

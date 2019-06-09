@@ -9,7 +9,7 @@ public abstract class Colidable {
     protected boolean topCollision;
     protected boolean botCollision;
 
-    public boolean predictRightColision(Colidable colidable) {
+    public boolean predictRightCollision(Colidable colidable) {
         if (x() < colidable.xToWidth() &&
                 xToWidth() + 1 > colidable.x() &&
                 y() < colidable.yToHeight() &&
@@ -21,7 +21,7 @@ public abstract class Colidable {
         return false;
     }
 
-    public boolean predictLeftColision(Colidable colidable) {
+    public boolean predictLeftCollision(Colidable colidable) {
         if (x() - 1 < colidable.xToWidth() &&
                 xToWidth() > colidable.x() &&
                 y() < colidable.yToHeight() &&
@@ -57,7 +57,7 @@ public abstract class Colidable {
         return false;
     }
 
-    public boolean checkColision(Colidable colidable) {
+    public boolean checkCollision(Colidable colidable) {
         if (x() < colidable.xToWidth() &&
                 xToWidth() > colidable.x() &&
                 y() < colidable.yToHeight() &&

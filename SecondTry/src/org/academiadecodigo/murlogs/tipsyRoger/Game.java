@@ -62,7 +62,12 @@ public class Game {
             for (Bottle bottle : bottleLinkedList) {
                 roger.drinkBottle(bottle.getVol(), bottle); // TODO: 2019-06-09 Eliminar da linked list
             }
-            // TODO: 2019-06-09 verify if player is colliding with npc 
+            // TODO: 2019-06-09 verify if player is colliding with npc
+            for(NPC npc : npcLinkedList){
+                if(roger.checkCollision(npc)){
+                    npc.speak();
+                }
+            }
             for (Enemy enemy : enemiesLinkedList) {
                 if (roger.checkCollision(enemy)) {
                     roger.touchEnemy();

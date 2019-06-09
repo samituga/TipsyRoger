@@ -15,10 +15,10 @@ public abstract class Colidable {
                 y() < colidable.yToHeight() &&
                 yToHeight() > colidable.y()) {
             rightCollision = true;
-            return rightCollision;
+            return true;
         }
         rightCollision = false;
-        return rightCollision;
+        return false;
     }
 
     public boolean predictLeftColision(Colidable colidable) {
@@ -27,10 +27,10 @@ public abstract class Colidable {
                 y() < colidable.yToHeight() &&
                 yToHeight() > colidable.y()) {
             leftCollision = true;
-            return leftCollision;
+            return true;
         }
         leftCollision = false;
-        return leftCollision;
+        return false;
     }
 
     public boolean predictTopCollision(Colidable colidable) {
@@ -39,10 +39,10 @@ public abstract class Colidable {
                 y() - 1 < colidable.yToHeight() &&
                 yToHeight() > colidable.y()) {
             topCollision = true;
-            return topCollision;
+            return true;
         }
         topCollision = false;
-        return topCollision;
+        return false;
     }
 
     public boolean predictBotCollision(Colidable colidable) {
@@ -51,10 +51,10 @@ public abstract class Colidable {
                 y() < colidable.yToHeight() &&
                 yToHeight() + 1 > colidable.y()) {
             botCollision = true;
-            return botCollision;
+            return true;
         }
         botCollision = false;
-        return botCollision;
+        return false;
     }
 
     public boolean checkColision(Colidable colidable) {
@@ -63,10 +63,10 @@ public abstract class Colidable {
                 y() < colidable.yToHeight() &&
                 yToHeight() > colidable.y()) {
             isColliding = true;
-            return isColliding;
+            return true;
         }
         isColliding = false;
-        return isColliding;
+        return false;
     }
 
     public abstract void draw();

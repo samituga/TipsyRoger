@@ -18,6 +18,7 @@ public class Game {
     LinkedList<Bottle> bottleLinkedList = new LinkedList<>();
     LinkedList<Puke> pukeLinkedList = new LinkedList<>();
     LinkedList<Enemy> enemiesLinkedList = new LinkedList<>();
+    LinkedList<NPC> npcLinkedList = new LinkedList<>();
 
 
     public void init() {
@@ -31,6 +32,7 @@ public class Game {
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
         enemiesLinkedList.add(new Drunken(new Picture(350, 305, "Roger_Smith.png")));
+        npcLinkedList.add(new NPC(new Picture(300, 150, "npctesting.png")));
     }
 
     public void start() {
@@ -45,6 +47,9 @@ public class Game {
 
         for (Bottle bottle : bottleLinkedList) {
             bottle.draw();
+        }
+        for (NPC npc : npcLinkedList) {
+            npc.draw();
         }
 
         roger.init();

@@ -11,6 +11,7 @@ public class Player extends Character implements KeyboardHandler {
     private Picture roger;
     private int speed;
     private int drunkenLvl = 50;
+    private boolean isDead;
 
     private boolean pressingRight;
     private boolean pressingLeft;
@@ -107,6 +108,10 @@ public class Player extends Character implements KeyboardHandler {
             this.drunkenLvl += vol;
             System.out.println(drunkenLvl);
             bottle.deleteBottle();
+        }
+        if(drunkenLvl > 100){
+            this.dead = true;
+            System.out.println("You drunk like a horse! game over");
         }
     }
 

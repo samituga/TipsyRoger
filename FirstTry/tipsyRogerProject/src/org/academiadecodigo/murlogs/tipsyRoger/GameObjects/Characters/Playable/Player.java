@@ -3,17 +3,20 @@ package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Bottles;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Character;
 import org.academiadecodigo.murlogs.tipsyRoger.Map;
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
+
 public class Player extends Character implements KeyboardHandler {
 
     private int drunkenLvl;
     private Picture player;
     private int speed;
+    private int iterator;
     private boolean pressingRight;
     private boolean pressingLeft;
     private boolean pressingUp;
@@ -191,7 +194,13 @@ public class Player extends Character implements KeyboardHandler {
 
     @Override
     public void attack() {
-
+        iterator++;
+        if(pressingSpace && iterator > 100 && drunkenLvl > 0){
+            iterator = 0;
+            Rectangle rectangle = new Rectangle(player.getX(), player.getY() + 30,20,10);
+            rectangle.draw();
+            System.out.println("kkkkkk");
+        }
     }
 
 }

@@ -42,7 +42,7 @@ public class Bottle extends Colidable {
 
     @Override
     public int yToHeight() {
-        return y() + bottle.getY();
+        return y() + bottle.getHeight();
     }
 
     public int getVol() {

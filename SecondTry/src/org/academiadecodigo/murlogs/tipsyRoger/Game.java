@@ -34,7 +34,9 @@ public class Game {
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
         enemiesLinkedList.add(new Barman(new Picture(350, 305, "Roger_Smith.png")));
         enemiesLinkedList.add(new Barman(new Picture(400,400, "Roger_Smith.png")));
-
+        enemiesLinkedList.add(new Barman(new Picture(450,400, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(500,400, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(550,400, "Roger_Smith.png")));
     }
 
     public void start() {

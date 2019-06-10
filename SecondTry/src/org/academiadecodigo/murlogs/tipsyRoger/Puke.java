@@ -36,9 +36,13 @@ public class Puke extends Colidable {
 
     public boolean isDestroyed() {
         iterator += 1;
-        if (iterator > 30 || destroyed) {
+        if (owner instanceof Player && iterator > 30 || destroyed) {
             puke.delete();
             destroyed = true;
+            return true;
+        }
+        if(owner instanceof Enemy && destroyed){
+            puke.delete();
             return true;
         }
         return false;

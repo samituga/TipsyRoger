@@ -119,6 +119,10 @@ public class Player extends Character implements KeyboardHandler {
         this.dead = true;
     }
 
+    public void hitten(){
+        this.dead = true;
+    }
+
     public Directions lastKeyPressed(Directions direction) {
         switch (direction) {
             case LEFT:

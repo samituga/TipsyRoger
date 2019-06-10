@@ -5,6 +5,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Weapon extends Colidable {
 
     private Picture weapon;
+    private boolean destroyed;
 
     Weapon(Picture weapon){
         this.weapon = weapon;
@@ -16,8 +17,24 @@ public class Weapon extends Colidable {
         weapon.draw();
     }
 
+    public boolean isDestroyed(){
+        if(destroyed){
+            weapon.delete();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hit(Player player){
+        if(this.checkCollision(player)){
+            destroyed = true;
+            return true;
+        }
+        return false;
+    }
+
     public void move(){
-        weapon.translate(0, 3);
+        weapon.translate(0, 2);
     }
 
     @Override

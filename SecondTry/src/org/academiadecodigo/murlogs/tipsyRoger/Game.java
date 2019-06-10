@@ -17,8 +17,9 @@ public class Game {
     LinkedList<Walls> wallsLinkedList = new LinkedList<>();
     LinkedList<Bottle> bottleLinkedList = new LinkedList<>();
     LinkedList<Puke> pukeLinkedList = new LinkedList<>();
-    LinkedList<Enemy> enemiesLinkedList = new LinkedList<>();
+    LinkedList<Barman> enemiesLinkedList = new LinkedList<>();
     LinkedList<NPC> npcLinkedList = new LinkedList<>();
+    LinkedList<Weapon> weaponLinkedList = new LinkedList<>();
 
 
     public void init() {
@@ -31,13 +32,13 @@ public class Game {
         wallsLinkedList.add(new Walls(new Rectangle(132, 632, 193, 50)));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
-        enemiesLinkedList.add(new Drunken(new Picture(350, 305, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(350, 305, "Roger_Smith.png")));
         npcLinkedList.add(new NPC(new Picture(300, 150, "npctesting.png")));
     }
 
     public void start() {
 
-        for (Enemy enemies : enemiesLinkedList) {
+        for (Barman enemies : enemiesLinkedList) {
             enemies.draw();
         }
 
@@ -63,10 +64,19 @@ public class Game {
                 roger.drinkBottle(bottle.getVol(), bottle); // TODO: 2019-06-09 Eliminar da linked list
             }
             // TODO: 2019-06-09 verify if player is colliding with npc 
-            for (Enemy enemy : enemiesLinkedList) {
+            for (Barman enemy : enemiesLinkedList) {
                 if (roger.checkCollision(enemy)) {
                     roger.touchEnemy();
                 }
+                if(enemy.isAttacking()) {
+                    weaponLinkedList.add(enemy.attack());
+                }
+                for(Weapon weapon: weaponLinkedList){
+
+                         weapon.draw();
+                         weapon.move();
+                }
+
             }
             //System.out.println("X: " + roger.x() + " Y: " + roger.y());
             if (roger.isAttacking()) {

@@ -5,6 +5,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Barman extends Enemy {
 
     private Picture barman;
+    private int iterator;
 
     Barman(Picture barman){
         super(barman);
@@ -14,6 +15,15 @@ public class Barman extends Enemy {
     @Override
     public void move() {
         super.move();
+    }
+
+    public boolean isAttacking(){
+        iterator++;
+        if(iterator > 70){
+            iterator = 0;
+            return true;
+        }
+        return false;
     }
 
     public Weapon attack(){

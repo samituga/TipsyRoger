@@ -94,13 +94,13 @@ public class Player extends Character implements KeyboardHandler {
         String imageSource = "bullet.png";
         switch (direction) {
             case LEFT:
-                return new Puke(new Picture(x(), y() + (picture.getHeight() / 2), imageSource));
+                return new Puke(new Picture(x(), y() + (picture.getHeight() / 2), imageSource), this, lastDirection);
             case UP:
-                return new Puke(new Picture(x() + (picture.getWidth() / 2) , y(), imageSource));
+                return new Puke(new Picture(x() + (picture.getWidth() / 2), y(), imageSource), this, lastDirection);
             case DOWN:
-                return new Puke(new Picture(x() + (picture.getWidth() / 2), yToHeight(), imageSource));
+                return new Puke(new Picture(x() + (picture.getWidth() / 2), yToHeight(), imageSource), this, lastDirection);
             default:
-                return new Puke(new Picture(xToWidth(), y() + (roger.getHeight() / 2), imageSource));
+                return new Puke(new Picture(xToWidth(), y() + (roger.getHeight() / 2), imageSource), this, lastDirection);
         }
     }
 
@@ -121,25 +121,10 @@ public class Player extends Character implements KeyboardHandler {
         this.dead = true;
     }
 
-    public void hitten(){
+    public void hitten() {
         this.dead = true;
     }
 
-    //public boolean isDead() {
-       // return dead;
-    //}
-
-    public Directions lastKeyPressed(Directions direction) {
-        switch (direction) {
-            case LEFT:
-                return Directions.LEFT;
-            case DOWN:
-                return Directions.DOWN;
-            case UP:
-                return Directions.UP;
-        }
-        return Directions.RIGHT;
-    }
 
     public void setKeyboard() {
         Keyboard keyboard = new Keyboard(this);

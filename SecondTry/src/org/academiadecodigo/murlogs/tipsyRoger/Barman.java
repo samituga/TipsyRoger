@@ -17,16 +17,9 @@ public class Barman extends Enemy {
         super.move();
     }
 
-    public boolean isAttacking(){
-        iterator++;
-        if(iterator > 70){
-            iterator = 0;
-            return true;
-        }
-        return false;
-    }
 
-    public Weapon attack(){
-        return new Weapon(new Picture(x() + (barman.getWidth()/2), yToHeight(), "beer.png"));
+    @Override
+    public Puke attack(Directions directions) {
+        return new Puke(new Picture(x(), y(), "vodka.png"), this, Directions.LEFT);
     }
 }

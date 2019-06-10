@@ -33,6 +33,7 @@ public class Game {
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
         enemiesLinkedList.add(new Barman(new Picture(350, 305, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(400,400, "Roger_Smith.png")));
 
     }
 
@@ -110,7 +111,7 @@ public class Game {
                         System.out.println("Roger Dead");
                         break;
                     }
-                    break;
+                   continue;
                 }
                 enemiesPukeLinkedList.remove(puke);
             }

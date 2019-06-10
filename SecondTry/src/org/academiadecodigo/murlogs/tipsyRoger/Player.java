@@ -11,7 +11,7 @@ public class Player extends Character implements KeyboardHandler {
     private Picture roger;
     private int speed;
     private int drunkenLvl = 50;
-    private boolean isDead;
+
 
     private boolean pressingRight;
     private boolean pressingLeft;
@@ -121,6 +121,25 @@ public class Player extends Character implements KeyboardHandler {
         this.dead = true;
     }
 
+    public void hitten(){
+        this.dead = true;
+    }
+
+    //public boolean isDead() {
+       // return dead;
+    //}
+
+    public Directions lastKeyPressed(Directions direction) {
+        switch (direction) {
+            case LEFT:
+                return Directions.LEFT;
+            case DOWN:
+                return Directions.DOWN;
+            case UP:
+                return Directions.UP;
+        }
+        return Directions.RIGHT;
+    }
 
     public void setKeyboard() {
         Keyboard keyboard = new Keyboard(this);

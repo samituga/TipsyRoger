@@ -16,6 +16,9 @@ public abstract class Character extends Colidable {
     public abstract void move();
     public abstract Puke attack(Directions direction);
 
+    public boolean isDead() {
+        return dead;
+    }
 
     @Override
     public void draw() {

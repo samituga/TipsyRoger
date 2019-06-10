@@ -2,8 +2,6 @@ package org.academiadecodigo.murlogs.tipsyRoger;
 
 public abstract class Colidable {
 
-    private boolean isColliding;
-
     protected boolean rightCollision;
     protected boolean leftCollision;
     protected boolean topCollision;
@@ -62,10 +60,8 @@ public abstract class Colidable {
                 xToWidth() > colidable.x() &&
                 y() < colidable.yToHeight() &&
                 yToHeight() > colidable.y()) {
-            isColliding = true;
             return true;
         }
-        isColliding = false;
         return false;
     }
 

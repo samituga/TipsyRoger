@@ -12,8 +12,21 @@ public class Puke extends Colidable {
         this.puke = puke;
     }
 
-    public void move() {
-        puke.translate(3, 0); // TODO: 2019-06-09 Accept Directions
+    public void move(Directions directions) {
+        switch (directions) {
+            case LEFT:
+                puke.translate(-3, 0);
+                break;
+            case UP:
+                puke.translate(0, -3);
+                break;
+            case DOWN:
+                puke.translate(0, 3);
+                break;
+            default:
+                puke.translate(3, 0); // TODO: 2019-06-09 Accept Directions
+
+        }
     }
 
     public boolean isDestroyed() {
@@ -32,7 +45,7 @@ public class Puke extends Colidable {
     }
 
     public boolean hit(Enemy enemy) {
-        if(this.checkCollision(enemy)){
+        if (this.checkCollision(enemy)) {
             destroyed = true;
             return true;
         }

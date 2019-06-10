@@ -3,22 +3,23 @@ package org.academiadecodigo.murlogs.tipsyRoger;
 import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class NPC extends Character {
+public class NPC extends Colidable {
 
-    private boolean takenQuiz = false;
+    private Picture npc;
+    private boolean takenQuiz;
     private boolean correctAnswer;
-    NPCtext npcText;
 
+    public NPC(Picture npc) {
 
-    public NPC(Picture picture) {
-        super(picture);
+        this.npc = npc;
     }
 
-    public Text speak() {
 
-        if(takenQuiz == false){
+    public NPCQuiz speak() {
+
+        if (!takenQuiz) {
             takenQuiz = true;
-            return npcText.quizTextGenerator();
+            return new NPCQuiz();
         }
         return null;
     }
@@ -34,16 +35,33 @@ public class NPC extends Character {
 
     }
 
-    @Override
-    public Puke attack(Directions direction) {
-        return null;
+    public void delete() {
+        npc.delete();
     }
 
     @Override
-    public void move() {
-
+    public void draw() {
+        npc.draw();
     }
 
+    @Override
+    public int x() {
+        return npc.getX();
+    }
 
+    @Override
+    public int y() {
+        return npc.getY();
+    }
+
+    @Override
+    public int xToWidth() {
+        return x() + npc.getWidth();
+    }
+
+    @Override
+    public int yToHeight() {
+        return y() + npc.getHeight();
+    }
 }
 

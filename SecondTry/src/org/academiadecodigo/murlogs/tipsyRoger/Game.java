@@ -9,17 +9,13 @@ import java.util.LinkedList;
 public class Game {
 
     private Player roger;
-    private Drunken drunken;
 
-    /*Game(Player roger) {
-        this.roger = roger;
-    }*/
-
-    LinkedList<Walls> wallsLinkedList = new LinkedList<>();
-    LinkedList<Bottle> bottleLinkedList = new LinkedList<>();
-    LinkedList<Puke> pukeLinkedList = new LinkedList<>();
-    LinkedList<Enemy> enemiesLinkedList = new LinkedList<>();
-    LinkedList<NPC> npcLinkedList = new LinkedList<>();
+    private LinkedList<Walls> wallsLinkedList = new LinkedList<>();
+    private LinkedList<Bottle> bottleLinkedList = new LinkedList<>();
+    private LinkedList<Puke> pukeLinkedList = new LinkedList<>();
+    private LinkedList<Enemy> enemiesLinkedList = new LinkedList<>();
+    private LinkedList<NPC> npcLinkedList = new LinkedList<>();
+    private LinkedList<NPCQuiz> npcQuizLinkedList = new LinkedList<>();
 
 
     public void init() {
@@ -32,8 +28,8 @@ public class Game {
         wallsLinkedList.add(new Walls(new Rectangle(132, 632, 193, 50)));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
-        enemiesLinkedList.add(new Drunken(new Picture(350, 305, "Roger_Smith.png")));
-        npcLinkedList.add(new NPC(new Picture(300, 150, "npctesting.png")));
+        //enemiesLinkedList.add(new Drunken(new Picture(350, 305, "Roger_Smith.png")));
+        //npcLinkedList.add(new NPC(new Picture(300, 150, "Roger_Smith.png")));
     }
 
     public void start() {
@@ -61,33 +57,38 @@ public class Game {
             }
             roger.move();
 
-
             for (Bottle bottle : bottleLinkedList) {
                 roger.drinkBottle(bottle.getVol(), bottle); // TODO: 2019-06-09 Eliminar da linked list
             }
 
-            for(NPC npc : npcLinkedList){
-                if(roger.checkCollision(npc)){
-                    npc.speak();
+            for (NPC npc : npcLinkedList) {
+                if (roger.checkCollision(npc)) {
+                    npc.delete();
+                    npcLinkedList.remove(npc);
+                    npcQuizLinkedList.add(npc.speak());
+                    for (NPCQuiz npcQuiz : npcQuizLinkedList){
+                        npcQuiz.quizTextGenerator();
+                        npcQuiz.draw();
+                    }
                 }
             }
             for (Enemy enemy : enemiesLinkedList) {
 
                 // TODO: 10/06/2019  check enemy move
-                enemy.move();
                 if (roger.checkCollision(enemy)) {
                     roger.touchEnemy();
                 }
+                enemy.move();
             }
 
             //System.out.println("X: " + roger.x() + " Y: " + roger.y());
             if (roger.isAttacking()) {
-                pukeLinkedList.add(roger.attack(Directions.RIGHT));
+                pukeLinkedList.add(roger.attack(roger.getLastDirection()));
             }
             for (Puke puke : pukeLinkedList) {
                 if (!puke.isDestroyed()) {
                     puke.draw();
-                    puke.move();
+                    puke.move(roger.getLastDirection());
                     for (Enemy enemy : enemiesLinkedList) {
                         if (puke.hit(enemy)) {
                             enemy.hitten();

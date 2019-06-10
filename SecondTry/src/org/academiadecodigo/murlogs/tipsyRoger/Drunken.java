@@ -33,11 +33,6 @@ public class Drunken extends Enemy {
                 default:
                     System.out.println("shit happened");
             }
-            try {
-                Thread.sleep(8);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
 
     }

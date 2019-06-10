@@ -23,6 +23,7 @@ public class Player extends Character implements KeyboardHandler {
     private boolean moveUp;
     private boolean moveDown;
     private int iterator;
+    private Directions lastDirection;
 
 
     public Player(Picture roger) {
@@ -93,11 +94,11 @@ public class Player extends Character implements KeyboardHandler {
         String imageSource = "bullet.png";
         switch (direction) {
             case LEFT:
-                return new Puke(new Picture(x(), yToHeight() / 2, imageSource));
+                return new Puke(new Picture(x(), y() + (picture.getHeight() / 2), imageSource));
             case UP:
-                return new Puke(new Picture(xToWidth() / 2, y(), imageSource));
+                return new Puke(new Picture(x() + (picture.getWidth() / 2) , y(), imageSource));
             case DOWN:
-                return new Puke(new Picture(xToWidth() / 2, yToHeight(), imageSource));
+                return new Puke(new Picture(x() + (picture.getWidth() / 2), yToHeight(), imageSource));
             default:
                 return new Puke(new Picture(xToWidth(), y() + (roger.getHeight() / 2), imageSource));
         }
@@ -109,27 +110,17 @@ public class Player extends Character implements KeyboardHandler {
             System.out.println(drunkenLvl);
             bottle.deleteBottle();
         }
-        if(drunkenLvl > 100){
+        if (drunkenLvl > 100) {
             this.dead = true;
             System.out.println("You drunk like a horse! game over");
         }
     }
 
     public void touchEnemy() {
+        System.out.println("DEAD");
         this.dead = true;
     }
 
-    public Directions lastKeyPressed(Directions direction) {
-        switch (direction) {
-            case LEFT:
-                return Directions.LEFT;
-            case DOWN:
-                return Directions.DOWN;
-            case UP:
-                return Directions.UP;
-        }
-        return Directions.RIGHT;
-    }
 
     public void setKeyboard() {
         Keyboard keyboard = new Keyboard(this);
@@ -194,18 +185,18 @@ public class Player extends Character implements KeyboardHandler {
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_RIGHT:
                 pressingRight = true;
-                lastKeyPressed(Directions.RIGHT);
+                lastDirection = Directions.RIGHT;
                 break;
             case KeyboardEvent.KEY_LEFT:
                 pressingLeft = true;
-                lastKeyPressed(Directions.LEFT);
+                lastDirection = Directions.LEFT;
                 break;
             case KeyboardEvent.KEY_UP:
-                lastKeyPressed(Directions.UP);
+                lastDirection = Directions.UP;
                 pressingUp = true;
                 break;
             case KeyboardEvent.KEY_DOWN:
-                lastKeyPressed(Directions.DOWN);
+                lastDirection = Directions.DOWN;
                 pressingDown = true;
                 break;
             case KeyboardEvent.KEY_SPACE:
@@ -234,5 +225,7 @@ public class Player extends Character implements KeyboardHandler {
         }
     }
 
-
+    public Directions getLastDirection() {
+        return lastDirection;
+    }
 }

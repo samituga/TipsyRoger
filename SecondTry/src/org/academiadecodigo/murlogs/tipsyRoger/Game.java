@@ -33,10 +33,11 @@ public class Game {
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
         enemiesLinkedList.add(new Barman(new Picture(350, 305, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(400,400, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(450,400, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(500,400, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(550,400, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(400, 400, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(450, 400, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(500, 400, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(550, 400, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Drunken(new Picture(600, 500, "enemytester.png")));
     }
 
     public void start() {
@@ -62,6 +63,7 @@ public class Game {
             for (Walls walls : wallsLinkedList) {
                 roger.predictMovements(walls);
             }
+
             roger.move();
 
 
@@ -103,19 +105,23 @@ public class Game {
                     playerPukeLinkedList.remove(puke);
                 }
             }
-            for (Puke puke : enemiesPukeLinkedList) {
-                if (!puke.isDestroyed()) {
-                    puke.draw();
-                    puke.move();
-                    if (puke.hit(roger)) {
+            for (int i = enemiesPukeLinkedList.size() - 1; i >= 0 ; i--) {
+                if (!enemiesPukeLinkedList.get(i).isDestroyed()) {
+                    enemiesPukeLinkedList.get(i).move();
+                    enemiesPukeLinkedList.get(i).draw();
+                    if (enemiesPukeLinkedList.get(i).hit(roger)) {
                         roger.hitten();
-                        enemiesPukeLinkedList.remove(puke);
+                        enemiesPukeLinkedList.remove(i);
                         System.out.println("Roger Dead");
                         break;
                     }
-                   continue;
+                    if (enemiesPukeLinkedList.get(i).getIterator() > 100) {
+                        enemiesPukeLinkedList.get(i).isDestroyed();
+                        enemiesPukeLinkedList.remove(i);
+                    }
+                    continue;
                 }
-                enemiesPukeLinkedList.remove(puke);
+                //enemiesPukeLinkedList.remove(i);
             }
             try {
                 Thread.sleep(9);

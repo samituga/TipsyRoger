@@ -41,8 +41,9 @@ public class Puke extends Colidable {
             destroyed = true;
             return true;
         }
-        if(owner instanceof Enemy && destroyed){
+        if(owner instanceof Enemy && destroyed || iterator > 100){
             puke.delete();
+            destroyed = true;
             return true;
         }
         return false;
@@ -63,6 +64,10 @@ public class Puke extends Colidable {
             return true;
         }
         return false;
+    }
+
+    public int getIterator() {
+        return iterator;
     }
 
     @Override

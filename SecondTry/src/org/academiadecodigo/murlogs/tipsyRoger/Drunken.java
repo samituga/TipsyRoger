@@ -5,6 +5,9 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Drunken extends Enemy {
 
     Picture drunken;
+    private int iterator;
+    Directions directions;
+
 
     Drunken(Picture drunken) {
         super(drunken);
@@ -12,34 +15,47 @@ public class Drunken extends Enemy {
     }
 
 
+    public int getIterator() {
+        return iterator;
+    }
+
     @Override
     public void move() {
         int speed = 3;
         if (!dead) {
-            int randomMove = (int) (Math.random() * 4);
-            switch (randomMove) {
-                case 0:
-                    drunken.translate(speed, 0);
-                    break;
-                case 1:
-                    drunken.translate(-speed, 0);
-                    break;
-                case 2:
-                    drunken.translate(0, -speed);
-                    break;
-                case 3:
-                    drunken.translate(0, speed);
-                    break;
-                default:
-                    System.out.println("shit happened");
+            int randomMove = (int) (Math.random() * Directions.values().length);
+            Directions directions = Directions.values()[randomMove];
+
+            iterator++;
+
+                switch (directions) {
+                    case RIGHT:
+                        drunken.translate(speed, 0);
+                        break;
+                    case LEFT:
+                        drunken.translate(-speed, 0);
+                        break;
+                    case UP:
+                        drunken.translate(0, -speed);
+                        break;
+                    case DOWN:
+                        drunken.translate(0, speed);
+                        break;
+                    default:
+                        System.out.println("shit happened");
+                }
+                iterator = 0;
             }
+
+        }
+
+
+
+
+        @Override
+        public Puke attack (Directions directions){
+            return new Puke(new Picture(x(), y(), "bullet.png"), this, Directions.LEFT);
         }
 
     }
 
-
-    @Override
-    public Puke attack(Directions directions) {
-        return null;
-    }
-}

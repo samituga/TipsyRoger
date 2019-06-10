@@ -57,5 +57,7 @@ public class Weapon extends Colidable {
         return y() + weapon.getHeight();
     }
 
-
+    public void setDestroyed() {
+        this.destroyed = true;
+    }
 }

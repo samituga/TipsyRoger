@@ -56,6 +56,7 @@ public class Game {
         roger.init();
 
         while (true) {
+
             for (Walls walls : wallsLinkedList) {
                 roger.predictMovements(walls);
             }
@@ -68,10 +69,10 @@ public class Game {
                 if (roger.checkCollision(enemy)) {
                     roger.touchEnemy();
                 }
-                if(enemy.isAttacking()) {
+                if (enemy.isAttacking()) {
                     weaponLinkedList.add(enemy.attack());
                 }
-                if(!roger.isDead()) {
+                if (!roger.isDead()) {
                     for (Weapon weapon : weaponLinkedList) {
                         if (!weapon.isDestroyed()) {
                             weapon.draw();
@@ -80,9 +81,11 @@ public class Game {
                                 roger.hitten();
                                 weapon.isDestroyed();
                                 weaponLinkedList.remove(weapon);
-                                break;
                             }
                         }
+                        // weapon.setDestroyed();
+                        //weapon.isDestroyed();
+                        //weaponLinkedList.remove(weapon);
                     }
                 }
             }
@@ -96,6 +99,7 @@ public class Game {
                     puke.move();
                     for (Enemy enemy : enemiesLinkedList) {
                         if (puke.hit(enemy)) {
+
                             enemy.hitten();
                             enemiesLinkedList.remove(enemy);
                             break;

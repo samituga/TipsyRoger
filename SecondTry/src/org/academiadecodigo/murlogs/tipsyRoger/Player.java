@@ -1,77 +1,130 @@
-package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable;
+package org.academiadecodigo.murlogs.tipsyRoger;
 
-import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Bottles;
-import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Character;
-import org.academiadecodigo.murlogs.tipsyRoger.Map;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
-import org.academiadecodigo.simplegraphics.pictures.Picture;
-
 
 public class Player extends Character implements KeyboardHandler {
 
-    private int drunkenLvl;
-    private Picture player;
+    private Picture roger;
     private int speed;
-    private int iterator;
+    private int drunkenLvl = 50;
+
+
     private boolean pressingRight;
     private boolean pressingLeft;
     private boolean pressingUp;
     private boolean pressingDown;
     private boolean pressingSpace;
+    private boolean moveRight;
+    private boolean moveLeft;
+    private boolean moveUp;
+    private boolean moveDown;
+    private int iterator;
+    private Directions lastDirection;
 
 
-    public Player(int drunkenLvl) {
-        this.drunkenLvl = drunkenLvl;
+    public Player(Picture roger) {
+        super(roger);
+        this.roger = super.picture;
     }
 
     public void init() {
-        player = new Picture(20, 20, "Roger_Smith.png");
+        draw();
         setKeyboard();
     }
 
+    public void predictMovements(Walls walls) {
+        if (predictRightCollision(walls)) {
+            moveRight = false;
+        }
+        if (predictLeftCollision(walls)) {
+            moveLeft = false;
+        }
+        if (predictTopCollision(walls)) {
+            moveUp = false;
+        }
+        if (predictBotCollision(walls)) {
+            moveDown = false;
+        }
+    }
+
     @Override
-    public void draw() {
-        player.draw();
-    }
-
-    public boolean canMove(Map map) {
-        if (pressingLeft && x() + speed < map.xToWidth() &&
-                xToWidth() + speed > map.xToWidth() &&
-                y() < map.y() &&
-                yToHeight() > map.y()) {
-            return false;
-        }
-        return true;
-    }
-
     public void move() {
-        speed = 1;
+        if (!dead) {
+            speed = 1;
 
-        if (pressingRight) {
-            player.translate(speed, 0);
+            if (pressingRight && moveRight) {
+                roger.translate(speed, 0);
+            }
+            if (pressingLeft && moveLeft) {
+                roger.translate(-speed, 0);
+            }
+            if (pressingUp && moveUp) {
+                roger.translate(0, -speed);
+            }
+            if (pressingDown && moveDown) {
+                roger.translate(0, speed);
+            }
+
+            moveUp = true;
+            moveDown = true;
+            moveLeft = true;
+            moveRight = true;
         }
-        if (pressingLeft) {
-            player.translate(-speed, 0);
+
+    }
+
+    public boolean isAttacking() {
+        if (!dead) {
+            iterator++;
+            if (pressingSpace && iterator > 50 && drunkenLvl > 10) {
+                iterator = 0;
+                drunkenLvl -= 10;
+                return true;
+            }
         }
-        if (pressingUp) {
-            player.translate(0, -speed);
-        }
-        if (pressingDown) {
-            player.translate(0, speed);
+        return false;
+    }
+
+    @Override
+    public Puke attack(Directions direction) {
+        String imageSource = "bullet.png";
+        switch (direction) {
+            case LEFT:
+                return new Puke(new Picture(x(), y() + (picture.getHeight() / 2), imageSource), this, lastDirection);
+            case UP:
+                return new Puke(new Picture(x() + (picture.getWidth() / 2), y(), imageSource), this, lastDirection);
+            case DOWN:
+                return new Puke(new Picture(x() + (picture.getWidth() / 2), yToHeight(), imageSource), this, lastDirection);
+            default:
+                return new Puke(new Picture(xToWidth(), y() + (roger.getHeight() / 2), imageSource), this, lastDirection);
         }
     }
 
-    public void drinkBottle(int vol, Bottles bottle) {
-        if (this.isColliding(bottle) && !bottle.getBottleDrinked()) {
+    public void drinkBottle(int vol, Bottle bottle) {
+        if (this.checkCollision(bottle) && !bottle.getDrinked()) {
             this.drunkenLvl += vol;
             System.out.println(drunkenLvl);
             bottle.deleteBottle();
         }
+        if (drunkenLvl > 100) {
+            this.dead = true;
+            System.out.println("You drunk like a horse! game over");
+        }
     }
+
+    public void touchEnemy() {
+        System.out.println("DEAD");
+        this.dead = true;
+    }
+
+    public void hitten() {
+        this.dead = true;
+    }
+
 
     public void setKeyboard() {
         Keyboard keyboard = new Keyboard(this);
@@ -92,9 +145,9 @@ public class Player extends Character implements KeyboardHandler {
         down.setKey(KeyboardEvent.KEY_DOWN);
         down.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
-        KeyboardEvent attack = new KeyboardEvent();
-        attack.setKey(KeyboardEvent.KEY_SPACE);
-        attack.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        KeyboardEvent space = new KeyboardEvent();
+        space.setKey(KeyboardEvent.KEY_SPACE);
+        space.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
         KeyboardEvent rightReleased = new KeyboardEvent();
         rightReleased.setKey(KeyboardEvent.KEY_RIGHT);
@@ -112,42 +165,22 @@ public class Player extends Character implements KeyboardHandler {
         downReleased.setKey(KeyboardEvent.KEY_DOWN);
         downReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
 
-        KeyboardEvent attackReleased = new KeyboardEvent();
-        attackReleased.setKey(KeyboardEvent.KEY_SPACE);
-        attackReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+        KeyboardEvent spaceReleased = new KeyboardEvent();
+        spaceReleased.setKey(KeyboardEvent.KEY_SPACE);
+        spaceReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
 
         keyboard.addEventListener(right);
         keyboard.addEventListener(left);
         keyboard.addEventListener(up);
         keyboard.addEventListener(down);
-        keyboard.addEventListener(attack);
+        keyboard.addEventListener(space);
         keyboard.addEventListener(rightReleased);
         keyboard.addEventListener(leftReleased);
         keyboard.addEventListener(upReleased);
         keyboard.addEventListener(downReleased);
-        keyboard.addEventListener(attackReleased);
+        keyboard.addEventListener(spaceReleased);
 
 
-    }
-
-    @Override
-    public int y() {
-        return player.getY();
-    }
-
-    @Override
-    public int x() {
-        return player.getX();
-    }
-
-    @Override
-    public int yToHeight() {
-        return player.getY() + player.getHeight();
-    }
-
-    @Override
-    public int xToWidth() {
-        return player.getX() + player.getWidth();
     }
 
     @Override
@@ -156,14 +189,18 @@ public class Player extends Character implements KeyboardHandler {
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_RIGHT:
                 pressingRight = true;
+                lastDirection = Directions.RIGHT;
                 break;
             case KeyboardEvent.KEY_LEFT:
                 pressingLeft = true;
+                lastDirection = Directions.LEFT;
                 break;
             case KeyboardEvent.KEY_UP:
+                lastDirection = Directions.UP;
                 pressingUp = true;
                 break;
             case KeyboardEvent.KEY_DOWN:
+                lastDirection = Directions.DOWN;
                 pressingDown = true;
                 break;
             case KeyboardEvent.KEY_SPACE:
@@ -192,15 +229,7 @@ public class Player extends Character implements KeyboardHandler {
         }
     }
 
-    @Override
-    public void attack() {
-        iterator++;
-        if(pressingSpace && iterator > 100 && drunkenLvl > 0){
-            iterator = 0;
-            Rectangle rectangle = new Rectangle(player.getX(), player.getY() + 30,20,10);
-            rectangle.draw();
-            System.out.println("kkkkkk");
-        }
+    public Directions getLastDirection() {
+        return lastDirection;
     }
-
 }

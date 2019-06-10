@@ -2,7 +2,11 @@ package org.academiadecodigo.murlogs.tipsyRoger;
 
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.BottleTypes;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Bottles;
+import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy.Barman;
+import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy.Enemy;
+import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy.EnemyTypes;
 import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Playable.Player;
+import org.academiadecodigo.murlogs.tipsyRoger.GameObjects.NPC;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
@@ -31,7 +35,9 @@ public class Game {
 
         player.init();
         colidables.add(player);
-        colidables.add(BottleTypes.bottlesFactory());
+        colidables.add(BottleTypes.bottlesFactory(120, 120));
+        colidables.add(BottleTypes.bottlesFactory(150, 150));
+        colidables.add(BottleTypes.bottlesFactory(300, 400));
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -41,6 +47,11 @@ public class Game {
             colidable.draw();
         }
         while (true) {
+            try {
+                Thread.sleep(7);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             for (Colidable colidable : colidables) {
                 if (!(colidable instanceof Player)) {
                     continue;
@@ -50,13 +61,14 @@ public class Game {
                         continue;
                     }
                     if (colidables.get(i) instanceof Map) {
-                        Map newMap = (Map) colidables.get(i);
-                        if (!player.canMove(newMap)) {
+                        Map mapi = (Map) colidables.get(i);
+                        if (!player.canMove(mapi)) {
                             continue;
                         }
                     }
                     if (!(colidables.get(i) instanceof Map)) {
                         player.move();
+                        player.attack();
                     }
                     if (colidables.get(i) instanceof Bottles) {
                         Player player1 = (Player) colidable;

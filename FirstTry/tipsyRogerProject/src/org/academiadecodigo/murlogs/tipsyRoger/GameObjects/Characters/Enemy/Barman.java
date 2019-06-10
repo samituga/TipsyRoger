@@ -2,15 +2,17 @@ package org.academiadecodigo.murlogs.tipsyRoger.GameObjects.Characters.Enemy;
 
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
+
 
 public class Barman extends Enemy {
 
-    Rectangle barmanRectangle;
+
+    Picture barmanPicture;
 
 
-    public Barman(Rectangle rectangle) {
-        this.barmanRectangle = rectangle;
-
+    public Barman(Picture picture) {
+        this.barmanPicture = picture;
     }
 
     @Override
@@ -35,27 +37,27 @@ public class Barman extends Enemy {
 
     @Override
     public void draw() {
-        barmanRectangle.draw();
+        barmanPicture.draw();
     }
 
     @Override
     public int y() {
-        return (int) barmanRectangle.getY();
+        return (int) barmanPicture.getY();
     }
 
     @Override
     public int x() {
-        return (int) barmanRectangle.getX();
+        return (int) barmanPicture.getX();
     }
 
     @Override
     public int yToHeight() {
-        return (int) (barmanRectangle.getX() + barmanRectangle.getHeight());
+        return (int) (barmanPicture.getX() + barmanPicture.getWidth());
     }
 
     @Override
     public int xToWidth() {
-        return (int) (barmanRectangle.getY() + barmanRectangle.getWidth());
+        return (int) (barmanPicture.getY() + barmanPicture.getHeight());
     }
 }
 

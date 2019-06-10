@@ -32,12 +32,14 @@ public class Game {
         wallsLinkedList.add(new Walls(new Rectangle(132, 632, 193, 50)));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
+        bottleLinkedList.add(BottleFactory.spawnBottle(300, 300));
         enemiesLinkedList.add(new Barman(new Picture(350, 305, "Roger_Smith.png")));
         enemiesLinkedList.add(new Barman(new Picture(400, 400, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(450, 400, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(500, 400, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(550, 400, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(450, 500, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(200, 100, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(300, 200, "Roger_Smith.png")));
         enemiesLinkedList.add(new Drunken(new Picture(600, 500, "enemytester.png")));
+        enemiesLinkedList.add(new Drunken(new Picture(600, 200, "enemytester.png")));
     }
 
     public void start() {
@@ -115,7 +117,7 @@ public class Game {
                         System.out.println("Roger Dead");
                         break;
                     }
-                    if (enemiesPukeLinkedList.get(i).getIterator() > 100) {
+                    if (enemiesPukeLinkedList.get(i).getIterator() > 200) {
                         enemiesPukeLinkedList.get(i).isDestroyed();
                         enemiesPukeLinkedList.remove(i);
                     }

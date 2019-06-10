@@ -87,25 +87,25 @@ public class Game {
                 playerPukeLinkedList.add(roger.attack(roger.getLastDirection()));
             }
             for (Puke puke : playerPukeLinkedList) {
-                if (puke.getOwner() == roger) {
-                    if (!puke.isDestroyed()) {
-                        puke.draw();
-                        puke.move();
-                        for (Enemy enemy : enemiesLinkedList) {
-                            if (puke.hit(enemy)) {
-                                enemy.hitten();
-                                puke.isDestroyed();
-                                enemiesLinkedList.remove(enemy);
-                                playerPukeLinkedList.remove(puke); // TODO: 2019-06-10 Check if necessary
-                                break;
-                            }
+
+                if (!puke.isDestroyed()) {
+                    puke.draw();
+                    puke.move();
+                    for (Enemy enemy : enemiesLinkedList) {
+                        if (puke.hit(enemy)) {
+                            enemy.hitten();
+                            puke.isDestroyed();
+                            enemiesLinkedList.remove(enemy);
+                            playerPukeLinkedList.remove(puke); // TODO: 2019-06-10 Check if necessary
+                            break;
                         }
-                        continue;
                     }
-                    playerPukeLinkedList.remove(puke);
+                    continue;
                 }
+                playerPukeLinkedList.remove(puke);
             }
-            for (int i = enemiesPukeLinkedList.size() - 1; i >= 0 ; i--) {
+
+            for (int i = enemiesPukeLinkedList.size() - 1; i >= 0; i--) {
                 if (!enemiesPukeLinkedList.get(i).isDestroyed()) {
                     enemiesPukeLinkedList.get(i).move();
                     enemiesPukeLinkedList.get(i).draw();

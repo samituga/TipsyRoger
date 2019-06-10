@@ -5,26 +5,31 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Puke extends Colidable {
 
     private Picture puke;
+    private Character owner;
     private int iterator;
     private boolean destroyed;
+    private Directions directions;
 
-    Puke(Picture puke) {
+    Puke(Picture puke, Character owner, Directions directions) {
         this.puke = puke;
+        this.owner = owner;
+        this.directions = directions;
     }
 
-    public void move(Directions directions) {
+    public void move() {
+
         switch (directions) {
             case LEFT:
-                puke.translate(-3, 0);
+                puke.translate(-4, 0);
                 break;
             case UP:
-                puke.translate(0, -3);
+                puke.translate(0, -4);
                 break;
             case DOWN:
-                puke.translate(0, 3);
+                puke.translate(0, 4);
                 break;
             default:
-                puke.translate(3, 0); // TODO: 2019-06-09 Accept Directions
+                puke.translate(4, 0);
 
         }
     }
@@ -39,13 +44,17 @@ public class Puke extends Colidable {
         return false;
     }
 
+    public Character getOwner() {
+        return owner;
+    }
+
     @Override
     public void draw() {
         puke.draw();
     }
 
-    public boolean hit(Enemy enemy) {
-        if (this.checkCollision(enemy)) {
+    public boolean hit(Character character) {
+        if (this.checkCollision(character)) {
             destroyed = true;
             return true;
         }

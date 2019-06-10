@@ -11,35 +11,34 @@ public class Game {
     private Player roger;
 
 
+    private LinkedList<Walls> wallsLinkedList = new LinkedList<>();
+    private LinkedList<Bottle> bottleLinkedList = new LinkedList<>();
+    private LinkedList<Puke> playerPukeLinkedList = new LinkedList<>();
+    private LinkedList<Puke> enemiesPukeLinkedList = new LinkedList<>();
+    private LinkedList<Enemy> enemiesLinkedList = new LinkedList<>();
+    private LinkedList<NPC> npcLinkedList = new LinkedList<>();
+    private LinkedList<NPCQuiz> npcQuizLinkedList = new LinkedList<>();
     /*Game(Player roger) {
         this.roger = roger;
     }*/
-
-    LinkedList<Walls> wallsLinkedList = new LinkedList<>();
-    LinkedList<Bottle> bottleLinkedList = new LinkedList<>();
-    LinkedList<Puke> pukeLinkedList = new LinkedList<>();
-    LinkedList<Barman> enemiesLinkedList = new LinkedList<>();
-    LinkedList<NPC> npcLinkedList = new LinkedList<>();
-    LinkedList<Weapon> weaponLinkedList = new LinkedList<>();
-
 
     public void init() {
 
         Field map = new Field(new Picture(0, 0, "LootHunter_Tileset.png"));
         map.draw();
         roger = new Player(new Picture(30, 30, "Roger_Smith.png"));
-        //wallsLinkedList.add(new Walls(new Rectangle(300, 300, 100, 100)));
-        //wallsLinkedList.add(new Walls(new Rectangle(32, 332, 193, 50)));
-        //wallsLinkedList.add(new Walls(new Rectangle(132, 632, 193, 50)));
+        wallsLinkedList.add(new Walls(new Rectangle(300, 300, 100, 100)));
+        wallsLinkedList.add(new Walls(new Rectangle(32, 332, 193, 50)));
+        wallsLinkedList.add(new Walls(new Rectangle(132, 632, 193, 50)));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
         enemiesLinkedList.add(new Barman(new Picture(350, 305, "Roger_Smith.png")));
-        npcLinkedList.add(new NPC(new Picture(300, 150, "npctesting.png")));
+
     }
 
     public void start() {
 
-        for (Barman enemies : enemiesLinkedList) {
+        for (Enemy enemies : enemiesLinkedList) {
             enemies.draw();
         }
 
@@ -57,7 +56,6 @@ public class Game {
         roger.init();
 
         while (true) {
-
             for (Walls walls : wallsLinkedList) {
                 roger.predictMovements(walls);
             }
@@ -67,51 +65,54 @@ public class Game {
             for (Bottle bottle : bottleLinkedList) {
                 roger.drinkBottle(bottle.getVol(), bottle); // TODO: 2019-06-09 Eliminar da linked list
             }
-            // TODO: 2019-06-09 verify if player is colliding with npc
-            for (Barman enemy : enemiesLinkedList) {
+            for (Enemy enemy : enemiesLinkedList) {
+
+                // TODO: 10/06/2019  check enemy move
                 if (roger.checkCollision(enemy)) {
                     roger.touchEnemy();
                 }
-                if (enemy.isAttacking()) {
-                    weaponLinkedList.add(enemy.attack());
-                }
-                if (!roger.isDead()) {
-                    for (Weapon weapon : weaponLinkedList) {
-                        if (!weapon.isDestroyed()) {
-                            weapon.draw();
-                            weapon.move();
-                            if (weapon.hit(roger)) {
-                                roger.hitten();
-                                weapon.isDestroyed();
-                                weaponLinkedList.remove(weapon);
-                            }
-                        }
-                        // weapon.setDestroyed();
-                        //weapon.isDestroyed();
-                        //weaponLinkedList.remove(weapon);
-                    }
+                enemy.move();
+                if (enemy.canAttack()) {
+                    enemiesPukeLinkedList.add(enemy.attack(Directions.LEFT));
                 }
             }
 
             //System.out.println("X: " + roger.x() + " Y: " + roger.y());
             if (roger.isAttacking()) {
-                pukeLinkedList.add(roger.attack(Directions.RIGHT));
+                playerPukeLinkedList.add(roger.attack(roger.getLastDirection()));
             }
-            for (Puke puke : pukeLinkedList) {
+            for (Puke puke : playerPukeLinkedList) {
+                if (puke.getOwner() == roger) {
+                    if (!puke.isDestroyed()) {
+                        puke.draw();
+                        puke.move();
+                        for (Enemy enemy : enemiesLinkedList) {
+                            if (puke.hit(enemy)) {
+                                enemy.hitten();
+                                puke.isDestroyed();
+                                enemiesLinkedList.remove(enemy);
+                                playerPukeLinkedList.remove(puke); // TODO: 2019-06-10 Check if necessary
+                                break;
+                            }
+                        }
+                        continue;
+                    }
+                    playerPukeLinkedList.remove(puke);
+                }
+            }
+            for (Puke puke : enemiesPukeLinkedList) {
                 if (!puke.isDestroyed()) {
                     puke.draw();
                     puke.move();
-                    for (Enemy enemy : enemiesLinkedList) {
-                        if (puke.hit(enemy)) {
-
-                            enemy.hitten();
-                            enemiesLinkedList.remove(enemy);
-                            break;
-                        }
+                    if (puke.hit(roger)) {
+                        roger.hitten();
+                        enemiesPukeLinkedList.remove(puke);
+                        System.out.println("Roger Dead");
+                        break;
                     }
-                    continue;
+                    break;
                 }
-                pukeLinkedList.remove(puke);
+                enemiesPukeLinkedList.remove(puke);
             }
             try {
                 Thread.sleep(9);
@@ -121,3 +122,4 @@ public class Game {
         }
     }
 }
+

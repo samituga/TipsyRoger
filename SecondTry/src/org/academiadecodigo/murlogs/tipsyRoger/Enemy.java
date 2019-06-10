@@ -1,12 +1,11 @@
 package org.academiadecodigo.murlogs.tipsyRoger;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public abstract class Enemy extends Character {
 
     private Picture enemy;
+    private int iterator;
 
     Enemy(Picture enemy) {
         super(enemy);
@@ -22,9 +21,15 @@ public abstract class Enemy extends Character {
     public void move() {
 
     }
-
-    public Puke attack(Directions directions) {
-        return null;
+    public boolean canAttack() {
+        iterator++;
+        if (iterator > 60){
+            iterator = 0;
+            return true;
+        }
+        return false;
     }
+
+    public abstract Puke attack(Directions directions);
 }
 

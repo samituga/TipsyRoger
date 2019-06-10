@@ -40,6 +40,6 @@ public class Drunken extends Enemy {
 
     @Override
     public Puke attack(Directions directions) {
-        return super.attack(directions);
+        return null;
     }
 }

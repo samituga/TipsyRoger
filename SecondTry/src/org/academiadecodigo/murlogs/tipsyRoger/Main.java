@@ -6,5 +6,7 @@ public class Main {
 
         game.init();
         game.start();
+
+        // TODO: 2019-06-10 when enemy dies games accelerates
     }
 }

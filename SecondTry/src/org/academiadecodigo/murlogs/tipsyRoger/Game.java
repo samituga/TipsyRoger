@@ -9,6 +9,7 @@ import java.util.LinkedList;
 public class Game {
 
     private Player roger;
+    private Drunken drunken;
 
     /*Game(Player roger) {
         this.roger = roger;
@@ -59,20 +60,26 @@ public class Game {
                 roger.predictMovements(walls);
             }
             roger.move();
+
+
             for (Bottle bottle : bottleLinkedList) {
                 roger.drinkBottle(bottle.getVol(), bottle); // TODO: 2019-06-09 Eliminar da linked list
             }
-            // TODO: 2019-06-09 verify if player is colliding with npc
+
             for(NPC npc : npcLinkedList){
                 if(roger.checkCollision(npc)){
                     npc.speak();
                 }
             }
             for (Enemy enemy : enemiesLinkedList) {
+
+                // TODO: 10/06/2019  check enemy move
+                enemy.move();
                 if (roger.checkCollision(enemy)) {
                     roger.touchEnemy();
                 }
             }
+
             //System.out.println("X: " + roger.x() + " Y: " + roger.y());
             if (roger.isAttacking()) {
                 pukeLinkedList.add(roger.attack(Directions.RIGHT));

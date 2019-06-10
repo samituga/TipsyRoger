@@ -27,9 +27,9 @@ public class Game {
         Field map = new Field(new Picture(0, 0, "LootHunter_Tileset.png"));
         map.draw();
         roger = new Player(new Picture(30, 30, "Roger_Smith.png"));
-        wallsLinkedList.add(new Walls(new Rectangle(300, 300, 100, 100)));
-        wallsLinkedList.add(new Walls(new Rectangle(32, 332, 193, 50)));
-        wallsLinkedList.add(new Walls(new Rectangle(132, 632, 193, 50)));
+        //wallsLinkedList.add(new Walls(new Rectangle(300, 300, 100, 100)));
+        //wallsLinkedList.add(new Walls(new Rectangle(32, 332, 193, 50)));
+        //wallsLinkedList.add(new Walls(new Rectangle(132, 632, 193, 50)));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
         enemiesLinkedList.add(new Barman(new Picture(350, 305, "Roger_Smith.png")));
@@ -71,12 +71,20 @@ public class Game {
                 if(enemy.isAttacking()) {
                     weaponLinkedList.add(enemy.attack());
                 }
-                for(Weapon weapon: weaponLinkedList){
-
-                         weapon.draw();
-                         weapon.move();
+                if(!roger.isDead()) {
+                    for (Weapon weapon : weaponLinkedList) {
+                        if (!weapon.isDestroyed()) {
+                            weapon.draw();
+                            weapon.move();
+                            if (weapon.hit(roger)) {
+                                roger.hitten();
+                                weapon.isDestroyed();
+                                weaponLinkedList.remove(weapon);
+                                break;
+                            }
+                        }
+                    }
                 }
-
             }
             //System.out.println("X: " + roger.x() + " Y: " + roger.y());
             if (roger.isAttacking()) {

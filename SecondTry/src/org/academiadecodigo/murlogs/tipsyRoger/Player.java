@@ -6,26 +6,27 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
-public class Player extends Character implements KeyboardHandler {
+import javax.swing.border.StrokeBorder;
+import java.security.Key;
+
+public abstract class Player extends Character {
 
     private Picture roger;
     private int speed;
     private int drunkenLvl = 50;
 
 
-    private boolean pressingRight;
-    private boolean pressingLeft;
-    private boolean pressingUp;
-    private boolean pressingDown;
-    private boolean pressingSpace;
-    private boolean moveRight;
-    private boolean moveLeft;
-    private boolean moveUp;
-    private boolean moveDown;
-    private boolean isReachable;
-    private boolean takenQuiz;
-    private int iterator;
-    private Directions lastDirection;
+    protected boolean pressingRight;
+    protected boolean pressingLeft;
+    protected boolean pressingUp;
+    protected boolean pressingDown;
+    protected boolean pressingAttack;
+    protected boolean moveRight;
+    protected boolean moveLeft;
+    protected boolean moveUp;
+    protected boolean moveDown;
+    protected int iterator;
+    protected Directions lastDirection;
 
 
     public Player(Picture roger) {
@@ -33,10 +34,7 @@ public class Player extends Character implements KeyboardHandler {
         this.roger = super.picture;
     }
 
-    public void init() {
-        draw();
-        setKeyboard();
-    }
+    public abstract void setKeyboard();
 
     public void predictMovements(Walls walls) {
         if (predictRightCollision(walls)) {
@@ -51,41 +49,6 @@ public class Player extends Character implements KeyboardHandler {
         if (predictBotCollision(walls)) {
             moveDown = false;
         }
-    }
-
-    public void predictMovementsNPC(NPC npc) {
-        if (predictRightCollision(npc)) {
-            moveRight = false;
-            isReachable = true;
-        }
-        if (predictLeftCollision(npc)) {
-            moveLeft = false;
-            isReachable = true;
-        }
-        if (predictTopCollision(npc)) {
-            moveUp = false;
-            isReachable = true;
-        }
-        if (predictBotCollision(npc)) {
-            moveDown = false;
-            isReachable = true;
-        }
-    }
-
-
-
-    public NPCQuiz getQuiz(){
-            System.out.println("gdgdgdgdg");
-            takenQuiz = true;
-            return new NPCQuiz();
-    }
-
-    public boolean isReachable() {
-        return isReachable;
-    }
-
-    public boolean isTakenQuiz() {
-        return takenQuiz;
     }
 
     @Override
@@ -117,7 +80,7 @@ public class Player extends Character implements KeyboardHandler {
     public boolean isAttacking() {
         if (!dead) {
             iterator++;
-            if (pressingSpace && iterator > 50 && drunkenLvl > 10) {
+            if (pressingAttack && iterator > 50 && drunkenLvl > 10) {
                 iterator = 0;
                 drunkenLvl -= 10;
                 return true;
@@ -162,109 +125,6 @@ public class Player extends Character implements KeyboardHandler {
         this.dead = true;
     }
 
-
-    public void setKeyboard() {
-        Keyboard keyboard = new Keyboard(this);
-
-        KeyboardEvent right = new KeyboardEvent();
-        right.setKey(KeyboardEvent.KEY_RIGHT);
-        right.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-        KeyboardEvent left = new KeyboardEvent();
-        left.setKey(KeyboardEvent.KEY_LEFT);
-        left.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-        KeyboardEvent up = new KeyboardEvent();
-        up.setKey(KeyboardEvent.KEY_UP);
-        up.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-        KeyboardEvent down = new KeyboardEvent();
-        down.setKey(KeyboardEvent.KEY_DOWN);
-        down.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-        KeyboardEvent space = new KeyboardEvent();
-        space.setKey(KeyboardEvent.KEY_SPACE);
-        space.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-        KeyboardEvent rightReleased = new KeyboardEvent();
-        rightReleased.setKey(KeyboardEvent.KEY_RIGHT);
-        rightReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
-
-        KeyboardEvent leftReleased = new KeyboardEvent();
-        leftReleased.setKey(KeyboardEvent.KEY_LEFT);
-        leftReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
-
-        KeyboardEvent upReleased = new KeyboardEvent();
-        upReleased.setKey(KeyboardEvent.KEY_UP);
-        upReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
-
-        KeyboardEvent downReleased = new KeyboardEvent();
-        downReleased.setKey(KeyboardEvent.KEY_DOWN);
-        downReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
-
-        KeyboardEvent spaceReleased = new KeyboardEvent();
-        spaceReleased.setKey(KeyboardEvent.KEY_SPACE);
-        spaceReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
-
-        keyboard.addEventListener(right);
-        keyboard.addEventListener(left);
-        keyboard.addEventListener(up);
-        keyboard.addEventListener(down);
-        keyboard.addEventListener(space);
-        keyboard.addEventListener(rightReleased);
-        keyboard.addEventListener(leftReleased);
-        keyboard.addEventListener(upReleased);
-        keyboard.addEventListener(downReleased);
-        keyboard.addEventListener(spaceReleased);
-
-
-    }
-
-    @Override
-    public void keyPressed(KeyboardEvent keyboardEvent) {
-
-        switch (keyboardEvent.getKey()) {
-            case KeyboardEvent.KEY_RIGHT:
-                pressingRight = true;
-                lastDirection = Directions.RIGHT;
-                break;
-            case KeyboardEvent.KEY_LEFT:
-                pressingLeft = true;
-                lastDirection = Directions.LEFT;
-                break;
-            case KeyboardEvent.KEY_UP:
-                lastDirection = Directions.UP;
-                pressingUp = true;
-                break;
-            case KeyboardEvent.KEY_DOWN:
-                lastDirection = Directions.DOWN;
-                pressingDown = true;
-                break;
-            case KeyboardEvent.KEY_SPACE:
-                pressingSpace = true;
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyboardEvent keyboardEvent) {
-
-        switch (keyboardEvent.getKey()) {
-            case KeyboardEvent.KEY_RIGHT:
-                pressingRight = false;
-                break;
-            case KeyboardEvent.KEY_LEFT:
-                pressingLeft = false;
-                break;
-            case KeyboardEvent.KEY_UP:
-                pressingUp = false;
-                break;
-            case KeyboardEvent.KEY_DOWN:
-                pressingDown = false;
-                break;
-            case KeyboardEvent.KEY_SPACE:
-                pressingSpace = false;
-        }
-    }
 
     public Directions getLastDirection() {
         return lastDirection;

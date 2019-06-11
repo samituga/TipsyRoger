@@ -1,5 +1,6 @@
 package org.academiadecodigo.murlogs.tipsyRoger;
 
+import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
 public class Walls extends Colidable {

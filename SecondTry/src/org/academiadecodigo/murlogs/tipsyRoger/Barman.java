@@ -6,15 +6,41 @@ public class Barman extends Enemy {
 
     private Picture barman;
     private int iterator;
+    private int randomMove;
 
-    Barman(Picture barman){
+    Barman(Picture barman) {
         super(barman);
         this.barman = barman;
     }
 
     @Override
     public void move() {
-        super.move();
+        int speed = 1;
+        if (!dead) {
+
+            iterator++;
+
+            if (iterator > 50) {
+                randomMove = (int) (Math.random() * 2);
+                iterator = 0;
+            }
+
+            //Directions directions = Directions.values()[randomMove];
+
+            switch (randomMove) {
+                case 0:
+                    if (barman.getY() > 180) {
+                        barman.translate(0, -speed);
+                        break;
+                    }
+                case 1:
+                    if (barman.getY() < 420) {
+                        barman.translate(0, speed);
+                        break;
+                    }
+            }
+
+        }
     }
 
 

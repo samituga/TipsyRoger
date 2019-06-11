@@ -23,7 +23,7 @@ public abstract class Enemy extends Character {
     }
     public boolean canAttack() {
         iterator++;
-        if (iterator > 60){
+        if (iterator > 200){
             iterator = 0;
             return true;
         }

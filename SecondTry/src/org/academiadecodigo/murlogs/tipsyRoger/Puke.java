@@ -20,23 +20,28 @@ public class Puke extends Colidable {
 
         switch (directions) {
             case LEFT:
-                puke.translate(-4, 0);
+                puke.translate(-5, 0);
                 break;
             case UP:
-                puke.translate(0, -4);
+                puke.translate(0, -5);
                 break;
             case DOWN:
-                puke.translate(0, 4);
+                puke.translate(0, 5);
                 break;
             default:
-                puke.translate(4, 0);
+                puke.translate(5, 0);
 
         }
     }
 
     public boolean isDestroyed() {
         iterator += 1;
-        if (iterator > 30 || destroyed) {
+        if (owner instanceof Player && iterator > 30 || destroyed) {
+            puke.delete();
+            destroyed = true;
+            return true;
+        }
+        if(owner instanceof Enemy && destroyed || iterator > 200){
             puke.delete();
             destroyed = true;
             return true;
@@ -59,6 +64,10 @@ public class Puke extends Colidable {
             return true;
         }
         return false;
+    }
+
+    public int getIterator() {
+        return iterator;
     }
 
     @Override

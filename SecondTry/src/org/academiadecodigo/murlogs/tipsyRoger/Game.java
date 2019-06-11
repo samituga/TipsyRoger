@@ -33,12 +33,12 @@ public class Game {
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
         bottleLinkedList.add(BottleFactory.spawnBottle(300, 300));
-        //enemiesLinkedList.add(new Barman(new Picture(350, 305, "Roger_Smith.png")));
-        //enemiesLinkedList.add(new Barman(new Picture(400, 400, "Roger_Smith.png")));
-        //enemiesLinkedList.add(new Barman(new Picture(450, 500, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 305, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1125, 250, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1075, 300, "Roger_Smith.png")));
         //enemiesLinkedList.add(new Barman(new Picture(200, 100, "Roger_Smith.png")));
         //enemiesLinkedList.add(new Barman(new Picture(300, 200, "Roger_Smith.png")));
-        //enemiesLinkedList.add(new Drunken(new Picture(600, 500, "enemytester.png")));
+        enemiesLinkedList.add(new Drunken(new Picture(600, 575, "enemytester.png")));
         //enemiesLinkedList.add(new Drunken(new Picture(600, 200, "enemytester.png")));
         //npcLinkedList.add(new NPC(new Picture(300,400,"npctesting.png")));
     }
@@ -68,7 +68,6 @@ public class Game {
             }
 
             roger.move();
-            System.out.println("x: " + roger.x() + "y: " + roger.y());
 
             for (NPC npc : npcLinkedList) {
                 roger.predictMovementsNPC(npc);
@@ -89,6 +88,9 @@ public class Game {
                 // TODO: 10/06/2019  check enemy move
                 if (roger.checkCollision(enemy)) {
                     roger.touchEnemy();
+                }
+                for (Walls walls : wallsLinkedList) {
+                    enemy.predictMovements(walls);
                 }
                 enemy.move();
                 if (enemy.canAttack()) {

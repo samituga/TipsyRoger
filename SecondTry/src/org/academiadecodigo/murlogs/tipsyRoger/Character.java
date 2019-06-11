@@ -6,6 +6,10 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public abstract class Character extends Colidable {
 
     protected Picture picture;
+    protected boolean moveRight = true;
+    protected boolean moveLeft = true;
+    protected boolean moveUp = true;
+    protected boolean moveDown = true;
 
     Character(Picture picture){
         this.picture = picture;
@@ -18,6 +22,22 @@ public abstract class Character extends Colidable {
 
     public boolean isDead() {
         return dead;
+    }
+
+    public void predictMovements(Walls walls) {
+        if (predictRightCollision(walls)) {
+            moveRight = false;
+        }
+        if (predictLeftCollision(walls)) {
+            moveLeft = false;
+        }
+        if (predictTopCollision(walls)) {
+            moveUp = false;
+        }
+        if (predictBotCollision(walls)) {
+            moveDown = false;
+        }
+
     }
 
     @Override

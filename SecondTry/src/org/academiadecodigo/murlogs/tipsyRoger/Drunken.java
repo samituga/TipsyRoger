@@ -16,8 +16,9 @@ public class Drunken extends Enemy {
     }
 
 
-    public int getIterator() {
-        return iterator;
+    @Override
+    public void predictMovements(Walls walls) {
+        super.predictMovements(walls);
     }
 
     @Override
@@ -38,19 +39,43 @@ public class Drunken extends Enemy {
             }
 
             Directions directions = Directions.values()[randomMove];
-
+            System.out.println("r " + moveRight + " l " + moveLeft + " u " + moveUp + " d " + moveDown);
             switch (directions) {
                 case RIGHT:
-                    drunken.translate(speed, 0);
+                    if(moveRight) {
+                        drunken.translate(speed, 0);
+                        moveDown = true;
+                        moveUp = true;
+                        moveLeft = true;
+                        moveRight = true;
+                    }
                     break;
                 case LEFT:
-                    drunken.translate(-speed, 0);
+                    if (moveLeft) {
+                        drunken.translate(-speed, 0);
+                        moveDown = true;
+                        moveUp = true;
+                        moveLeft = true;
+                        moveRight = true;
+                    }
                     break;
                 case UP:
-                    drunken.translate(0, -speed);
+                    if (moveUp) {
+                        drunken.translate(0, -speed);
+                        moveDown = true;
+                        moveUp = true;
+                        moveLeft = true;
+                        moveRight = true;
+                    }
                     break;
                 case DOWN:
-                    drunken.translate(0, speed);
+                    if (moveDown) {
+                        drunken.translate(0, speed);
+                        moveDown = true;
+                        moveUp = true;
+                        moveLeft = true;
+                        moveRight = true;
+                    }
                     break;
                 default:
                     System.out.println("shit happened");

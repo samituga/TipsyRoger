@@ -72,6 +72,8 @@ public class Player extends Character implements KeyboardHandler {
         }
     }
 
+
+
     public NPCQuiz getQuiz(){
             System.out.println("gdgdgdgdg");
             takenQuiz = true;

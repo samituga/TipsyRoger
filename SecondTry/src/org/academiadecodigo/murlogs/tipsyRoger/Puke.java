@@ -20,16 +20,16 @@ public class Puke extends Colidable {
 
         switch (directions) {
             case LEFT:
-                puke.translate(-1, 0);
+                puke.translate(-3, 0);
                 break;
             case UP:
-                puke.translate(0, -1);
+                puke.translate(0, -3);
                 break;
             case DOWN:
-                puke.translate(0, 1);
+                puke.translate(0, 3);
                 break;
             default:
-                puke.translate(1, 0);
+                puke.translate(3, 0);
 
         }
     }

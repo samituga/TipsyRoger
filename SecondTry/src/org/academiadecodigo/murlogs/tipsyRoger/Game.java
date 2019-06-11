@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 public class Game {
 
+
     private Player roger;
 
 
@@ -23,6 +24,10 @@ public class Game {
     }*/
 
     public void init() {
+
+        Menu menu = new Menu();
+
+        menu.start();
 
         Field map = new Field(new Picture(0, 0, "roger02.jpg"));
         map.draw();
@@ -40,10 +45,12 @@ public class Game {
         //enemiesLinkedList.add(new Barman(new Picture(300, 200, "Roger_Smith.png")));
         enemiesLinkedList.add(new Drunken(new Picture(600, 575, "enemytester.png")));
         //enemiesLinkedList.add(new Drunken(new Picture(600, 200, "enemytester.png")));
-        npcLinkedList.add(new NPC(new Picture(100,200,"npctesting.png")));
+        npcLinkedList.add(new NPC(new Picture(100, 200, "npctesting.png")));
     }
 
     public void start() {
+
+
 
         for (Enemy enemies : enemiesLinkedList) {
             enemies.draw();

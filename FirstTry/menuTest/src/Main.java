@@ -1,6 +1,6 @@
 public class Main {
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         Menu menu = new Menu();
 
@@ -9,10 +9,11 @@ public class Main {
         while (true) {
             menu.move();
 
+
             //Help help = new Help();
             //if (menu.)
             //help.createHelp();
         }
 
-    }
+    }*/
 }

@@ -1,7 +1,9 @@
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class Help{
+public class Help {
+    public static void main(String[] args) {
+
 
         Rectangle screen = new Rectangle(0, 0, 1280, 720);
         Picture helpBackground = new Picture(0, 0, "Alien.png");
@@ -15,8 +17,20 @@ public class Help{
         Picture textMoveLeft = new Picture(700, 480, "text moveLeft.png");
         Picture textMoveRight = new Picture(700, 560, "text moveRight.png");
         Picture textSpaceBar = new Picture(700, 640, "text spaceBar.png");
+        screen.draw();
+        helpBackground.draw();
+        arrowUp.draw();
+        arrowLeft.draw();
+        arrowRight.draw();
+        arrowDown.draw();
+        spaceBar.draw();
+        textMoveUP.draw();
+        textMoveDown.draw();
+        textMoveLeft.draw();
+        textMoveRight.draw();
+        textSpaceBar.draw();
+        /*public void createHelp () {
 
-        public void createHelp () {
             screen.draw();
             helpBackground.draw();
             arrowUp.draw();
@@ -33,6 +47,7 @@ public class Help{
         }
 
         public void deleteHelp () {
+
             screen.delete();
             helpBackground.delete();
             arrowUp.delete();
@@ -47,4 +62,6 @@ public class Help{
             textSpaceBar.delete();
         }
 
+    }*/
+    }
 }

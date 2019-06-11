@@ -7,21 +7,16 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Menu implements KeyboardHandler {
 
-    private Menu menu;
     private Help help = new Help();
     private Keyboard keyboard;
-    private boolean pressingUp;
+    private boolean pressingUp = true;
     private boolean pressingDown;
     private boolean pressingEnter;
     private boolean pressingEsc;
 
 
     Rectangle screen = new Rectangle(0, 0, 1280, 720);
-    Picture backgroundPhoto = new Picture(10, 10, "Alien.png");
-    Picture tipsyImage = new Picture(90, 30, "TipsyImage.png");
-    Picture rogerImage = new Picture(850, 30, "RogerImage.png");
-    Picture playPhoto = new Picture(470, 500, "PlayGameImage.png");
-    Picture helpPhoto = new Picture(610, 615, "HelpImage.png");
+    Picture backgroundPhoto = new Picture(0, 0, "Background.png");
     Rectangle pointerPlayGame = new Rectangle(470, 500, 397, 114);
     Rectangle pointerHelp = new Rectangle(610, 615, 120, 72);
 
@@ -32,34 +27,46 @@ public class Menu implements KeyboardHandler {
         screen.draw();
         screen.setColor(Color.BLUE);
         backgroundPhoto.draw();
-        tipsyImage.draw();
-        rogerImage.draw();
-        playPhoto.draw();
-        helpPhoto.draw();
         pointerPlayGame.setColor(Color.GREEN);
         pointerHelp.setColor(Color.GREEN);
         pointerPlayGame.draw();
     }
 
+    public void deleteRectangle () {
+
+        screen.delete();
+        backgroundPhoto.delete();
+        pointerPlayGame.delete();
+        pointerHelp.delete();
+
+    }
+
 
     public void move() {
 
-        System.out.println("aksdfnaspodk");
-        if (pressingUp) {
-            pointerPlayGame.draw();
-            pointerHelp.delete();
-        }
         if (pressingDown) {
+            System.out.println("you moma");
             pointerHelp.draw();
             pointerPlayGame.delete();
         }
+        if (pressingUp) {
+            System.out.println("you momy");
+            pointerPlayGame.draw();
+            pointerHelp.delete();
+        }
+
         if (pressingEnter) {
             if (!pressingDown) {
 
             }
+            System.out.println("you dad");
             help.createHelp();
+            deleteRectangle();
+            pointerHelp.delete();
+            pointerPlayGame.delete();
         }
         if (pressingEsc) {
+            System.out.println("you dady");
             help.deleteHelp();
             createRectangle();
         }
@@ -107,11 +114,14 @@ public class Menu implements KeyboardHandler {
                 break;
             case KeyboardEvent.KEY_ENTER:
                 pressingEnter = true;
-                pressingEsc = false;
+                //pressingEsc = false;
+                //pressingDown = false;
+                //pressingUp = false;
                 break;
             case KeyboardEvent.KEY_ESC:
                 pressingEsc = true;
-                pressingEnter = false;
+                //pressingEnter = false;
+                pressingUp = false;
                 break;
 
         }

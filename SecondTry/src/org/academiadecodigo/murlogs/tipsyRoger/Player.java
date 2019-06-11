@@ -22,6 +22,8 @@ public class Player extends Character implements KeyboardHandler {
     private boolean moveLeft;
     private boolean moveUp;
     private boolean moveDown;
+    private boolean isReachable;
+    private boolean takenQuiz;
     private int iterator;
     private Directions lastDirection;
 
@@ -49,6 +51,39 @@ public class Player extends Character implements KeyboardHandler {
         if (predictBotCollision(walls)) {
             moveDown = false;
         }
+    }
+
+    public void predictMovementsNPC(NPC npc) {
+        if (predictRightCollision(npc)) {
+            moveRight = false;
+            isReachable = true;
+        }
+        if (predictLeftCollision(npc)) {
+            moveLeft = false;
+            isReachable = true;
+        }
+        if (predictTopCollision(npc)) {
+            moveUp = false;
+            isReachable = true;
+        }
+        if (predictBotCollision(npc)) {
+            moveDown = false;
+            isReachable = true;
+        }
+    }
+
+    public NPCQuiz getQuiz(){
+            System.out.println("gdgdgdgdg");
+            takenQuiz = true;
+            return new NPCQuiz();
+    }
+
+    public boolean isReachable() {
+        return isReachable;
+    }
+
+    public boolean isTakenQuiz() {
+        return takenQuiz;
     }
 
     @Override

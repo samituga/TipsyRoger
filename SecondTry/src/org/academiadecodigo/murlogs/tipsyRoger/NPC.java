@@ -15,14 +15,14 @@ public class NPC extends Colidable {
     }
 
 
-    public NPCQuiz speak() {
+    /*public NPCQuiz speak() {
 
         if (!takenQuiz) {
             takenQuiz = true;
             return new NPCQuiz();
         }
         return null;
-    }
+    }*/
 
     public boolean isCorrect() {
         //give power up

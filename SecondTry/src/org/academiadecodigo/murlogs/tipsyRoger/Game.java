@@ -40,6 +40,7 @@ public class Game {
         enemiesLinkedList.add(new Barman(new Picture(300, 200, "Roger_Smith.png")));
         enemiesLinkedList.add(new Drunken(new Picture(600, 500, "enemytester.png")));
         enemiesLinkedList.add(new Drunken(new Picture(600, 200, "enemytester.png")));
+        npcLinkedList.add(new NPC(new Picture(300,400,"npctesting.png")));
     }
 
     public void start() {
@@ -68,6 +69,16 @@ public class Game {
 
             roger.move();
 
+            for (NPC npc : npcLinkedList) {
+                roger.predictMovementsNPC(npc);
+            }
+            if(roger.isReachable() && !roger.isTakenQuiz()){
+                npcQuizLinkedList.add(roger.getQuiz());
+            }
+
+            for (NPCQuiz quiz: npcQuizLinkedList) {
+                quiz.draw();
+            }
 
             for (Bottle bottle : bottleLinkedList) {
                 roger.drinkBottle(bottle.getVol(), bottle); // TODO: 2019-06-09 Eliminar da linked list

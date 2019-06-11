@@ -3,20 +3,25 @@ package org.academiadecodigo.murlogs.tipsyRoger;
 import org.academiadecodigo.simplegraphics.graphics.Text;
 
 
+
 public class NPCQuiz extends Colidable {
 
     Text text;
 
+    public NPCQuiz() {
+        text = this.quizTextGenerator();
 
-    public void quizTextGenerator() {
+    }
+
+    public Text quizTextGenerator() {
         int randomGenerator = (int) (Math.random() * 0);
 
         switch (randomGenerator) {
             case 0:
-                text = new Text(310, 170, "Is the whisky alcool volume higher than 50%?");
-                return;
+                return new Text(310, 170, "Is the whisky alcool volume higher than 50%?");
+
         }
-        text = new Text(310, 170, "Is the whisky alcool volume higher than 50%?");
+        return new Text(310, 170, "Is the whisky alcool volume higher than 50%?");
     }
 
 
@@ -43,5 +48,9 @@ public class NPCQuiz extends Colidable {
     @Override
     public int yToHeight() {
         return y() + text.getHeight();
+    }
+
+    public Text getText() {
+        return text;
     }
 }

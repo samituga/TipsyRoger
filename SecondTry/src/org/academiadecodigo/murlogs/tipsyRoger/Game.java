@@ -9,16 +9,23 @@ import java.util.LinkedList;
 public class Game {
 
 
-    private LinkedList<Player> playersLinkedList = new LinkedList<>();
-    private LinkedList<Walls> wallsLinkedList = new LinkedList<>();
-    private LinkedList<Bottle> bottleLinkedList = new LinkedList<>();
-    private LinkedList<Puke> playerPukeLinkedList = new LinkedList<>();
-    private LinkedList<Puke> enemiesPukeLinkedList = new LinkedList<>();
-    private LinkedList<Enemy> enemiesLinkedList = new LinkedList<>();
+    Menu menu = new Menu();
+    private LinkedList<Player> playersLinkedList;
+    private LinkedList<Walls> wallsLinkedList;
+    private LinkedList<Bottle> bottleLinkedList;
+    private LinkedList<Puke> playerPukeLinkedList;
+    private LinkedList<Puke> enemiesPukeLinkedList;
+    private LinkedList<Enemy> enemiesLinkedList;
 
     public void init() {
+        playersLinkedList = new LinkedList<>();
+        wallsLinkedList = new LinkedList<>();
+        bottleLinkedList = new LinkedList<>();
+        playerPukeLinkedList = new LinkedList<>();
+        enemiesPukeLinkedList = new LinkedList<>();
+        enemiesLinkedList = new LinkedList<>();
 
-        Menu menu = new Menu();
+
         menu.start();
 
 
@@ -38,6 +45,11 @@ public class Game {
         //enemiesLinkedList.add(new Barman(new Picture(300, 200, "Roger_Smith.png")));
         enemiesLinkedList.add(new Drunken(new Picture(600, 575, "enemytester.png")));
         //enemiesLinkedList.add(new Drunken(new Picture(600, 200, "enemytester.png")));
+    }
+
+    public void winnerCaller () {
+
+        menu.winnerScreen();
     }
 
     public void start() {
@@ -136,17 +148,20 @@ public class Game {
                 }
                 //enemiesPukeLinkedList.remove(i);
             }
+            if (playersLinkedList.getFirst().dead || playersLinkedList.getLast().dead) {
+                enemiesLinkedList.clear();
+                playersLinkedList.clear();
+                wallsLinkedList.clear();
+                bottleLinkedList.clear();
+                playersLinkedList.clear();
+                enemiesPukeLinkedList.clear();
+                break;
+            }
             try {
                 Thread.sleep(9);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    public void gameOver() {
-        while (true) {
-
         }
     }
 

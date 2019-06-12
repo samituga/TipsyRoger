@@ -9,15 +9,18 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Menu implements KeyboardHandler {
+
+    private boolean i = true;
     private boolean pressEnter;
     private boolean pressEsc;
     private boolean pressDown;
     private boolean pressUp;
     private Picture menu = new Picture(0, 0, "image.png");
-    private Picture help = new Picture(0, 0, "help.png");
+    private Picture help = new Picture(0, 0, "Help.png");
+    private Picture winner = new Picture(0, 0, "WinnerScreen.png");
     private Rectangle upPointer = new Rectangle(430, 465, 397, 114);
     private Rectangle downPointer = new Rectangle(568, 575, 120, 72);
-
+    private Rectangle winnerPointer = new Rectangle(315, 475, 570, 110);
 
     public void start() {
         setKeyboard();
@@ -53,6 +56,23 @@ public class Menu implements KeyboardHandler {
             }
         }
 
+    }
+
+    public void winnerScreen() {
+        pressEnter = false;
+        pressEsc = false;
+
+        setKeyboard();
+
+        while (i) {
+            winner.draw();
+            winnerPointer.setColor(Color.GREEN);
+            winnerPointer.draw();
+            if (pressEnter) {
+
+                i = false;
+            }
+        }
     }
 
     private void deleteAll() {

@@ -144,6 +144,11 @@ public class Game {
         }
     }
 
+    public void gameOver() {
+        while (true) {
+
+        }
+    }
 
     public void createWalls() {
 

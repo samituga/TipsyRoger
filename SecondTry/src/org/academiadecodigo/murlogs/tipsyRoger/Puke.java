@@ -18,6 +18,9 @@ public class Puke extends Colidable {
 
     public void move() {
 
+        if (directions == null){
+            directions = Directions.RIGHT;
+        }
         switch (directions) {
             case LEFT:
                 puke.translate(-5, 0);

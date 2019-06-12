@@ -91,6 +91,9 @@ public abstract class Player extends Character {
 
     @Override
     public Puke attack(Directions direction) {
+        if (direction == null){
+            direction = Directions.RIGHT;
+        }
         String imageSource = "bullet.png";
         switch (direction) {
             case LEFT:

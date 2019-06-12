@@ -1,5 +1,3 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
-
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
@@ -8,7 +6,10 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
+import javax.print.attribute.standard.DialogOwner;
+
 public class Menu implements KeyboardHandler {
+
     private boolean pressEnter;
     private boolean pressEsc;
     private boolean pressDown;
@@ -27,6 +28,7 @@ public class Menu implements KeyboardHandler {
         pressUp = true;
         while (true) {
             if (pressUp) {
+                System.out.println("fdnfbyfg");
                 upPointer.draw();
                 downPointer.delete();
             }
@@ -49,20 +51,20 @@ public class Menu implements KeyboardHandler {
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
 
     }
 
-    private void deleteAll() {
+    public void deleteAll() {
         help.delete();
         menu.delete();
         upPointer.delete();
         downPointer.delete();
     }
 
-    private void inHelp() {
+    public void inHelp() {
         deleteMenu();
         createHelp();
         while (true) {
@@ -82,23 +84,23 @@ public class Menu implements KeyboardHandler {
     }
 
 
-    private void createMenu() {
+    public void createMenu() {
         menu.draw();
     }
 
-    private void createHelp() {
+    public void createHelp() {
         help.draw();
     }
 
-    private void deleteMenu() {
+    public void deleteMenu() {
         menu.delete();
     }
 
-    private void deleteHelp() {
+    public void deleteHelp() {
         help.delete();
     }
 
-    private void setKeyboard() {
+    public void setKeyboard() {
 
         Keyboard keyboard = new Keyboard(this);
 
@@ -152,5 +154,4 @@ public class Menu implements KeyboardHandler {
     public void keyReleased(KeyboardEvent keyboardEvent) {
 
     }
-
 }

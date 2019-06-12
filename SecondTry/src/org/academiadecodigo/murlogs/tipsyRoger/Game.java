@@ -19,13 +19,12 @@ public class Game {
     public void init() {
 
         Menu menu = new Menu();
-
         menu.start();
+
 
         Field map = new Field(new Picture(0, 0, "roger02.jpg"));
         map.draw();
         createWalls();
-
 
         playersLinkedList.add(new PlayerA(new Picture(130, 150, "Roger_Smith.png")));
         playersLinkedList.add(new PlayerB(new Picture(160, 100, "Roger_Smith.png")));
@@ -179,6 +178,4 @@ public class Game {
         wallsLinkedList.add(new Walls(new Rectangle(1175, 520, 24, 155)));
         wallsLinkedList.add(new Walls(new Rectangle(0, 675, 1200, 0)));
     }
-
 }
-

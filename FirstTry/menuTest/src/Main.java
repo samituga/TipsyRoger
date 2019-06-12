@@ -1,10 +1,13 @@
 public class Main {
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
 
         Menu menu = new Menu();
+        Help help = new Help();
 
         menu.createRectangle();
+        help.createHelp();
+
 
         while (true) {
             menu.move();
@@ -15,5 +18,5 @@ public class Main {
             //help.createHelp();
         }
 
-    }*/
+    }
 }

@@ -36,18 +36,18 @@ public class Game {
         map.draw();
         createWalls();
 
-        //playersLinkedList.add(new PlayerA(new Picture(140, 500, "RogerSmith.png")));
-        //playersLinkedList.add(new PlayerB(new Picture(140, 80, "deadpool.png")));
+        playersLinkedList.add(new PlayerA(new Picture(140, 500, "RogerSmith.png")));
+        playersLinkedList.add(new PlayerB(new Picture(140, 80, "deadpool.png")));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
         bottleLinkedList.add(BottleFactory.spawnBottle(300, 300));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 300));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 400));
-        //enemiesLinkedList.add(new Barman(new Picture(1100, 100, "barman.png")));
-        //enemiesLinkedList.add(new Barman(new Picture(1101, 250, "barman.png")));
-        //enemiesLinkedList.add(new Barman(new Picture(1102, 401, "barman.png")));
-        //enemiesLinkedList.add(new Barman(new Picture(1103, 300, "barman.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 100, "barman.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1101, 250, "barman.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1102, 401, "barman.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1103, 300, "barman.png")));
         //enemiesLinkedList.add(new Barman(new Picture(1100, 500, "barman.png")));
         //enemiesLinkedList.add(new Barman(new Picture(1100, 600, "barman.png")));
         //enemiesLinkedList.add(new Barman(new Picture(1100, 150, "barman.png")));

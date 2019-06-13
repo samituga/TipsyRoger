@@ -8,9 +8,9 @@ import java.util.LinkedList;
 
 public class Game {
 
-    private Sound gameSong = new Sound("/music/Game song.wav");
-    private Sound deadpoolSong = new Sound("/music/Deadpool wins.wav");
-    private Sound rogerSong = new Sound("/music/Roger Wins.wav");
+    private Sound gameSong = new Sound("/assets/music/gameSong.wav");
+    private Sound deadpoolSong = new Sound("/assets/music/deadpoolWins.wav");
+    private Sound rogerSong = new Sound("/assets/music/rogerWins.wav");
     private Menu menu = new Menu();
     private LinkedList<Player> playersLinkedList;
     private LinkedList<Walls> wallsLinkedList;
@@ -32,37 +32,20 @@ public class Game {
         menu.getMenuSong().stop();
         gameSong.play(true);
 
-        Field map = new Field(new Picture(0, 0, "newBar.jpg"));
+        Field map = new Field(new Picture(0, 0, "assets/newBar.jpg"));
         map.draw();
         createWalls();
 
-        playersLinkedList.add(new PlayerA(new Picture(140, 500, "RogerSmith.png")));
-        playersLinkedList.add(new PlayerB(new Picture(140, 80, "deadpool.png")));
-        bottleLinkedList.add(BottleFactory.spawnBottle(120, 250));
-        bottleLinkedList.add(BottleFactory.spawnBottle(280, 550));
-        bottleLinkedList.add(BottleFactory.spawnBottle(200, 350));
-        bottleLinkedList.add(BottleFactory.spawnBottle(700, 200));
-        bottleLinkedList.add(BottleFactory.spawnBottle(900, 300));
-        bottleLinkedList.add(BottleFactory.spawnBottle(1000, 400));
-        bottleLinkedList.add(BottleFactory.spawnBottle(1000, 350));
-        bottleLinkedList.add(BottleFactory.spawnBottle(1010, 100));
-        bottleLinkedList.add(BottleFactory.spawnBottle(990, 500));
-        bottleLinkedList.add(BottleFactory.spawnBottle(950, 120));
-        bottleLinkedList.add(BottleFactory.spawnBottle(1000, 580));
-        bottleLinkedList.add(BottleFactory.spawnBottle(600, 420));
-        bottleLinkedList.add(BottleFactory.spawnBottle(550, 370));
-        bottleLinkedList.add(BottleFactory.spawnBottle(600, 460));
-        bottleLinkedList.add(BottleFactory.spawnBottle(300, 420));
-        bottleLinkedList.add(BottleFactory.spawnBottle(450, 300));
-        bottleLinkedList.add(BottleFactory.spawnBottle(400, 111));
-        bottleLinkedList.add(BottleFactory.spawnBottle(700, 300));
-        enemiesLinkedList.add(new Barman(new Picture(1100, 60, "barman.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1101, 185, "barman.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1102, 335, "barman.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1103, 485, "barman.png")));
-
-        //enemiesLinkedList.add(new Drunken(new Picture(600, 575, "drunken.png")));
-        //enemiesLinkedList.add(new Drunken(new Picture(600, 300, "drunken.png")));
+        playersLinkedList.add(new PlayerA(new Picture(65, 600, "assets/RogerSmith.png"), new Picture(65, 600, "assets/RogerSmithReverted.png")));
+        playersLinkedList.add(new PlayerB(new Picture(95, 80, "assets/deadpool.png"), new Picture(95,80, "assets/deadpoolReverted.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 60, "assets/barman.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1101, 185, "assets/barman.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1102, 335, "assets/barman.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1103, 485, "assets/barman.png")));
+        //enemiesLinkedList.add(new Drunken(new Picture(800, 300, "assets/drunken.png")));
+        //enemiesLinkedList.add(new Drunken(new Picture(700, 575, "assets/drunken.png")));
+        enemiesLinkedList.add(new Drunken(new Picture(900, 70, "assets/drunken.png")));
+        enemiesLinkedList.add(new Drunken(new Picture(900, 575, "assets/drunken.png")));
     }
 
     public void winnerCaller(String path) {
@@ -105,8 +88,17 @@ public class Game {
             player.addDrunkenLvlBar();
             player.setKeyboard();
         }
-
+        int iterator = 0;
         while (true) {
+            iterator++;
+            if (iterator >= 400) {
+                iterator = 0;
+                int randomX = (int) (Math.random() * 500 + 300);
+                int randomY = (int) (Math.random() * 100 + 300);
+                bottleLinkedList.add(BottleFactory.spawnBottle(randomX, randomY));
+                bottleLinkedList.getLast().draw();
+            }
+
             for (Walls walls : wallsLinkedList) {
                 for (Player player : playersLinkedList) {
                     player.predictMovements(walls);
@@ -114,16 +106,20 @@ public class Game {
             }
             for (Player player : playersLinkedList) {
                 if (player.isDead() && player instanceof PlayerA) {
+                    playersLinkedList.getLast().setInGame();
+                    playersLinkedList.getFirst().setInGame();
                     gameSong.stop();
                     deadpoolSong.loopIndef();
                     clearLists();
-                    winnerCaller("deadpoolWinner.png");
+                    winnerCaller("assets/deadpoolWinner.png");
                 }
                 if (player.isDead() && player instanceof PlayerB) {
+                    playersLinkedList.getFirst().setInGame();
+                    playersLinkedList.getLast().setInGame();
                     gameSong.stop();
                     rogerSong.loopIndef();
                     clearLists();
-                    winnerCaller("RogerSmithWin.png");
+                    winnerCaller("assets/RogerSmithWin.png");
                 }
                 player.move();
                 player.showDrunkenLvl();
@@ -133,7 +129,6 @@ public class Game {
             }
 
             for (Bottle bottle : bottleLinkedList) {
-                bottle.respawnBottle();
                 for (Player player : playersLinkedList) {
                     player.drinkBottle(bottle.getVol(), bottle);
                 }
@@ -155,7 +150,6 @@ public class Game {
             }
 
             for (Player player : playersLinkedList) {
-                //System.out.println("X " + player.x() + "  Y " + player.y());
                 if (player.isAttacking()) {
                     playerPukeLinkedList.add(player.attack(player.getLastDirection()));
                 }

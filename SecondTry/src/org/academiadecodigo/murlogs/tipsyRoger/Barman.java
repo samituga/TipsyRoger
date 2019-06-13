@@ -76,6 +76,6 @@ public class Barman extends Enemy {
 
     @Override
     public Puke attack(Directions directions) {
-        return new Puke(new Picture(x(), y(), "vodka.png"), this, Directions.LEFT);
+        return new Puke(new Picture(x(), y(), "assets/vodka.png"), this, Directions.LEFT);
     }
 }

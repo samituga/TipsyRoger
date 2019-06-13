@@ -8,7 +8,6 @@ public class Bottle extends Colidable {
     private Picture bottle;
     private int vol;
     private boolean drinked;
-    private int iterator;
 
     public Bottle(Picture bottle, int vol) {
         this.bottle = bottle;
@@ -18,19 +17,6 @@ public class Bottle extends Colidable {
     public void deleteBottle() {
         bottle.delete();
         drinked = true;
-    }
-
-    public void respawnBottle() {
-        if (drinked) {
-            iterator++;
-        }
-        System.out.println(iterator);
-        if (iterator > 1500) {
-            iterator = 0;
-            drinked = false;
-            bottle.draw();
-        }
-
     }
 
 

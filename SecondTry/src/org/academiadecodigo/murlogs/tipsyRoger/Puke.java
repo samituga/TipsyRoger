@@ -23,23 +23,20 @@ public class Puke extends Colidable {
         }
         switch (directions) {
             case LEFT:
-                puke.translate(-5, 0);
+                puke.translate(-4, 0);
                 break;
             case UP:
-                puke.translate(0, -5);
+                puke.translate(0, -4);
                 break;
             case DOWN:
-                puke.translate(0, 5);
+                puke.translate(0, 4);
                 break;
             default:
-                puke.translate(5, 0);
+                puke.translate(4, 0);
 
         }
     }
-    public void setDestroyed() {
-        puke.delete();
-        destroyed = true;
-    }
+
 
     public boolean isDestroyed() {
         if (y() >= 660 ||

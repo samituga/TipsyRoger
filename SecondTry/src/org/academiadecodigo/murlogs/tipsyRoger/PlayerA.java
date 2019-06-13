@@ -8,11 +8,15 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class PlayerA extends Player implements KeyboardHandler {
 
-    PlayerA(Picture playerA) {
-        super(playerA);
+
+    PlayerA(Picture playerA, Picture reverted) {
+        super(playerA, reverted);
+
     }
 
+
     private Picture currentPicture = new Picture();
+
 
     @Override
     public void setKeyboard() {
@@ -82,10 +86,18 @@ public class PlayerA extends Player implements KeyboardHandler {
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_RIGHT:
                 pressingRight = true;
+                if (inGame) {
+                    roger.delete();
+                    reverted.draw();
+                }
                 lastDirection = Directions.RIGHT;
                 break;
             case KeyboardEvent.KEY_LEFT:
                 pressingLeft = true;
+                if (inGame) {
+                    reverted.delete();
+                    roger.draw();
+                }
                 lastDirection = Directions.LEFT;
                 break;
             case KeyboardEvent.KEY_UP:

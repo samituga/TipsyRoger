@@ -15,13 +15,14 @@ public class Menu implements KeyboardHandler {
     private boolean pressEsc;
     private boolean pressDown;
     private boolean pressUp;
-    private Sound menuSong = new Sound("/music/Menu song.wav");
-    private Picture menu = new Picture(0, 0, "image.png");
-    private Picture help = new Picture(0, 0, "Help.png");
-    private Picture winner = new Picture(0, 0, "WinnerScreen.png");
+    private Sound menuSong = new Sound("/assets//music/menuSong.wav");
+    private Picture menu = new Picture(0, 0, "assets/image.png");
+    private Picture help = new Picture(0, 0, "assets/Help.png");
+    private Picture winner = new Picture(0, 0, "assets/WinnerScreen.png");
     private Rectangle upPointer = new Rectangle(430, 465, 397, 114);
     private Rectangle downPointer = new Rectangle(568, 575, 120, 72);
     private Rectangle winnerPointer = new Rectangle(315, 475, 570, 110);
+
 
     public void start() {
 
@@ -75,6 +76,7 @@ public class Menu implements KeyboardHandler {
             winnerPointer.draw();
             picture.draw();
             if (pressEnter) {
+                inMenu = true;
                 winner.delete();
                 winnerPointer.delete();
                 winnersreen = false;
@@ -155,6 +157,10 @@ public class Menu implements KeyboardHandler {
         up.setKey(KeyboardEvent.KEY_UP);
         up.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+        KeyboardEvent exit = new KeyboardEvent();
+        exit.setKey(KeyboardEvent.KEY_Q);
+        exit.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
         KeyboardEvent enterReleased = new KeyboardEvent();
         enterReleased.setKey(KeyboardEvent.KEY_ENTER);
         enterReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
@@ -171,6 +177,7 @@ public class Menu implements KeyboardHandler {
         keyboard.addEventListener(esc);
         keyboard.addEventListener(up);
         keyboard.addEventListener(down);
+        keyboard.addEventListener(exit);
 
         keyboard.addEventListener(enterReleased);
     }
@@ -197,6 +204,10 @@ public class Menu implements KeyboardHandler {
                     pressUp = false;
                 }
                 break;
+            case KeyboardEvent.KEY_Q:
+                if (!inMenu) {
+                    System.exit(1);
+                }
         }
 
     }

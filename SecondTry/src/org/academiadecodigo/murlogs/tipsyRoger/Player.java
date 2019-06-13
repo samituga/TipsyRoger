@@ -12,9 +12,9 @@ import java.util.LinkedList;
 
 public abstract class Player extends Character {
 
-    private Picture roger;
-    private int speed;
-    protected int drunkenLvl = 50;
+    protected Picture roger;
+    protected Picture reverted;
+    protected int drunkenLvl;
     protected boolean pressingRight;
     protected boolean pressingLeft;
     protected boolean pressingUp;
@@ -27,36 +27,39 @@ public abstract class Player extends Character {
     protected int iterator;
     private int drunkenIterator;
     protected Directions lastDirection;
-    protected boolean looser;
     protected LinkedList<Picture> drunkenLvlPicture = new LinkedList<>();
+    protected boolean inGame;
 
     public void addDrunkenLvlBar() {
-        drunkenLvlPicture.add(new Picture(10, 10, "1.png"));
-        drunkenLvlPicture.add(new Picture(10, 10, "2.png"));
-        drunkenLvlPicture.add(new Picture(10, 10, "3.png"));
-        drunkenLvlPicture.add(new Picture(10, 10, "4.png"));
-        drunkenLvlPicture.add(new Picture(10, 10, "5.png"));
-        drunkenLvlPicture.add(new Picture(10, 10, "6.png"));
-        drunkenLvlPicture.add(new Picture(10, 10, "7.png"));
-        drunkenLvlPicture.add(new Picture(10, 10, "8.png"));
-        drunkenLvlPicture.add(new Picture(10, 10, "9.png"));
-        drunkenLvlPicture.add(new Picture(10, 10, "10.png"));
-        drunkenLvlPicture.add(new Picture(900, 10, "1.png"));
-        drunkenLvlPicture.add(new Picture(900, 10, "2.png"));
-        drunkenLvlPicture.add(new Picture(900, 10, "3.png"));
-        drunkenLvlPicture.add(new Picture(900, 10, "4.png"));
-        drunkenLvlPicture.add(new Picture(900, 10, "5.png"));
-        drunkenLvlPicture.add(new Picture(900, 10, "6.png"));
-        drunkenLvlPicture.add(new Picture(900, 10, "7.png"));
-        drunkenLvlPicture.add(new Picture(900, 10, "8.png"));
-        drunkenLvlPicture.add(new Picture(900, 10, "9.png"));
-        drunkenLvlPicture.add(new Picture(900, 10, "10.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "assets/1.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "assets/2.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "assets/3.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "assets/4.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "assets/5.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "assets/6.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "assets/7.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "assets/8.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "assets/9.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "assets/10.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "assets/1.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "assets/2.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "assets/3.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "assets/4.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "assets/5.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "assets/6.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "assets/7.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "assets/8.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "assets/9.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "assets/10.png"));
 
+        Picture playerA = new Picture(10, 10, "assets/deadpool.png");
+        Picture playerB = new Picture(900, 10, "assets/RogerSmith.png");
+        playerA.draw();
+        playerB.draw();
     }
 
     public void looseDrunkenLvl() {
         drunkenIterator++;
-        System.out.println(drunkenIterator);
         if (drunkenIterator > 40) {
             drunkenIterator = 0;
             drunkenLvl--;
@@ -66,9 +69,12 @@ public abstract class Player extends Character {
         }
     }
 
-    public Player(Picture roger) {
+    public Player(Picture roger, Picture reverted) {
         super(roger);
+        this.reverted = reverted;
         this.roger = super.picture;
+        inGame = true;
+        drunkenLvl = 50;
     }
 
     public abstract void showDrunkenLvl();
@@ -93,20 +99,24 @@ public abstract class Player extends Character {
 
     @Override
     public void move() {
+        int speed = 1;
         if (!dead) {
-            speed = 1;
 
             if (pressingRight && moveRight) {
                 roger.translate(speed, 0);
+                reverted.translate(speed, 0);
             }
             if (pressingLeft && moveLeft) {
                 roger.translate(-speed, 0);
+                reverted.translate(-speed, 0);
             }
             if (pressingUp && moveUp) {
                 roger.translate(0, -speed);
+                reverted.translate(0, -speed);
             }
             if (pressingDown && moveDown) {
                 roger.translate(0, speed);
+                reverted.translate(0, speed);
             }
 
             moveUp = true;
@@ -134,7 +144,7 @@ public abstract class Player extends Character {
         if (direction == null) {
             direction = Directions.RIGHT;
         }
-        String imageSource = "puke.png";
+        String imageSource = "/assets/puke.png";
         switch (direction) {
             case LEFT:
                 return new Puke(new Picture(x(), y() + (picture.getHeight() / 2), imageSource), this, lastDirection);
@@ -155,12 +165,10 @@ public abstract class Player extends Character {
         }
         if (drunkenLvl > 100) {
             this.dead = true;
-            System.out.println("You drunk like a horse! game over");
         }
     }
 
     public void touchEnemy() {
-        System.out.println("DEAD");
         this.dead = true;
     }
 
@@ -168,11 +176,11 @@ public abstract class Player extends Character {
         this.dead = true;
     }
 
-    public void setLooser() {
-        this.looser = true;
-    }
-
     public Directions getLastDirection() {
         return lastDirection;
+    }
+
+    public void setInGame() {
+        this.inGame = false;
     }
 }

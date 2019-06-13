@@ -17,7 +17,7 @@ public class Drunken extends Enemy {
 
     @Override
     public Puke attack(Directions directions) {
-        return new Puke(new Picture(x(), y(), "bullet.png"), this, Directions.LEFT);
+        return new Puke(new Picture(x(), y(), "assets/bullet.png"), this, Directions.LEFT);
     }
 
     @Override
@@ -54,8 +54,6 @@ public class Drunken extends Enemy {
                         drunken.translate(0, speed);
                     }
                     break;
-                default:
-                    System.out.println("shit happened");
             }
 
         }

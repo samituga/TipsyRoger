@@ -9,22 +9,11 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class PlayerB extends Player implements KeyboardHandler {
 
 
-    PlayerB(Picture playerB) {
-        super(playerB);
+    PlayerB(Picture playerB, Picture reverted) {
+        super(playerB, reverted);
     }
 
     private Picture currentPicture = new Picture();
-
-    private boolean painted1;
-    private boolean painted2;
-    private boolean painted3;
-    private boolean painted4;
-    private boolean painted5;
-    private boolean painted6;
-    private boolean painted7;
-    private boolean painted8;
-    private boolean painted9;
-    private boolean painted10;
 
 
     @Override
@@ -95,10 +84,18 @@ public class PlayerB extends Player implements KeyboardHandler {
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_D:
                 pressingRight = true;
+                if (inGame) {
+                    roger.delete();
+                    reverted.draw();
+                }
                 lastDirection = Directions.RIGHT;
                 break;
             case KeyboardEvent.KEY_A:
                 pressingLeft = true;
+                if (inGame) {
+                    reverted.delete();
+                    roger.draw();
+                }
                 lastDirection = Directions.LEFT;
                 break;
             case KeyboardEvent.KEY_W:

@@ -5,39 +5,30 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 import java.util.NoSuchElementException;
 
 public enum BottleFactory {
-    BEER(10),
-    VODKA(30),
-    WATER(-10);
+    BEER(5),
+    VODKA(15),
+    WATER(-5);
 
     private int vol;
-    int iterator= 0;
 
     BottleFactory(int vol) {
         this.vol = vol;
     }
 
     public static Bottle spawnBottle(int x, int y) {
+
         int randomNumber = (int) (Math.random() * BottleFactory.values().length);
         BottleFactory bottleFactory = BottleFactory.values()[randomNumber];
 
         switch (bottleFactory) {
             case BEER:
-                return new Bottle(new Picture(x, y, "beer.png"), bottleFactory.vol);
+                return new Bottle(new Picture(x, y, "assets/beer.png"), bottleFactory.vol);
             case VODKA:
-                return new Bottle(new Picture(x, y, "vodka.png"), bottleFactory.vol);
+                return new Bottle(new Picture(x, y, "assets/vodka.png"), bottleFactory.vol);
             case WATER:
-                return new Bottle(new Picture(x,y, "water.png"), bottleFactory.vol);
+                return new Bottle(new Picture(x, y, "assets/water.png"), bottleFactory.vol);
         }
         throw new NoSuchElementException();
     }
 
-    public void respawnBottles(){
-
-        iterator++;
-
-        if(iterator > 200){
-            iterator = 0;
-
-        }
-    }
 }

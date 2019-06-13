@@ -39,14 +39,14 @@ public class Game {
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
         bottleLinkedList.add(BottleFactory.spawnBottle(300, 300));
         enemiesLinkedList.add(new Barman(new Picture(1100, 100, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1100, 200, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1100, 300, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1100, 400, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1100, 500, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1100, 600, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1100, 150, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1100, 250, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1100, 350, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1101, 250, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1102, 401, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1103, 300, "Roger_Smith.png")));
+        //enemiesLinkedList.add(new Barman(new Picture(1100, 500, "Roger_Smith.png")));
+        //enemiesLinkedList.add(new Barman(new Picture(1100, 600, "Roger_Smith.png")));
+        //enemiesLinkedList.add(new Barman(new Picture(1100, 150, "Roger_Smith.png")));
+        //enemiesLinkedList.add(new Barman(new Picture(1100, 250, "Roger_Smith.png")));
+        //enemiesLinkedList.add(new Barman(new Picture(1100, 350, "Roger_Smith.png")));
         enemiesLinkedList.add(new Drunken(new Picture(600, 575, "enemytester.png")));
         enemiesLinkedList.add(new Drunken(new Picture(600, 200, "enemytester.png")));
     }

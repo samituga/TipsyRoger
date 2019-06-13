@@ -28,12 +28,36 @@ public class Barman extends Enemy {
 
             switch (randomMove) {
                 case 0:
-                    if (barman.getY() > 0) {
+                    if (barman.getY() > 0 && barman.getX() == 1100) {
+                        barman.translate(0, -speed);
+                        break;
+                    }
+                    if(barman.getY()> 150 && barman.getX() == 1101){
+                        barman.translate(0, -speed);
+                        break;
+                    }
+                    if(barman.getY()> 300  && barman.getX() == 1102){
+                        barman.translate(0, -speed);
+                        break;
+                    }
+                    if(barman.getY()>  450 && barman.getX() == 1103){
                         barman.translate(0, -speed);
                         break;
                     }
                 case 1:
-                    if (barman.getY() < 600) {
+                    if (barman.getY() < 150 && barman.getX() == 1100) {
+                        barman.translate(0, speed);
+                        break;
+                    }
+                    if (barman.getY() < 300 && barman.getX() == 1101) {
+                        barman.translate(0, speed);
+                        break;
+                    }
+                    if (barman.getY() < 450 && barman.getX() == 1102) {
+                        barman.translate(0, speed);
+                        break;
+                    }
+                    if (barman.getY() < 600 && barman.getX() == 1103) {
                         barman.translate(0, speed);
                         break;
                     }

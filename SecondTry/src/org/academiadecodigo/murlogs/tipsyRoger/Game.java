@@ -47,8 +47,8 @@ public class Game {
         //enemiesLinkedList.add(new Barman(new Picture(1100, 150, "barman.png")));
         //enemiesLinkedList.add(new Barman(new Picture(1100, 250, "barman.png")));
         //enemiesLinkedList.add(new Barman(new Picture(1100, 350, "barman.png")));
-        enemiesLinkedList.add(new Drunken(new Picture(600, 575, "enemytester.png")));
-        enemiesLinkedList.add(new Drunken(new Picture(600, 200, "enemytester.png")));
+        enemiesLinkedList.add(new Drunken(new Picture(600, 575, "drunken.png")));
+        enemiesLinkedList.add(new Drunken(new Picture(600, 200, "drunken.png")));
     }
 
     public void winnerCaller(String path) {

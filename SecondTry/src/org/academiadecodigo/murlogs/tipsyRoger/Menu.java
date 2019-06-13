@@ -67,7 +67,7 @@ public class Menu implements KeyboardHandler {
         pressEnter = false;
         boolean winnersreen = true;
         setKeyboard();
-        Picture picture = new Picture(500, 500, path);
+        Picture picture = new Picture(800, 50, path);
         while (winnersreen) {
             winner.draw();
             winnerPointer.setColor(Color.GREEN);

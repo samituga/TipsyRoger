@@ -25,16 +25,15 @@ public class Barman extends Enemy {
                 iterator = 0;
             }
 
-            //Directions directions = Directions.values()[randomMove];
 
             switch (randomMove) {
                 case 0:
-                    if (barman.getY() > 180) {
+                    if (barman.getY() > 0) {
                         barman.translate(0, -speed);
                         break;
                     }
                 case 1:
-                    if (barman.getY() < 420) {
+                    if (barman.getY() < 600) {
                         barman.translate(0, speed);
                         break;
                     }

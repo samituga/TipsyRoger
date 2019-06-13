@@ -27,6 +27,7 @@ public abstract class Player extends Character {
     protected boolean moveDown;
     protected int iterator;
     protected Directions lastDirection;
+    protected boolean looser;
 
 
     public Player(Picture roger) {
@@ -128,6 +129,9 @@ public abstract class Player extends Character {
         this.dead = true;
     }
 
+    public void setLooser() {
+        this.looser = true;
+    }
 
     public Directions getLastDirection() {
         return lastDirection;

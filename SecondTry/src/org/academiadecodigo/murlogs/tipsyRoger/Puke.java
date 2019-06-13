@@ -36,12 +36,16 @@ public class Puke extends Colidable {
 
         }
     }
+    public void setDestroyed() {
+        puke.delete();
+        destroyed = true;
+    }
 
     public boolean isDestroyed() {
-        if (y() >= 665 ||
-                x() >= 1200 ||
-                x() <= 0 ||
-                y() <= 0) {
+        if (y() >= 660 ||
+                x() >= 1190 ||
+                x() <= 10 ||
+                y() <= 10) {
             puke.delete();
             destroyed = true;
             return true;
@@ -60,9 +64,6 @@ public class Puke extends Colidable {
         return false;
     }
 
-    public Character getOwner() {
-        return owner;
-    }
 
     @Override
     public void draw() {
@@ -75,10 +76,6 @@ public class Puke extends Colidable {
             return true;
         }
         return false;
-    }
-
-    public int getIterator() {
-        return iterator;
     }
 
     @Override

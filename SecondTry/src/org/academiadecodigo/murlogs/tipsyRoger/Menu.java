@@ -59,7 +59,7 @@ public class Menu implements KeyboardHandler {
 
     }
 
-    public void winnerScreen() {
+    public void winnerScreen(String path) {
         inMenu = false;
         pressEsc = false;
         pressUp = false;
@@ -67,13 +67,12 @@ public class Menu implements KeyboardHandler {
         pressEnter = false;
         boolean winnersreen = true;
         setKeyboard();
-
+        Picture picture = new Picture(500, 500, path);
         while (winnersreen) {
-           // System.out.println(pressDown);
-           // System.out.println(pressEnter);
             winner.draw();
             winnerPointer.setColor(Color.GREEN);
             winnerPointer.draw();
+            picture.draw();
             if (pressEnter) {
                 winner.delete();
                 winnerPointer.delete();
@@ -191,7 +190,7 @@ public class Menu implements KeyboardHandler {
                 pressDown = false;
                 break;
             case KeyboardEvent.KEY_DOWN:
-                if(inMenu) {
+                if (inMenu) {
                     pressDown = true;
                     pressUp = false;
                 }

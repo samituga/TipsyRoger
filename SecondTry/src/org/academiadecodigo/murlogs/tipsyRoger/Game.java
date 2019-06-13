@@ -9,8 +9,7 @@ import java.util.LinkedList;
 public class Game {
 
 
-    Menu menu = new Menu();
-    public boolean gameOn = true;
+    private Menu menu = new Menu();
     private LinkedList<Player> playersLinkedList;
     private LinkedList<Walls> wallsLinkedList;
     private LinkedList<Bottle> bottleLinkedList;
@@ -34,31 +33,41 @@ public class Game {
         map.draw();
         createWalls();
 
-        playersLinkedList.add(new PlayerA(new Picture(130, 150, "Roger_Smith.png")));
-        //playersLinkedList.add(new PlayerB(new Picture(160, 100, "Roger_Smith.png")));
+        playersLinkedList.add(new PlayerA(new Picture(140, 500, "RogerSmith.png")));
+        playersLinkedList.add(new PlayerB(new Picture(140, 80, "deadpool.png")));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
         bottleLinkedList.add(BottleFactory.spawnBottle(300, 300));
-        enemiesLinkedList.add(new Barman(new Picture(1100, 305, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1125, 250, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1075, 300, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(200, 100, "Roger_Smith.png")));
-        enemiesLinkedList.add(new Barman(new Picture(300, 200, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 100, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 200, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 300, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 400, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 500, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 600, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 150, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 250, "Roger_Smith.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 350, "Roger_Smith.png")));
         enemiesLinkedList.add(new Drunken(new Picture(600, 575, "enemytester.png")));
         enemiesLinkedList.add(new Drunken(new Picture(600, 200, "enemytester.png")));
     }
 
-    public void winnerCaller() {
-
-        menu.winnerScreen();
+    public void winnerCaller(String path) {
+        menu.winnerScreen(path);
         if (menu.getPressEnter()) {
             init();
-            gameOn = true;
             start();
 
         }
     }
 
+    private void clearLists() {
+        playersLinkedList.clear();
+        playerPukeLinkedList.clear();
+        wallsLinkedList.clear();
+        bottleLinkedList.clear();
+        enemiesLinkedList.clear();
+        enemiesPukeLinkedList.clear();
+    }
 
     public void start() {
 
@@ -80,7 +89,7 @@ public class Game {
             player.setKeyboard();
         }
 
-        while (gameOn) {
+        while (true) {
             for (Walls walls : wallsLinkedList) {
                 for (Player player : playersLinkedList) {
                     player.predictMovements(walls);
@@ -91,15 +100,18 @@ public class Game {
             }
             for (Bottle bottle : bottleLinkedList) {
                 for (Player player : playersLinkedList) {
-                    player.drinkBottle(bottle.getVol(), bottle); // TODO: 2019-06-09 Eliminar da linked list
+                    player.drinkBottle(bottle.getVol(), bottle);
                 }
             }
             for (Enemy enemy : enemiesLinkedList) {
 
-                // TODO: 10/06/2019  check enemy move
                 for (Player player : playersLinkedList) {
                     if (player.checkCollision(enemy)) {
                         player.touchEnemy();
+                        clearLists();
+                        if (player instanceof PlayerA) {
+                            winnerCaller("deadpool.png");
+                        }
                     }
                 }
                 for (Walls walls : wallsLinkedList) {
@@ -112,7 +124,7 @@ public class Game {
             }
 
             for (Player player : playersLinkedList) {
-                System.out.println("X " + player.x() + "  Y " + player.y());
+                //System.out.println("X " + player.x() + "  Y " + player.y());
                 if (player.isAttacking()) {
                     playerPukeLinkedList.add(player.attack(player.getLastDirection()));
                 }
@@ -120,51 +132,55 @@ public class Game {
 
             for (Puke puke : playerPukeLinkedList) {
 
-                if (!puke.isDestroyed()) {
-                    puke.draw();
-                    puke.move();
-                    for (Enemy enemy : enemiesLinkedList) {
-                        if (puke.hit(enemy)) {
-                            enemy.hitten();
-                            puke.isDestroyed();
-                            enemiesLinkedList.remove(enemy);
-                            playerPukeLinkedList.remove(puke); // TODO: 2019-06-10 Check if necessary
-                            break;
-                        }
-                    }
-                    System.out.println("Im not here");
+                if (puke.isDestroyed()) {
+                    playerPukeLinkedList.remove(puke);
                     continue;
                 }
-                playerPukeLinkedList.remove(puke);
-            }
-
-            for (int i = enemiesPukeLinkedList.size() - 1; i >= 0; i--) {
-                if (!enemiesPukeLinkedList.get(i).isDestroyed()) {
-                    enemiesPukeLinkedList.get(i).move();
-                    enemiesPukeLinkedList.get(i).draw();
-                    for (Player player : playersLinkedList) {
-                        if (enemiesPukeLinkedList.get(i).hit(player)) {
-                            player.hitten();
-                            enemiesPukeLinkedList.remove(i);
-                            if (playersLinkedList.getFirst().dead || playersLinkedList.getLast().dead) {
-                                enemiesLinkedList.clear();
-                                playersLinkedList.clear();
-                                wallsLinkedList.clear();
-                                bottleLinkedList.clear();
-                                playersLinkedList.clear();
-                                enemiesPukeLinkedList.clear();
-                                gameOn = false;
-                                winnerCaller();
-
-                            }
-                        }
-                        if (enemiesPukeLinkedList.get(i).isDestroyed()) {
-                            enemiesPukeLinkedList.remove(i);
-                        }
+                puke.draw();
+                puke.move();
+                for (Enemy enemy : enemiesLinkedList) {
+                    if (puke.hit(enemy)) {
+                        enemy.hitten();
+                        puke.isDestroyed();
+                        enemiesLinkedList.remove(enemy);
+                        playerPukeLinkedList.remove(puke);
+                        break;
                     }
                 }
-
             }
+            try {
+                for (int i = enemiesPukeLinkedList.size() - 1; i >= 0; i--) {
+                    if (enemiesPukeLinkedList.get(i).isDestroyed()) {
+                        enemiesPukeLinkedList.remove(i);
+                    }
+                    if (!enemiesPukeLinkedList.get(i).isDestroyed()) {
+                        enemiesPukeLinkedList.get(i).move();
+                        enemiesPukeLinkedList.get(i).draw();
+                        for (Player player : playersLinkedList) {
+
+                            if (enemiesPukeLinkedList.get(i).hit(player)) {
+                                player.hitten();
+                                enemiesPukeLinkedList.remove(i);
+                                clearLists();
+                                if (player instanceof PlayerA) {
+                                    winnerCaller("deadpoolWinner.png");
+                                }
+                                winnerCaller("RogerSmithWin.png");
+
+                            }
+
+
+                            if (enemiesPukeLinkedList.get(i).isDestroyed()) {
+                                enemiesPukeLinkedList.remove(i);
+                            }
+                        }
+                    }
+
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.err.println(e.getMessage());
+            }
+
             try {
                 Thread.sleep(9);
             } catch (InterruptedException e) {

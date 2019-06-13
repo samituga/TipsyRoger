@@ -8,11 +8,13 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class PlayerA extends Player implements KeyboardHandler {
 
-    PlayerA(Picture playerA){
+    PlayerA(Picture playerA) {
         super(playerA);
     }
 
-   @Override
+    private Picture currentPicture = new Picture();
+
+    @Override
     public void setKeyboard() {
 
         Keyboard keyboard = new Keyboard(this);
@@ -117,6 +119,70 @@ public class PlayerA extends Player implements KeyboardHandler {
                 break;
             case KeyboardEvent.KEY_L:
                 pressingAttack = false;
+        }
+    }
+
+    @Override
+    public void showDrunkenLvl() {
+        if (drunkenLvl <= 10) {
+            currentPicture.delete();
+            currentPicture = drunkenLvlPicture.get(0);
+            currentPicture.draw();
+            return;
+
+        }
+        if (drunkenLvl <= 20) {
+            currentPicture.delete();
+            currentPicture = drunkenLvlPicture.get(1);
+            currentPicture.draw();
+            return;
+        }
+        if (drunkenLvl <= 30) {
+            currentPicture.delete();
+            currentPicture = drunkenLvlPicture.get(2);
+            currentPicture.draw();
+            return;
+        }
+        if (drunkenLvl <= 40) {
+            currentPicture.delete();
+            currentPicture = drunkenLvlPicture.get(3);
+            currentPicture.draw();
+            return;
+        }
+        if (drunkenLvl <= 50) {
+            currentPicture.delete();
+            currentPicture = drunkenLvlPicture.get(4);
+            currentPicture.draw();
+            return;
+        }
+        if (drunkenLvl <= 60) {
+            currentPicture.delete();
+            currentPicture = drunkenLvlPicture.get(5);
+            currentPicture.draw();
+            return;
+        }
+        if (drunkenLvl <= 70) {
+            currentPicture.delete();
+            currentPicture = drunkenLvlPicture.get(6);
+            currentPicture.draw();
+            return;
+        }
+        if (drunkenLvl <= 80) {
+            currentPicture.delete();
+            currentPicture = drunkenLvlPicture.get(7);
+            currentPicture.draw();
+            return;
+        }
+        if (drunkenLvl <= 90) {
+            currentPicture.delete();
+            currentPicture = drunkenLvlPicture.get(8);
+            currentPicture.draw();
+            return;
+        }
+        if (drunkenLvl <= 100) {
+            currentPicture.delete();
+            currentPicture = drunkenLvlPicture.get(9);
+            currentPicture.draw();
         }
     }
 }

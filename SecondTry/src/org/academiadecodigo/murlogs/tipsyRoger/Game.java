@@ -38,17 +38,20 @@ public class Game {
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
         bottleLinkedList.add(BottleFactory.spawnBottle(300, 300));
-        enemiesLinkedList.add(new Barman(new Picture(1100, 100, "barman.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1101, 250, "barman.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1102, 401, "barman.png")));
-        enemiesLinkedList.add(new Barman(new Picture(1103, 300, "barman.png")));
+        bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
+        bottleLinkedList.add(BottleFactory.spawnBottle(200, 300));
+        bottleLinkedList.add(BottleFactory.spawnBottle(200, 400));
+        //enemiesLinkedList.add(new Barman(new Picture(1100, 100, "barman.png")));
+        //enemiesLinkedList.add(new Barman(new Picture(1101, 250, "barman.png")));
+        //enemiesLinkedList.add(new Barman(new Picture(1102, 401, "barman.png")));
+        //enemiesLinkedList.add(new Barman(new Picture(1103, 300, "barman.png")));
         //enemiesLinkedList.add(new Barman(new Picture(1100, 500, "barman.png")));
         //enemiesLinkedList.add(new Barman(new Picture(1100, 600, "barman.png")));
         //enemiesLinkedList.add(new Barman(new Picture(1100, 150, "barman.png")));
         //enemiesLinkedList.add(new Barman(new Picture(1100, 250, "barman.png")));
         //enemiesLinkedList.add(new Barman(new Picture(1100, 350, "barman.png")));
-        enemiesLinkedList.add(new Drunken(new Picture(600, 575, "drunken.png")));
-        enemiesLinkedList.add(new Drunken(new Picture(600, 200, "drunken.png")));
+        //enemiesLinkedList.add(new Drunken(new Picture(600, 575, "drunken.png")));
+        //enemiesLinkedList.add(new Drunken(new Picture(600, 200, "drunken.png")));
     }
 
     public void winnerCaller(String path) {
@@ -86,6 +89,7 @@ public class Game {
 
         for (Player player : playersLinkedList) {
             player.draw();
+            player.addDrunkenLvlBar();
             player.setKeyboard();
         }
 
@@ -97,7 +101,11 @@ public class Game {
             }
             for (Player player : playersLinkedList) {
                 player.move();
+                player.showDrunkenLvl();
+                player.looseDrunkenLvl();
+
             }
+
             for (Bottle bottle : bottleLinkedList) {
                 for (Player player : playersLinkedList) {
                     player.drinkBottle(bottle.getVol(), bottle);

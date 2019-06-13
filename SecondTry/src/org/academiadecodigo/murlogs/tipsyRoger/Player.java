@@ -61,6 +61,9 @@ public abstract class Player extends Character {
             drunkenIterator = 0;
             drunkenLvl--;
         }
+        if (drunkenLvl <= 0) {
+            dead = true;
+        }
     }
 
     public Player(Picture roger) {

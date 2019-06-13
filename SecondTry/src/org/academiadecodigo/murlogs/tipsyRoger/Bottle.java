@@ -21,9 +21,11 @@ public class Bottle extends Colidable {
     }
 
     public void respawnBottle() {
-        iterator++;
+        if (drinked) {
+            iterator++;
+        }
         System.out.println(iterator);
-        if (iterator > 1500){
+        if (iterator > 1500) {
             iterator = 0;
             drinked = false;
             bottle.draw();

@@ -15,6 +15,7 @@ public class Menu implements KeyboardHandler {
     private boolean pressEsc;
     private boolean pressDown;
     private boolean pressUp;
+    private Sound menuSong = new Sound("/music/Menu song.wav");
     private Picture menu = new Picture(0, 0, "image.png");
     private Picture help = new Picture(0, 0, "Help.png");
     private Picture winner = new Picture(0, 0, "WinnerScreen.png");
@@ -118,6 +119,7 @@ public class Menu implements KeyboardHandler {
 
 
     private void createMenu() {
+        menuSong.loopIndef();
         menu.draw();
     }
 
@@ -218,4 +220,7 @@ public class Menu implements KeyboardHandler {
         }
     }
 
+    public Sound getMenuSong() {
+        return menuSong;
+    }
 }

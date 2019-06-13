@@ -8,7 +8,9 @@ import java.util.LinkedList;
 
 public class Game {
 
-
+    private Sound gameSong = new Sound("/music/Game song.wav");
+    private Sound deadpoolSong = new Sound("/music/Deadpool wins.wav");
+    private Sound rogerSong = new Sound("/music/Roger Wins.wav");
     private Menu menu = new Menu();
     private LinkedList<Player> playersLinkedList;
     private LinkedList<Walls> wallsLinkedList;
@@ -27,14 +29,15 @@ public class Game {
 
 
         menu.start();
-
+        menu.getMenuSong().stop();
+        gameSong.play(true);
 
         Field map = new Field(new Picture(0, 0, "newBar.jpg"));
         map.draw();
         createWalls();
 
         playersLinkedList.add(new PlayerA(new Picture(140, 500, "RogerSmith.png")));
-        //playersLinkedList.add(new PlayerB(new Picture(140, 80, "deadpool.png")));
+        playersLinkedList.add(new PlayerB(new Picture(140, 80, "deadpool.png")));
         bottleLinkedList.add(BottleFactory.spawnBottle(120, 250));
         bottleLinkedList.add(BottleFactory.spawnBottle(280, 550));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 350));
@@ -57,6 +60,7 @@ public class Game {
         //enemiesLinkedList.add(new Barman(new Picture(1101, 185, "barman.png")));
         //enemiesLinkedList.add(new Barman(new Picture(1102, 335, "barman.png")));
         //enemiesLinkedList.add(new Barman(new Picture(1103, 485, "barman.png")));
+
         //enemiesLinkedList.add(new Drunken(new Picture(600, 575, "drunken.png")));
         //enemiesLinkedList.add(new Drunken(new Picture(600, 300, "drunken.png")));
     }
@@ -80,6 +84,8 @@ public class Game {
     }
 
     public void start() {
+        deadpoolSong.stop();
+        rogerSong.stop();
 
 
         for (Enemy enemies : enemiesLinkedList) {
@@ -107,9 +113,22 @@ public class Game {
                 }
             }
             for (Player player : playersLinkedList) {
+                if (player.isDead() && player instanceof PlayerA) {
+                    gameSong.stop();
+                    deadpoolSong.loopIndef();
+                    clearLists();
+                    winnerCaller("deadpoolWinner.png");
+                }
+                if (player.isDead() && player instanceof PlayerB) {
+                    gameSong.stop();
+                    rogerSong.loopIndef();
+                    clearLists();
+                    winnerCaller("RogerSmithWin.png");
+                }
                 player.move();
                 player.showDrunkenLvl();
                 player.looseDrunkenLvl();
+
 
             }
 
@@ -124,10 +143,16 @@ public class Game {
                 for (Player player : playersLinkedList) {
                     if (player.checkCollision(enemy)) {
                         player.touchEnemy();
-                        clearLists();
                         if (player instanceof PlayerA) {
-                            winnerCaller("deadpool.png");
+                            gameSong.stop();
+                            deadpoolSong.loopIndef();
+                            clearLists();
+                            winnerCaller("deadpoolWinner.png");
                         }
+                        gameSong.stop();
+                        rogerSong.loopIndef();
+                        clearLists();
+                        winnerCaller("RogerSmithWin");
                     }
                 }
                 for (Walls walls : wallsLinkedList) {
@@ -175,12 +200,18 @@ public class Game {
                         for (Player player : playersLinkedList) {
 
                             if (enemiesPukeLinkedList.get(i).hit(player)) {
+
                                 player.hitten();
                                 enemiesPukeLinkedList.remove(i);
                                 clearLists();
                                 if (player instanceof PlayerA) {
+                                    gameSong.stop();
+                                    deadpoolSong.loopIndef();
                                     winnerCaller("deadpoolWinner.png");
+
                                 }
+                                gameSong.stop();
+                                rogerSong.loopIndef();
                                 winnerCaller("RogerSmithWin.png");
 
                             }

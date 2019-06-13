@@ -10,6 +10,7 @@ public enum BottleFactory {
     WATER(-10);
 
     private int vol;
+    int iterator= 0;
 
     BottleFactory(int vol) {
         this.vol = vol;
@@ -28,5 +29,15 @@ public enum BottleFactory {
                 return new Bottle(new Picture(x,y, "water.png"), bottleFactory.vol);
         }
         throw new NoSuchElementException();
+    }
+
+    public void respawnBottles(){
+
+        iterator++;
+
+        if(iterator > 200){
+            iterator = 0;
+
+        }
     }
 }

@@ -39,7 +39,7 @@ public class Drunken extends Enemy {
             }
 
             Directions directions = Directions.values()[randomMove];
-            System.out.println("r " + moveRight + " l " + moveLeft + " u " + moveUp + " d " + moveDown);
+            //System.out.println("r " + moveRight + " l " + moveLeft + " u " + moveUp + " d " + moveDown);
             switch (directions) {
                 case RIGHT:
                     if(moveRight) {

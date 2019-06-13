@@ -10,7 +10,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Menu implements KeyboardHandler {
 
-    private boolean i = true;
+    private boolean inMenu = true;
     private boolean pressEnter;
     private boolean pressEsc;
     private boolean pressDown;
@@ -23,6 +23,7 @@ public class Menu implements KeyboardHandler {
     private Rectangle winnerPointer = new Rectangle(315, 475, 570, 110);
 
     public void start() {
+
         setKeyboard();
         createMenu();
         upPointer.setColor(Color.GREEN);
@@ -59,20 +60,33 @@ public class Menu implements KeyboardHandler {
     }
 
     public void winnerScreen() {
-        pressEnter = false;
+        inMenu = false;
         pressEsc = false;
-
+        pressUp = false;
+        pressDown = false;
+        pressEnter = false;
+        boolean winnersreen = true;
         setKeyboard();
 
-        while (i) {
+        while (winnersreen) {
+           // System.out.println(pressDown);
+           // System.out.println(pressEnter);
             winner.draw();
             winnerPointer.setColor(Color.GREEN);
             winnerPointer.draw();
             if (pressEnter) {
+                winner.delete();
+                winnerPointer.delete();
+                winnersreen = false;
 
-                i = false;
+
             }
         }
+    }
+
+    public boolean getPressEnter() {
+        setKeyboard();
+        return pressEnter;
     }
 
     private void deleteAll() {
@@ -138,10 +152,24 @@ public class Menu implements KeyboardHandler {
         up.setKey(KeyboardEvent.KEY_UP);
         up.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+        KeyboardEvent enterReleased = new KeyboardEvent();
+        enterReleased.setKey(KeyboardEvent.KEY_ENTER);
+        enterReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+
+        KeyboardEvent upReleased = new KeyboardEvent();
+        upReleased.setKey(KeyboardEvent.KEY_UP);
+        upReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+
+        KeyboardEvent downReleased = new KeyboardEvent();
+        downReleased.setKey((KeyboardEvent.KEY_DOWN));
+        downReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+
         keyboard.addEventListener(enter);
         keyboard.addEventListener(esc);
         keyboard.addEventListener(up);
         keyboard.addEventListener(down);
+
+        keyboard.addEventListener(enterReleased);
     }
 
     @Override
@@ -161,8 +189,10 @@ public class Menu implements KeyboardHandler {
                 pressDown = false;
                 break;
             case KeyboardEvent.KEY_DOWN:
-                pressDown = true;
-                pressUp = false;
+                if(inMenu) {
+                    pressDown = true;
+                    pressUp = false;
+                }
                 break;
         }
 
@@ -170,7 +200,21 @@ public class Menu implements KeyboardHandler {
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
+        switch (keyboardEvent.getKey()) {
+            case KeyboardEvent.KEY_ENTER:
+                pressEnter = false;
+                break;
+            case KeyboardEvent.KEY_DOWN:
+                pressDown = false;
+                break;
+            case KeyboardEvent.KEY_UP:
+                pressUp = false;
+                break;
+            case KeyboardEvent.KEY_ESC:
+                pressEsc = false;
+                break;
 
+        }
     }
 
 }

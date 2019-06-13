@@ -10,6 +10,7 @@ public class Game {
 
 
     Menu menu = new Menu();
+    public boolean gameOn = true;
     private LinkedList<Player> playersLinkedList;
     private LinkedList<Walls> wallsLinkedList;
     private LinkedList<Bottle> bottleLinkedList;
@@ -50,6 +51,16 @@ public class Game {
     public void winnerCaller () {
 
         menu.winnerScreen();
+        if(menu.getPressEnter()){
+            init();
+            gameOn = true;
+            start();
+
+        }
+    }
+
+    public boolean isGameOn() {
+        return gameOn;
     }
 
     public void start() {
@@ -72,7 +83,7 @@ public class Game {
             player.setKeyboard();
         }
 
-        while (true) {
+        while (gameOn == true) {
             for (Walls walls : wallsLinkedList) {
                 for (Player player : playersLinkedList) {
                     player.predictMovements(walls);
@@ -109,6 +120,7 @@ public class Game {
                     playerPukeLinkedList.add(player.attack(player.getLastDirection()));
                 }
             }
+
             for (Puke puke : playerPukeLinkedList) {
 
                 if (!puke.isDestroyed()) {
@@ -123,6 +135,7 @@ public class Game {
                             break;
                         }
                     }
+                    System.out.println("Im not here");
                     continue;
                 }
                 playerPukeLinkedList.remove(puke);
@@ -137,7 +150,16 @@ public class Game {
                             player.hitten();
                             enemiesPukeLinkedList.remove(i);
                             System.out.println("Roger Dead");
-                            break;
+                            if (playersLinkedList.getFirst().dead || playersLinkedList.getLast().dead) {
+                                enemiesLinkedList.clear();
+                                playersLinkedList.clear();
+                                wallsLinkedList.clear();
+                                bottleLinkedList.clear();
+                                playersLinkedList.clear();
+                                enemiesPukeLinkedList.clear();
+                                gameOn = false;
+                                winnerCaller();
+
                         }
                     }
                     if (enemiesPukeLinkedList.get(i).getIterator() > 200) {
@@ -148,14 +170,7 @@ public class Game {
                 }
                 //enemiesPukeLinkedList.remove(i);
             }
-            if (playersLinkedList.getFirst().dead || playersLinkedList.getLast().dead) {
-                enemiesLinkedList.clear();
-                playersLinkedList.clear();
-                wallsLinkedList.clear();
-                bottleLinkedList.clear();
-                playersLinkedList.clear();
-                enemiesPukeLinkedList.clear();
-                break;
+
             }
             try {
                 Thread.sleep(9);

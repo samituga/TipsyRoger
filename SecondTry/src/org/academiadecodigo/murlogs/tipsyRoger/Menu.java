@@ -119,7 +119,7 @@ public class Menu implements KeyboardHandler {
 
 
     private void createMenu() {
-        menuSong.play(true);
+        menuSong.loopIndef();
         menu.draw();
     }
 

@@ -178,12 +178,12 @@ public class Game {
                                 clearLists();
                                 if (player instanceof PlayerA) {
                                     gameSong.stop();
-                                    deadpoolSong.play(true);
+                                    deadpoolSong.loopIndef();
                                     winnerCaller("deadpoolWinner.png");
 
                                 }
                                 gameSong.stop();
-                                rogerSong.play(true);
+                                rogerSong.loopIndef();
                                 winnerCaller("RogerSmithWin.png");
 
                             }

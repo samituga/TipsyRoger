@@ -75,7 +75,6 @@ public class Menu implements KeyboardHandler {
             winnerPointer.draw();
             picture.draw();
             if (pressEnter) {
-
                 winner.delete();
                 winnerPointer.delete();
                 winnersreen = false;
@@ -93,7 +92,6 @@ public class Menu implements KeyboardHandler {
     private void deleteAll() {
         help.delete();
         menu.delete();
-        menuSong.close();
         upPointer.delete();
         downPointer.delete();
     }
@@ -222,4 +220,7 @@ public class Menu implements KeyboardHandler {
         }
     }
 
+    public Sound getMenuSong() {
+        return menuSong;
+    }
 }

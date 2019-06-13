@@ -29,7 +29,7 @@ public class Game {
 
 
         menu.start();
-
+        menu.getMenuSong().stop();
         gameSong.play(true);
 
         Field map = new Field(new Picture(0, 0, "newBar.jpg"));

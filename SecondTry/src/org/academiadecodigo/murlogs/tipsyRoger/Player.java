@@ -8,14 +8,13 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
 import javax.swing.border.StrokeBorder;
 import java.security.Key;
+import java.util.LinkedList;
 
 public abstract class Player extends Character {
 
     private Picture roger;
     private int speed;
-    private int drunkenLvl = 50;
-
-
+    protected int drunkenLvl = 50;
     protected boolean pressingRight;
     protected boolean pressingLeft;
     protected boolean pressingUp;
@@ -26,14 +25,51 @@ public abstract class Player extends Character {
     protected boolean moveUp;
     protected boolean moveDown;
     protected int iterator;
+    private int drunkenIterator;
     protected Directions lastDirection;
     protected boolean looser;
+    protected LinkedList<Picture> drunkenLvlPicture = new LinkedList<>();
 
+    public void addDrunkenLvlBar() {
+        drunkenLvlPicture.add(new Picture(10, 10, "1.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "2.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "3.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "4.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "5.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "6.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "7.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "8.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "9.png"));
+        drunkenLvlPicture.add(new Picture(10, 10, "10.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "1.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "2.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "3.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "4.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "5.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "6.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "7.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "8.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "9.png"));
+        drunkenLvlPicture.add(new Picture(900, 10, "10.png"));
+
+    }
+
+    public void looseDrunkenLvl() {
+        drunkenIterator++;
+        System.out.println(drunkenIterator);
+        if (drunkenIterator > 40) {
+            drunkenIterator = 0;
+            drunkenLvl--;
+        }
+    }
 
     public Player(Picture roger) {
         super(roger);
         this.roger = super.picture;
     }
+
+    public abstract void showDrunkenLvl();
+
 
     public abstract void setKeyboard();
 
@@ -83,7 +119,7 @@ public abstract class Player extends Character {
             iterator++;
             if (pressingAttack && iterator > 50 && drunkenLvl > 10) {
                 iterator = 0;
-                drunkenLvl -= 10;
+                drunkenLvl -= 5;
                 return true;
             }
         }
@@ -92,7 +128,7 @@ public abstract class Player extends Character {
 
     @Override
     public Puke attack(Directions direction) {
-        if (direction == null){
+        if (direction == null) {
             direction = Directions.RIGHT;
         }
         String imageSource = "puke.png";

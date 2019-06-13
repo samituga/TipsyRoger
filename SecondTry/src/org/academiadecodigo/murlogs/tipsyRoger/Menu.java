@@ -15,6 +15,7 @@ public class Menu implements KeyboardHandler {
     private boolean pressEsc;
     private boolean pressDown;
     private boolean pressUp;
+    private Sound menuSong = new Sound("/music/Menu song.wav");
     private Picture menu = new Picture(0, 0, "image.png");
     private Picture help = new Picture(0, 0, "Help.png");
     private Picture winner = new Picture(0, 0, "WinnerScreen.png");
@@ -74,6 +75,7 @@ public class Menu implements KeyboardHandler {
             winnerPointer.draw();
             picture.draw();
             if (pressEnter) {
+
                 winner.delete();
                 winnerPointer.delete();
                 winnersreen = false;
@@ -91,6 +93,7 @@ public class Menu implements KeyboardHandler {
     private void deleteAll() {
         help.delete();
         menu.delete();
+        menuSong.close();
         upPointer.delete();
         downPointer.delete();
     }
@@ -118,6 +121,7 @@ public class Menu implements KeyboardHandler {
 
 
     private void createMenu() {
+        menuSong.play(true);
         menu.draw();
     }
 

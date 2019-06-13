@@ -8,7 +8,9 @@ import java.util.LinkedList;
 
 public class Game {
 
-
+    private Sound gameSong = new Sound("/music/Game song.wav");
+    private Sound deadpoolSong = new Sound("/music/Deadpool wins.wav");
+    private Sound rogerSong = new Sound("/music/Roger Wins.wav");
     private Menu menu = new Menu();
     private LinkedList<Player> playersLinkedList;
     private LinkedList<Walls> wallsLinkedList;
@@ -28,6 +30,7 @@ public class Game {
 
         menu.start();
 
+        gameSong.play(true);
 
         Field map = new Field(new Picture(0, 0, "newBar.jpg"));
         map.draw();
@@ -70,6 +73,8 @@ public class Game {
     }
 
     public void start() {
+        deadpoolSong.stop();
+        rogerSong.stop();
 
 
         for (Enemy enemies : enemiesLinkedList) {
@@ -159,12 +164,18 @@ public class Game {
                         for (Player player : playersLinkedList) {
 
                             if (enemiesPukeLinkedList.get(i).hit(player)) {
+
                                 player.hitten();
                                 enemiesPukeLinkedList.remove(i);
                                 clearLists();
                                 if (player instanceof PlayerA) {
+                                    gameSong.stop();
+                                    deadpoolSong.play(true);
                                     winnerCaller("deadpoolWinner.png");
+
                                 }
+                                gameSong.stop();
+                                rogerSong.play(true);
                                 winnerCaller("RogerSmithWin.png");
 
                             }

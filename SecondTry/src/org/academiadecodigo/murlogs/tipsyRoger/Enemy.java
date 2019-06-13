@@ -22,9 +22,8 @@ public abstract class Enemy extends Character {
 
     }
     public boolean canAttack() {
-        iterator++;
-        if (iterator > 200){
-            iterator = 0;
+        double randomNumber = Math.random();
+        if (randomNumber < 0.005){
             return true;
         }
         return false;

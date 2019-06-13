@@ -18,7 +18,7 @@ public class Puke extends Colidable {
 
     public void move() {
 
-        if (directions == null){
+        if (directions == null) {
             directions = Directions.RIGHT;
         }
         switch (directions) {
@@ -38,13 +38,21 @@ public class Puke extends Colidable {
     }
 
     public boolean isDestroyed() {
+        if (y() >= 665 ||
+                x() >= 1200 ||
+                x() <= 0 ||
+                y() <= 0) {
+            puke.delete();
+            destroyed = true;
+            return true;
+        }
         iterator += 1;
         if (owner instanceof Player && iterator > 30 || destroyed) {
             puke.delete();
             destroyed = true;
             return true;
         }
-        if(owner instanceof Enemy && destroyed || iterator > 200){
+        if (owner instanceof Enemy && destroyed) {
             puke.delete();
             destroyed = true;
             return true;

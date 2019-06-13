@@ -11,6 +11,7 @@ public class Walls extends Colidable {
         this.wall = wall;
     }
 
+
     @Override
     public void draw() {
     }

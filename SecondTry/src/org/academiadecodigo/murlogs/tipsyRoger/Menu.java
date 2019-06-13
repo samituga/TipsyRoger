@@ -101,6 +101,8 @@ public class Menu implements KeyboardHandler {
         createHelp();
         while (true) {
             if (pressEsc) {
+                pressUp = false;
+                pressDown = true;
                 deleteHelp();
                 createMenu();
                 downPointer.draw();

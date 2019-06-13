@@ -33,8 +33,8 @@ public class Game {
         map.draw();
         createWalls();
 
-        playersLinkedList.add(new PlayerA(new Picture(140, 500, "RogerSmith.png")));
-        playersLinkedList.add(new PlayerB(new Picture(140, 80, "deadpool.png")));
+        //playersLinkedList.add(new PlayerA(new Picture(140, 500, "RogerSmith.png")));
+        //playersLinkedList.add(new PlayerB(new Picture(140, 80, "deadpool.png")));
         bottleLinkedList.add(BottleFactory.spawnBottle(200, 200));
         bottleLinkedList.add(BottleFactory.spawnBottle(230, 240));
         bottleLinkedList.add(BottleFactory.spawnBottle(300, 300));

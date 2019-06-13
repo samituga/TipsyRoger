@@ -95,7 +95,7 @@ public abstract class Player extends Character {
         if (direction == null){
             direction = Directions.RIGHT;
         }
-        String imageSource = "bullet.png";
+        String imageSource = "puke.png";
         switch (direction) {
             case LEFT:
                 return new Puke(new Picture(x(), y() + (picture.getHeight() / 2), imageSource), this, lastDirection);

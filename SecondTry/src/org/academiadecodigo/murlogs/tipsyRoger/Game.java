@@ -56,10 +56,10 @@ public class Game {
         bottleLinkedList.add(BottleFactory.spawnBottle(450, 300));
         bottleLinkedList.add(BottleFactory.spawnBottle(400, 111));
         bottleLinkedList.add(BottleFactory.spawnBottle(700, 300));
-        //enemiesLinkedList.add(new Barman(new Picture(1100, 60, "barman.png")));
-        //enemiesLinkedList.add(new Barman(new Picture(1101, 185, "barman.png")));
-        //enemiesLinkedList.add(new Barman(new Picture(1102, 335, "barman.png")));
-        //enemiesLinkedList.add(new Barman(new Picture(1103, 485, "barman.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1100, 60, "barman.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1101, 185, "barman.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1102, 335, "barman.png")));
+        enemiesLinkedList.add(new Barman(new Picture(1103, 485, "barman.png")));
 
         //enemiesLinkedList.add(new Drunken(new Picture(600, 575, "drunken.png")));
         //enemiesLinkedList.add(new Drunken(new Picture(600, 300, "drunken.png")));
@@ -143,16 +143,6 @@ public class Game {
                 for (Player player : playersLinkedList) {
                     if (player.checkCollision(enemy)) {
                         player.touchEnemy();
-                        if (player instanceof PlayerA) {
-                            gameSong.stop();
-                            deadpoolSong.loopIndef();
-                            clearLists();
-                            winnerCaller("deadpoolWinner.png");
-                        }
-                        gameSong.stop();
-                        rogerSong.loopIndef();
-                        clearLists();
-                        winnerCaller("RogerSmithWin");
                     }
                 }
                 for (Walls walls : wallsLinkedList) {
@@ -203,17 +193,6 @@ public class Game {
 
                                 player.hitten();
                                 enemiesPukeLinkedList.remove(i);
-                                clearLists();
-                                if (player instanceof PlayerA) {
-                                    gameSong.stop();
-                                    deadpoolSong.loopIndef();
-                                    winnerCaller("deadpoolWinner.png");
-
-                                }
-                                gameSong.stop();
-                                rogerSong.loopIndef();
-                                winnerCaller("RogerSmithWin.png");
-
                             }
 
 

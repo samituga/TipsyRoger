@@ -1,11 +1,11 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.game;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Field {
     private Picture map;
 
-    Field(Picture map) {
+    public Field(Picture map) {
         this.map = map;
     }
 

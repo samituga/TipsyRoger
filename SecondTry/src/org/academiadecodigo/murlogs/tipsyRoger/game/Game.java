@@ -1,5 +1,15 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.game;
 
+import org.academiadecodigo.murlogs.tipsyRoger.characters.Player.Player;
+import org.academiadecodigo.murlogs.tipsyRoger.characters.Player.PlayerA;
+import org.academiadecodigo.murlogs.tipsyRoger.characters.Player.PlayerB;
+import org.academiadecodigo.murlogs.tipsyRoger.characters.enemies.Barman;
+import org.academiadecodigo.murlogs.tipsyRoger.characters.enemies.Drunken;
+import org.academiadecodigo.murlogs.tipsyRoger.characters.enemies.Enemy;
+import org.academiadecodigo.murlogs.tipsyRoger.gameObjects.Bottle;
+import org.academiadecodigo.murlogs.tipsyRoger.gameObjects.BottleFactory;
+import org.academiadecodigo.murlogs.tipsyRoger.gameObjects.Puke;
+import org.academiadecodigo.murlogs.tipsyRoger.gameObjects.Walls;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
@@ -20,6 +30,7 @@ public class Game {
     private LinkedList<Enemy> enemiesLinkedList;
 
     public void init() {
+
         playersLinkedList = new LinkedList<>();
         wallsLinkedList = new LinkedList<>();
         bottleLinkedList = new LinkedList<>();
@@ -42,8 +53,6 @@ public class Game {
         enemiesLinkedList.add(new Barman(new Picture(1101, 185, "assets/barman.png")));
         enemiesLinkedList.add(new Barman(new Picture(1102, 335, "assets/barman.png")));
         enemiesLinkedList.add(new Barman(new Picture(1103, 485, "assets/barman.png")));
-        //enemiesLinkedList.add(new Drunken(new Picture(800, 300, "assets/drunken.png")));
-        //enemiesLinkedList.add(new Drunken(new Picture(700, 575, "assets/drunken.png")));
         enemiesLinkedList.add(new Drunken(new Picture(900, 70, "assets/drunken.png")));
         enemiesLinkedList.add(new Drunken(new Picture(900, 575, "assets/drunken.png")));
     }
@@ -89,122 +98,128 @@ public class Game {
             player.setKeyboard();
         }
         int iterator = 0;
-        while (true) {
-            iterator++;
-            if (iterator >= 400) {
-                iterator = 0;
-                int randomX = (int) (Math.random() * 500 + 300);
-                int randomY = (int) (Math.random() * 100 + 300);
-                bottleLinkedList.add(BottleFactory.spawnBottle(randomX, randomY));
-                bottleLinkedList.getLast().draw();
-            }
-
-            for (Walls walls : wallsLinkedList) {
-                for (Player player : playersLinkedList) {
-                    player.predictMovements(walls);
-                }
-            }
-            for (Player player : playersLinkedList) {
-                if (player.isDead() && player instanceof PlayerA) {
-                    playersLinkedList.getLast().setInGame();
-                    playersLinkedList.getFirst().setInGame();
-                    gameSong.stop();
-                    deadpoolSong.loopIndef();
-                    clearLists();
-                    winnerCaller("assets/deadpoolWinner.png");
-                }
-                if (player.isDead() && player instanceof PlayerB) {
-                    playersLinkedList.getFirst().setInGame();
-                    playersLinkedList.getLast().setInGame();
-                    gameSong.stop();
-                    rogerSong.loopIndef();
-                    clearLists();
-                    winnerCaller("assets/RogerSmithWin.png");
-                }
-                player.move();
-                player.showDrunkenLvl();
-                player.looseDrunkenLvl();
+        try {
 
 
-            }
-
-            for (Bottle bottle : bottleLinkedList) {
-                for (Player player : playersLinkedList) {
-                    player.drinkBottle(bottle.getVol(), bottle);
+            while (true) {
+                iterator++;
+                if (iterator >= 320) {
+                    iterator = 0;
+                    int randomX = (int) (Math.random() * 500 + 300);
+                    int randomY = (int) (Math.random() * 100 + 300);
+                    bottleLinkedList.add(BottleFactory.spawnBottle(randomX, randomY));
+                    bottleLinkedList.getLast().draw();
                 }
-            }
-            for (Enemy enemy : enemiesLinkedList) {
 
-                for (Player player : playersLinkedList) {
-                    if (player.checkCollision(enemy)) {
-                        player.touchEnemy();
-                    }
-                }
                 for (Walls walls : wallsLinkedList) {
-                    enemy.predictMovements(walls);
+                    for (Player player : playersLinkedList) {
+                        player.predictMovements(walls);
+                    }
                 }
-                enemy.move();
-                if (enemy.canAttack()) {
-                    enemiesPukeLinkedList.add(enemy.attack(Directions.LEFT));
-                }
-            }
+                for (Player player : playersLinkedList) {
+                    if (player.isDead() && player instanceof PlayerA) {
+                        playersLinkedList.getLast().setInGame();
+                        playersLinkedList.getFirst().setInGame();
+                        gameSong.stop();
+                        deadpoolSong.loopIndef();
+                        clearLists();
+                        winnerCaller("assets/deadpoolWinner.png");
+                    }
+                    if (player.isDead() && player instanceof PlayerB) {
+                        playersLinkedList.getFirst().setInGame();
+                        playersLinkedList.getLast().setInGame();
+                        gameSong.stop();
+                        rogerSong.loopIndef();
+                        clearLists();
+                        winnerCaller("assets/RogerSmithWin.png");
+                    }
+                    player.move();
+                    player.showDrunkenLvl();
+                    player.looseDrunkenLvl();
 
-            for (Player player : playersLinkedList) {
-                if (player.isAttacking()) {
-                    playerPukeLinkedList.add(player.attack(player.getLastDirection()));
-                }
-            }
 
-            for (Puke puke : playerPukeLinkedList) {
-
-                if (puke.isDestroyed()) {
-                    playerPukeLinkedList.remove(puke);
-                    continue;
                 }
-                puke.draw();
-                puke.move();
+
+                for (Bottle bottle : bottleLinkedList) {
+                    for (Player player : playersLinkedList) {
+                        player.drinkBottle(bottle.getVol(), bottle);
+                    }
+                }
                 for (Enemy enemy : enemiesLinkedList) {
-                    if (puke.hit(enemy)) {
-                        enemy.hitten();
-                        puke.isDestroyed();
-                        enemiesLinkedList.remove(enemy);
-                        playerPukeLinkedList.remove(puke);
-                        break;
-                    }
-                }
-            }
-            try {
-                for (int i = enemiesPukeLinkedList.size() - 1; i >= 0; i--) {
-                    if (enemiesPukeLinkedList.get(i).isDestroyed()) {
-                        enemiesPukeLinkedList.remove(i);
-                    }
-                    if (!enemiesPukeLinkedList.get(i).isDestroyed()) {
-                        enemiesPukeLinkedList.get(i).move();
-                        enemiesPukeLinkedList.get(i).draw();
-                        for (Player player : playersLinkedList) {
 
-                            if (enemiesPukeLinkedList.get(i).hit(player)) {
-
-                                player.hitten();
-                                enemiesPukeLinkedList.remove(i);
-                            }
-
-
-                            if (enemiesPukeLinkedList.get(i).isDestroyed()) {
-                                enemiesPukeLinkedList.remove(i);
-                            }
+                    for (Player player : playersLinkedList) {
+                        if (player.checkCollision(enemy)) {
+                            player.touchEnemy();
                         }
                     }
-
+                    for (Walls walls : wallsLinkedList) {
+                        enemy.predictMovements(walls);
+                    }
+                    enemy.move();
+                    if (enemy.canAttack()) {
+                        enemiesPukeLinkedList.add(enemy.attack(Directions.LEFT));
+                    }
                 }
-            } catch (IndexOutOfBoundsException e) {
-                System.err.println(e.getMessage());
-            }
 
-            try {
-                Thread.sleep(9);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                for (Player player : playersLinkedList) {
+                    if (player.isAttacking()) {
+                        playerPukeLinkedList.add(player.attack(player.getLastDirection()));
+                    }
+                }
+
+                for (Puke puke : playerPukeLinkedList) {
+
+                    if (puke.isDestroyed()) {
+                        playerPukeLinkedList.remove(puke);
+                        continue;
+                    }
+                    puke.draw();
+                    puke.move();
+                    for (Enemy enemy : enemiesLinkedList) {
+                        if (puke.hit(enemy)) {
+                            enemy.hitten();
+                            puke.isDestroyed();
+                            enemiesLinkedList.remove(enemy);
+                            playerPukeLinkedList.remove(puke);
+                            break;
+                        }
+                    }
+                }
+                try {
+                    for (int i = enemiesPukeLinkedList.size() - 1; i >= 0; i--) {
+                        if (enemiesPukeLinkedList.get(i).isDestroyed()) {
+                            enemiesPukeLinkedList.remove(i);
+                        }
+                        if (!enemiesPukeLinkedList.get(i).isDestroyed()) {
+                            enemiesPukeLinkedList.get(i).move();
+                            enemiesPukeLinkedList.get(i).draw();
+                            for (Player player : playersLinkedList) {
+
+                                if (enemiesPukeLinkedList.get(i).hit(player)) {
+
+                                    player.hitten();
+                                    enemiesPukeLinkedList.remove(i);
+                                }
+
+
+                                if (enemiesPukeLinkedList.get(i).isDestroyed()) {
+                                    enemiesPukeLinkedList.remove(i);
+                                }
+                            }
+                        }
+
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                }
+
+                try {
+                    Thread.sleep(9);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }catch (NullPointerException e){
+            for (int i = 0; i < 20 ; i++) {
             }
         }
     }

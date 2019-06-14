@@ -1,15 +1,17 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.characters.enemies;
 
+import org.academiadecodigo.murlogs.tipsyRoger.game.Directions;
+import org.academiadecodigo.murlogs.tipsyRoger.gameObjects.Puke;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Drunken extends Enemy {
 
-    Picture drunken;
+    private Picture drunken;
     private int iterator;
     private int randomMove;
 
 
-    Drunken(Picture drunken) {
+    public Drunken(Picture drunken) {
         super(drunken);
         this.drunken = super.picture;
     }
@@ -17,7 +19,7 @@ public class Drunken extends Enemy {
 
     @Override
     public Puke attack(Directions directions) {
-        return new Puke(new Picture(x(), y(), "assets/bullet.png"), this, Directions.LEFT);
+        return new Puke(new Picture(x(), y(), "assets/puke.png"), this, Directions.LEFT);
     }
 
     @Override

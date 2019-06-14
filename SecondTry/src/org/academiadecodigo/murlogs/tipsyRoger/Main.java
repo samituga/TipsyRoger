@@ -1,15 +1,20 @@
 package org.academiadecodigo.murlogs.tipsyRoger;
 
+import org.academiadecodigo.murlogs.tipsyRoger.game.Game;
+
 public class Main {
+
     public static void main(String[] args) {
-        Game game = new Game();
+        try {
 
-        game.init();
-        game.start();
-        //game.winnerCaller();
-        //game.init();
-        //game.start();
 
-        // TODO: 2019-06-10 when enemy dies games accelerates
+            Game game = new Game();
+
+
+            game.init();
+            game.start();
+        } catch (NullPointerException e) {
+
+        }
     }
 }

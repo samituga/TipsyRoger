@@ -1,13 +1,13 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.gameObjects;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.murlogs.tipsyRoger.game.Colidable;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
 public class Walls extends Colidable {
 
     private Rectangle wall;
 
-    Walls(Rectangle wall) {
+    public Walls(Rectangle wall) {
         this.wall = wall;
     }
 

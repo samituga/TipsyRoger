@@ -1,4 +1,4 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.game;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
@@ -55,7 +55,6 @@ public class Menu implements KeyboardHandler {
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
             }
         }
 

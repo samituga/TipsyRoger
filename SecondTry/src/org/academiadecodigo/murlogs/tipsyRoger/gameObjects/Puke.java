@@ -1,5 +1,11 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.gameObjects;
 
+import org.academiadecodigo.murlogs.tipsyRoger.characters.enemies.Drunken;
+import org.academiadecodigo.murlogs.tipsyRoger.game.Colidable;
+import org.academiadecodigo.murlogs.tipsyRoger.game.Directions;
+import org.academiadecodigo.murlogs.tipsyRoger.characters.Character;
+import org.academiadecodigo.murlogs.tipsyRoger.characters.Player.Player;
+import org.academiadecodigo.murlogs.tipsyRoger.characters.enemies.Enemy;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Puke extends Colidable {
@@ -10,7 +16,7 @@ public class Puke extends Colidable {
     private boolean destroyed;
     private Directions directions;
 
-    Puke(Picture puke, Character owner, Directions directions) {
+    public Puke(Picture puke, Character owner, Directions directions) {
         this.puke = puke;
         this.owner = owner;
         this.directions = directions;
@@ -54,6 +60,11 @@ public class Puke extends Colidable {
             return true;
         }
         if (owner instanceof Enemy && destroyed) {
+            puke.delete();
+            destroyed = true;
+            return true;
+        }
+        if (owner instanceof Drunken && iterator > 200 || destroyed) {
             puke.delete();
             destroyed = true;
             return true;

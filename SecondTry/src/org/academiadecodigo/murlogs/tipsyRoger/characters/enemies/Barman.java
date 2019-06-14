@@ -1,5 +1,7 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.characters.enemies;
 
+import org.academiadecodigo.murlogs.tipsyRoger.game.Directions;
+import org.academiadecodigo.murlogs.tipsyRoger.gameObjects.Puke;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Barman extends Enemy {
@@ -8,9 +10,14 @@ public class Barman extends Enemy {
     private int iterator;
     private int randomMove;
 
-    Barman(Picture barman) {
+    public Barman(Picture barman) {
         super(barman);
         this.barman = barman;
+    }
+
+    @Override
+    public void hitten() {
+
     }
 
     @Override

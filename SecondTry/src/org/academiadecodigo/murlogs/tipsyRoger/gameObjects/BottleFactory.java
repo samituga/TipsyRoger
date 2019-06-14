@@ -1,4 +1,4 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.gameObjects;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 

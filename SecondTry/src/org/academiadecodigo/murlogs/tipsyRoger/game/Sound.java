@@ -1,4 +1,4 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.game;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -27,9 +27,6 @@ public class Sound {
         clip.stop();
     }
 
-    public void close() {
-        clip.close();
-    }
 
     public int getLength() {
         return clip.getFrameLength();

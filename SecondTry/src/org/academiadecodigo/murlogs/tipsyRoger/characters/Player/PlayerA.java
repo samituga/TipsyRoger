@@ -1,5 +1,6 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.characters.Player;
 
+import org.academiadecodigo.murlogs.tipsyRoger.game.Directions;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -9,7 +10,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class PlayerA extends Player implements KeyboardHandler {
 
 
-    PlayerA(Picture playerA, Picture reverted) {
+    public PlayerA(Picture playerA, Picture reverted) {
         super(playerA, reverted);
 
     }

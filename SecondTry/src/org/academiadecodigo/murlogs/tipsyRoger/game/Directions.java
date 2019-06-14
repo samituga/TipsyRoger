@@ -1,4 +1,4 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.game;
 
 public enum Directions {
     LEFT,

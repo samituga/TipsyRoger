@@ -1,13 +1,12 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.characters.Player;
 
+import org.academiadecodigo.murlogs.tipsyRoger.characters.Character;
+import org.academiadecodigo.murlogs.tipsyRoger.game.Directions;
+import org.academiadecodigo.murlogs.tipsyRoger.gameObjects.Bottle;
+import org.academiadecodigo.murlogs.tipsyRoger.gameObjects.Puke;
+import org.academiadecodigo.murlogs.tipsyRoger.gameObjects.Walls;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
-import javax.swing.border.StrokeBorder;
-import java.security.Key;
 import java.util.LinkedList;
 
 public abstract class Player extends Character {
@@ -29,6 +28,16 @@ public abstract class Player extends Character {
     protected Directions lastDirection;
     protected LinkedList<Picture> drunkenLvlPicture = new LinkedList<>();
     protected boolean inGame;
+
+
+    public Player(Picture roger, Picture reverted) {
+        super(roger);
+        this.reverted = reverted;
+        this.roger = super.picture;
+        inGame = true;
+        drunkenLvl = 50;
+    }
+
 
     public void addDrunkenLvlBar() {
         drunkenLvlPicture.add(new Picture(900, 10, "assets/1.png"));
@@ -67,14 +76,6 @@ public abstract class Player extends Character {
         if (drunkenLvl <= 0) {
             dead = true;
         }
-    }
-
-    public Player(Picture roger, Picture reverted) {
-        super(roger);
-        this.reverted = reverted;
-        this.roger = super.picture;
-        inGame = true;
-        drunkenLvl = 50;
     }
 
     public abstract void showDrunkenLvl();
@@ -144,7 +145,7 @@ public abstract class Player extends Character {
         if (direction == null) {
             direction = Directions.RIGHT;
         }
-        String imageSource = "/assets/puke.png";
+        String imageSource = "assets/puke.png";
         switch (direction) {
             case LEFT:
                 return new Puke(new Picture(x(), y() + (picture.getHeight() / 2), imageSource), this, lastDirection);
@@ -160,7 +161,6 @@ public abstract class Player extends Character {
     public void drinkBottle(int vol, Bottle bottle) {
         if (this.checkCollision(bottle) && !bottle.getDrinked()) {
             this.drunkenLvl += vol;
-            System.out.println(drunkenLvl);
             bottle.deleteBottle();
         }
         if (drunkenLvl > 100) {

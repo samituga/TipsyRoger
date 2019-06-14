@@ -1,4 +1,4 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.game;
 
 public abstract class Colidable {
 
@@ -7,7 +7,7 @@ public abstract class Colidable {
     protected boolean topCollision;
     protected boolean botCollision;
 
-    public boolean predictRightCollision(Colidable colidable) {
+    protected boolean predictRightCollision(Colidable colidable) {
         if (x() < colidable.xToWidth() &&
                 xToWidth() + 1 > colidable.x() &&
                 y() < colidable.yToHeight() &&
@@ -19,7 +19,7 @@ public abstract class Colidable {
         return false;
     }
 
-    public boolean predictLeftCollision(Colidable colidable) {
+    protected boolean predictLeftCollision(Colidable colidable) {
         if (x() - 1 < colidable.xToWidth() &&
                 xToWidth() > colidable.x() &&
                 y() < colidable.yToHeight() &&
@@ -31,7 +31,7 @@ public abstract class Colidable {
         return false;
     }
 
-    public boolean predictTopCollision(Colidable colidable) {
+    protected boolean predictTopCollision(Colidable colidable) {
         if (x() < colidable.xToWidth() &&
                 xToWidth() > colidable.x() &&
                 y() - 1 < colidable.yToHeight() &&
@@ -43,7 +43,7 @@ public abstract class Colidable {
         return false;
     }
 
-    public boolean predictBotCollision(Colidable colidable) {
+    protected boolean predictBotCollision(Colidable colidable) {
         if (x() < colidable.xToWidth() &&
                 xToWidth() > colidable.x() &&
                 y() < colidable.yToHeight() &&

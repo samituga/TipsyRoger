@@ -1,5 +1,6 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.gameObjects;
 
+import org.academiadecodigo.murlogs.tipsyRoger.game.Colidable;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Bottle extends Colidable {

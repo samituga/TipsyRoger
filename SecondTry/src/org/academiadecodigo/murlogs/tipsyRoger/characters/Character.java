@@ -1,6 +1,10 @@
-package org.academiadecodigo.murlogs.tipsyRoger;
+package org.academiadecodigo.murlogs.tipsyRoger.characters;
 
 
+import org.academiadecodigo.murlogs.tipsyRoger.game.Colidable;
+import org.academiadecodigo.murlogs.tipsyRoger.game.Directions;
+import org.academiadecodigo.murlogs.tipsyRoger.gameObjects.Puke;
+import org.academiadecodigo.murlogs.tipsyRoger.gameObjects.Walls;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public abstract class Character extends Colidable {
@@ -11,7 +15,7 @@ public abstract class Character extends Colidable {
     protected boolean moveUp = true;
     protected boolean moveDown = true;
 
-    Character(Picture picture){
+    public Character(Picture picture){
         this.picture = picture;
     }
 
